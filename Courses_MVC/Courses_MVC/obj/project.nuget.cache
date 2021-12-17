@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6QB61cACEb1eDm1FEy7a4j2OIiI2v9wLCL/vSZvpF47noy6N2upkW74s7x34qCB4cJpiua/MGmsx2U8RTV2WaA==",
+  "dgSpecHash": "kI3Q0+rInxRh9ru8yNq2tyQoN5mYUiQ6SmwCBbnwpBT6EO7/EnuWBc2qhEw2WLacr/YKonYWz81cm435rJztww==",
   "success": true,
-  "projectFilePath": "D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\DoAn_CK_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
+  "projectFilePath": "D:\\Project_MVC_Framework\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",
