@@ -1536,3 +1536,5 @@ D:\Xây dựng HTTT trên các framework\Báo cáo đồ án\Project_MVC_F
 D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Razor\Views\Lesson\LessonCourse.cshtml.g.cs
 D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Razor\Views\Lesson\LessonDetail.cshtml.g.cs
 >>>>>>> e180fcc9ad6fcbaced5b7e91b9931304f2eb93d9
+D:\Xây dựng HTTT trên các framework\Báo cáo đồ án\Project_MVC_Framework.git\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Razor\Views\Lesson\LessonCourse.cshtml.g.cs
+D:\Xây dựng HTTT trên các framework\Báo cáo đồ án\Project_MVC_Framework.git\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Razor\Views\Lesson\LessonDetail.cshtml.g.cs

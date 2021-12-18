@@ -29,6 +29,18 @@ namespace Courses_MVC.Areas.Admin.Pages.User
             {
                 return NotFound("Không tìm thấy user");
             }
+
+            return Page();
+        }
+        public async Task<IActionResult> OnPostAsync(string userId)
+        {
+            if (userId == null)
+                return NotFound("Không tìm thấy user");
+            user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return NotFound("Không tìm thấy user");
+
+
             var result = await _userManager.DeleteAsync(user);
 
             if (result.Succeeded)
@@ -38,8 +50,7 @@ namespace Courses_MVC.Areas.Admin.Pages.User
             }
             else
             {
-                result.Errors.ToList().ForEach(error =>
-                {
+                result.Errors.ToList().ForEach(error => {
                     ModelState.AddModelError(string.Empty, error.Description);
                 });
             }
