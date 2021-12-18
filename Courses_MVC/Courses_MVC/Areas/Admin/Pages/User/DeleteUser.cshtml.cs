@@ -16,6 +16,7 @@ namespace Courses_MVC.Areas.Admin.Pages.User
         {
             _userManager = userManager;
         }
+
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -23,22 +24,21 @@ namespace Courses_MVC.Areas.Admin.Pages.User
         public async Task<IActionResult> OnGet(string userId)
         {
             if (userId == null)
-                return NotFound("Không tìm thấy user");
+                return NotFound("Không tìm thấy role");
             user = await _userManager.FindByIdAsync(userId);
-            if (userId == null)
+            if (user == null)
             {
-                return NotFound("Không tìm thấy user");
+                return NotFound("Không tìm thấy role");
             }
-
             return Page();
         }
         public async Task<IActionResult> OnPostAsync(string userId)
         {
             if (userId == null)
-                return NotFound("Không tìm thấy user");
+                return NotFound("Không tìm thấy role");
             user = await _userManager.FindByIdAsync(userId);
             if (user == null)
-                return NotFound("Không tìm thấy user");
+                return NotFound("Không tìm thấy role");
 
 
             var result = await _userManager.DeleteAsync(user);

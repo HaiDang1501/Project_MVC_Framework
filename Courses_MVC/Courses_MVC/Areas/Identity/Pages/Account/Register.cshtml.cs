@@ -58,16 +58,6 @@ namespace Courses_MVC.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required(ErrorMessage = "Phải nhập {0}")]
-            [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-            [Display(Name = "Ngày sinh")]
-            public DateTime Birthday { get; set; }
-
-            [Required(ErrorMessage = "Phải chọn {0}")]
-            [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
-            [Display(Name = "Giới tính")]
-            public string Gender { get; set; }
-
-            [Required(ErrorMessage = "Phải nhập {0}")]
             [StringLength(100, ErrorMessage = "{0} phải dài tư {2} đến {1} kí tự.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Mật khẩu")]
@@ -98,7 +88,7 @@ namespace Courses_MVC.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = Input.UserName, Email = Input.Email, birthday = Input.Birthday, gender = Input.Gender };
+                var user = new AppUser { UserName = Input.UserName, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

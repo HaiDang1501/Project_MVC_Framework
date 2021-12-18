@@ -38,17 +38,17 @@ namespace Courses_MVC.Controllers
         [HttpPost]
         public IActionResult DanhSachHienThi(string? courestitle)
         {
-
+            
             var coursesContext = (from cs in _context.Courses
                                   select cs);
             if (!string.IsNullOrEmpty(courestitle))
             {
-                coursesContext = coursesContext.Where(c => c.courseName.Contains(courestitle)).Include(c => c.Discount).Include(c => c.Topic);
+                coursesContext = coursesContext.Where(c=>c.courseName.Contains(courestitle)).Include(c => c.Discount).Include(c => c.Topic);
             }
             else
             {
                 coursesContext = _context.Courses.Include(c => c.Discount).Include(c => c.Topic);
-            }
+            }    
             return View(coursesContext.ToList());
         }
 

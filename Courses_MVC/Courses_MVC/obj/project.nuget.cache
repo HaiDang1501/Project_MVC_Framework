@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gGSLpwjNo4V++VXN2/KZU7iDllezd+siXQKCGst/xhsZ0g2V639kPkv7cgY87+tMW+5sJZTUGQJLUGBDpCG2Ag==",
+  "dgSpecHash": "4BTom30fFjceYFDAC06ftSlBO1T4w3IkLAgjepD9tM/lYARBMQLkyIDC+lX8rN0PEN+zkN4AlSkkBCNn5/qm9A==",
   "success": true,
-  "projectFilePath": "D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\framwork.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",

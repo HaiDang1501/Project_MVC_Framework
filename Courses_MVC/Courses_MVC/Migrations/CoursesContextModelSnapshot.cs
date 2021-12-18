@@ -71,10 +71,6 @@ namespace Courses_MVC.Migrations
                     b.Property<DateTime?>("birthday")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("gender")
-                        .HasColumnType("varchar(10)")
-                        .HasMaxLength(10);
-
                     b.HasKey("Id");
 
                     b.ToTable("AppUser");

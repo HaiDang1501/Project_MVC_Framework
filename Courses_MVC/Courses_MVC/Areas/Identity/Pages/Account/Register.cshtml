@@ -18,21 +18,6 @@
                 <input asp-for="Input.UserName" class="form-control"/>
                 <span asp-validation-for="Input.UserName" class="text-danger"></span>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label asp-for="Input.Birthday"></label>
-                    <input type="date" asp-for="Input.Birthday" class="form-control" />
-                    <span asp-validation-for="Input.Birthday" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="Input.Gender" class="control-label"></label>
-                    <select asp-for="Input.Gender" class="form-control" name="Input.Gender">
-                        <option value="Nam">Nam</option>
-                        <option value="Nữ">Nữ</option>
-                    </select>
-                    <span asp-validation-for="Input.Gender" class="text-danger"></span>
-                </div>
-            </div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />

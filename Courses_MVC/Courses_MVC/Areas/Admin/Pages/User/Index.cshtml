@@ -5,7 +5,7 @@
 }
 <h2 class="text-center">@ViewData["Title"]</h2>
 <partial name="_StatusMessage" model="@Model.StatusMessage" />
-<div class="ml-lg-5">
+<div class="md-2 ml-lg-5">
     <a class="btn btn-outline-success" asp-page="../Role/Create">Tạo role</a>
     <a class="btn btn-outline-success" asp-page="../Role/Index">Quản lý role</a>
 </div>
@@ -33,7 +33,7 @@
 
                 </td>
                 <td>
-                    <a class="btn btn-danger btn-sm" asp-page="./DeleteUser" asp-route-userId="@user.Id" onclick="return confirm('Bạn chắn chắn xóa chứ?')">Xóa</a>
+                    <a class="btn btn-danger btn-sm" asp-page="./DeleteUser" asp-route-userId="@user.Id">Xóa</a>
                     <a class="btn btn-primary btn-sm" asp-page="./SetPassword" asp-route-id="@user.Id">Đặt mật khẩu</a>
 
                 </td>

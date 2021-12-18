@@ -7,7 +7,7 @@
 <partial name="_StatusMessage" model="@Model.StatusMassage" />
 
 <hr />
-<div class="row offset-4 mt-3 mb-lg-5">
+<div class="row mt-3 mb-lg-5 offset-4">
     <div class="col-md-6">
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -21,15 +21,10 @@
                 <input asp-for="Input.ClaimValue" class="form-control">
                 <span asp-validation-for="Input.ClaimValue" class="text-danger"></span>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <input type="submit" value="Tạo mới" class="btn btn-primary btn-block" />
-                </div>
-                <div class="form-group col-md-6">
-                    <a class="btn btn-success btn-block" asp-page="./Edit" asp-route-roleid="@Model.role.Id">Chỉnh sửa role</a>
-                </div>
+            <div class="form-group">
+                <input type="submit" value="Tạo mới" class="btn btn-primary" />
+                <a class="btn btn-primary" asp-page="./Edit" asp-route-roleid="@Model.role.Id">Chỉnh sửa role</a>
             </div>
-            
         </form>
     </div>
 </div>
