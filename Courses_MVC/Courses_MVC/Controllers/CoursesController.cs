@@ -17,6 +17,12 @@ namespace Courses_MVC.Controllers
         {
             _context = context;
         }
+        public IActionResult CoursesDetail(int id)
+        {
+            var courseDetail = (from cs in _context.Courses
+                                select cs).Include(c => c.Discount).Include(c => c.Topic).FirstOrDefault(c => c.courseId == id);
+            return View(courseDetail);
+        }
         public IActionResult DanhSachCourses()
         {
             List<Course> kq = _context.Courses.ToList();

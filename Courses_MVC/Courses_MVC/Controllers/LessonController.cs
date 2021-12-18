@@ -18,9 +18,37 @@ namespace Courses_MVC.Controllers
         {
             _context = context;
         }
-   
-
-
+        //Khánh Duy//
+        [TempData]
+        public string StatusMessage { get; set; }
+        public IActionResult LessonCourse(int id)
+        {
+            var exercise = _context.Exercises
+                            .Where(l => l.lessonId == id)
+                            .Count();
+            ViewBag.listExercise = exercise;
+            var courseDetail = (_context.Lessons
+                                .Where(l => l.courseId == id)
+                                .Include(l => l.Course)
+                                ).ToList();
+            if(courseDetail.ToArray().Length ==0)
+            {
+                StatusMessage = "Khóa học đang được phát triển";
+                return Redirect("/Courses/DanhSachHienTHi");
+            }    
+            else
+            {
+                return View(courseDetail);
+            }               
+        }
+        public IActionResult LessonDetail(int id)
+        {
+            var courseDetail = (_context.Lessons
+                                .Include(l => l.Course)
+                                ).FirstOrDefault(l => l.lessonId == id);
+            return View(courseDetail);
+        }
+        //Khánh Duy//
         // GET: Lesson
         public async Task<IActionResult> Index()
         {

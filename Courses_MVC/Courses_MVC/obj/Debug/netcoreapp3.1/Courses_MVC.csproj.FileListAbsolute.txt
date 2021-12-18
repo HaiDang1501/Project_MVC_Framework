@@ -1265,3 +1265,5 @@ D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Courses
 D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Courses_MVC.dll
 D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Courses_MVC.pdb
 D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Courses_MVC.genruntimeconfig.cache
+D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Razor\Views\Lesson\LessonCourse.cshtml.g.cs
+D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Razor\Views\Lesson\LessonDetail.cshtml.g.cs
