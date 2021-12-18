@@ -88,7 +88,7 @@
 .one-course-content .course-title a {
     text-decoration: none;
     color: #000;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -100,10 +100,23 @@
 
 .one-course-content .course-des {
     text-align: justify;
-    font-size: 20px;
+    font-size: 16px;
+    height:100px;
+    overflow:hidden;
 }
 
 .one-course-content .course-price {
     color: rgb(79, 91, 194);
     font-weight: 600;
+}
+#read-mode-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: blue;
+}
+#read-mode-btn
+{
+    cursor:pointer;
+    color:green;
 }

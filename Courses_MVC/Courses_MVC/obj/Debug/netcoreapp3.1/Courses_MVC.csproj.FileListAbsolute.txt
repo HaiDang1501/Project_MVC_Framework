@@ -1265,6 +1265,7 @@ D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Courses
 D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Courses_MVC.dll
 D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Courses_MVC.pdb
 D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Courses_MVC.genruntimeconfig.cache
+<<<<<<< HEAD
 D:\Xây dựng HTTT trên các framework\Báo cáo đồ án\Project_MVC_Framework.git\Courses_MVC\Courses_MVC\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\Xây dựng HTTT trên các framework\Báo cáo đồ án\Project_MVC_Framework.git\Courses_MVC\Courses_MVC\bin\Debug\netcoreapp3.1\Courses_MVC.StaticWebAssets.xml
 D:\Xây dựng HTTT trên các framework\Báo cáo đồ án\Project_MVC_Framework.git\Courses_MVC\Courses_MVC\bin\Debug\netcoreapp3.1\appsettings.json
@@ -1531,3 +1532,7 @@ D:\Xây dựng HTTT trên các framework\Báo cáo đồ án\Project_MVC_F
 D:\Xây dựng HTTT trên các framework\Báo cáo đồ án\Project_MVC_Framework.git\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Courses_MVC.pdb
 D:\Xây dựng HTTT trên các framework\Báo cáo đồ án\Project_MVC_Framework.git\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Courses_MVC.genruntimeconfig.cache
 D:\Xây dựng HTTT trên các framework\Báo cáo đồ án\Project_MVC_Framework.git\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Pages\User\DeleteUser.cshtml.g.cs
+=======
+D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Razor\Views\Lesson\LessonCourse.cshtml.g.cs
+D:\Project_MVC_Framework\Courses_MVC\Courses_MVC\obj\Debug\netcoreapp3.1\Razor\Views\Lesson\LessonDetail.cshtml.g.cs
+>>>>>>> e180fcc9ad6fcbaced5b7e91b9931304f2eb93d9
