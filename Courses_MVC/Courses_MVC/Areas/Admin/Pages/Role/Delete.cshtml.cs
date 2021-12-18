@@ -29,16 +29,6 @@ namespace Courses_MVC.Areas.Admin.Pages.Role
             {
                 return NotFound("Không tìm thấy role");
             }
-            return Page();
-        }
-        public async Task<IActionResult> OnPostAsync(string roleId)
-        {
-            if (roleId == null)
-                return NotFound("Không tìm thấy role");
-            role = await _roleManager.FindByIdAsync(roleId);
-            if (role == null)
-                return NotFound("Không tìm thấy role");
-
 
             var result = await _roleManager.DeleteAsync(role);
 

@@ -112,12 +112,21 @@ namespace Courses_MVC
             //Tạo ra policy
             services.AddAuthorization(options =>
             {
+                //admin
                 options.AddPolicy("AllowEditRole", policyBuilder =>
                 {
                     //Điều kiện
                     policyBuilder.RequireAuthenticatedUser(); //User phải đăng nhập
                     //policyBuilder.RequireRole("Admin"); //User có vai trò admin
-                    policyBuilder.RequireClaim("canedit", "user" );
+                    policyBuilder.RequireClaim("quanly", "user" );
+                });
+                //teacher
+                options.AddPolicy("AllowEditManager", policyBuilder =>
+                {
+                    //Điều kiện
+                    policyBuilder.RequireAuthenticatedUser(); //User phải đăng nhập
+                    //policyBuilder.RequireRole("Admin"); //User có vai trò admin
+                    policyBuilder.RequireClaim("khongquanly", "user");
                 });
 
                 options.AddPolicy("ShowAdminMenu", policyBuilder => {

@@ -11,6 +11,8 @@ namespace Courses_MVC.Models
 
         public string? address { get; set; }
 
+        public string gender { get; set; }
+
         public DateTime? birthday { get; set; }
         
         public ICollection<ExerciseInUser> ExerciseInUsers { get; set; }

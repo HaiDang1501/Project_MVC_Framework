@@ -16,6 +16,8 @@ namespace Courses_MVC.configurations
 
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.gender).HasMaxLength(10);
+
             builder.Property(x => x.address)
                 .HasMaxLength(200);
 
