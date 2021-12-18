@@ -10159,19 +10159,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
       "projectName": "Courses_MVC",
       "projectPath": "D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
       "outputPath": "D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
-      "projectName": "Courses_MVC",
-      "projectPath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework\\Courses_MVC\\Courses_MVC\\obj\\",
->>>>>>> 7b98e23d37dd55a288a001340feb0a9554a90a4c
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -10299,8 +10291,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

@@ -1,14 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "gGSLpwjNo4V++VXN2/KZU7iDllezd+siXQKCGst/xhsZ0g2V639kPkv7cgY87+tMW+5sJZTUGQJLUGBDpCG2Ag==",
   "success": true,
   "projectFilePath": "D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
-=======
-  "dgSpecHash": "aUVtIY4oUi59xyiZcU4MiK3ijnKHLaxylKpdZ/JJrmTXqFcmrIs0cBbGRd3N5xGvgUGrgC1xFolKE0N+AVandA==",
-  "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
->>>>>>> 7b98e23d37dd55a288a001340feb0a9554a90a4c
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",
@@ -217,5 +211,12 @@
     "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
