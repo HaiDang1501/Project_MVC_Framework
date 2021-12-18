@@ -10159,11 +10159,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\framwork.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
+      "projectUniqueName": "D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
       "projectName": "Courses_MVC",
-      "projectPath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\framwork.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
+      "projectPath": "D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\framwork.git\\Courses_MVC\\Courses_MVC\\obj\\",
+      "outputPath": "D:\\Xây dựng HTTT trên các framework\\Báo cáo đồ án\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
