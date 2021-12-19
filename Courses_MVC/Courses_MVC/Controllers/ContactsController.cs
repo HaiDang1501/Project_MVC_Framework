@@ -27,8 +27,21 @@ namespace Courses_MVC.Controllers
         [Authorize(Policy = "AllowEditRole")]
         public async Task<IActionResult> Index()
         {
-            var coursesContext = _context.Contact.Include(c => c.AppUser);
-            return View(await coursesContext.ToListAsync());
+            var contactContext = _context.Contact.Include(c => c.AppUser);
+            return View(await contactContext.ToListAsync());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(string? search)
+        {
+            var contactContext = from ct in _context.Contact select ct;
+            if (!string.IsNullOrEmpty(search))
+            {
+                contactContext = contactContext.Where(c => c.HoTen.Contains(search)).Include(c => c.AppUser);
+            }
+            else
+                contactContext = contactContext.Include(c => c.AppUser);
+            return View(await contactContext.ToListAsync());
         }
 
         // GET: Contacts/Details/5
@@ -88,12 +101,31 @@ namespace Courses_MVC.Controllers
             return View(contact);
         }
 
-
-        public async Task<IActionResult> ThemContact()
+        [HttpPost]
+        public IActionResult ThemContact([Bind("AppUserId,contactId,AppUserId,HoTen,email,SDT,title,content")] Contact contact)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(contact);
+                _context.SaveChanges();
+                StatusMessage = $"Thêm thành công liên hệ của khách hàng {contact.HoTen}";
+                return RedirectToAction(nameof(Index));
+            }
+            StatusMessage = $"Thêm không thành công";
+            return View(contact);
+        }
+        
+        public IActionResult ThemContact()
         {
             //var themContact = await (from ct in _context.Contact
             //                         select ct).Include(c => c.AppUser).ToListAsync();
-            ViewData["user"] = new SelectList(_context.Users, "Id", "UserName");
+            var user = _context.Users.ToList();
+            user.Insert(0, new AppUser()
+            {
+                Id = "",
+                UserName = ""
+            });
+            ViewData["user"] = new SelectList(user, "Id", "UserName");
             return View();
 
         }

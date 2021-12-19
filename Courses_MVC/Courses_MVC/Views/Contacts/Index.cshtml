@@ -42,9 +42,6 @@
                         <th>
                             @Html.DisplayNameFor(model => model.title)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.content)
-                        </th>
                         <th>Chức năng</th>
                     </tr>
                 </thead>
@@ -65,9 +62,6 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.content)
                             </td>
                             <td>
                                 <a asp-action="Details" asp-route-id="@item.contactId"><i class="far fa-edit"></i></a> |
