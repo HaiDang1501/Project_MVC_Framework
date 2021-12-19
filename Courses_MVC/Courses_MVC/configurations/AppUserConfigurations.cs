@@ -21,6 +21,9 @@ namespace Courses_MVC.configurations
 
             builder.Property(x => x.birthday)
                 .HasColumnType("datetime");
+
+            builder.Property(x => x.gender)
+                .HasMaxLength(10);
         }
 
 

@@ -12,7 +12,9 @@ namespace Courses_MVC.Models
         public string? address { get; set; }
 
         public DateTime? birthday { get; set; }
-        
+
+        public string gender { get; set; }
+
         public ICollection<ExerciseInUser> ExerciseInUsers { get; set; }
 
         public ICollection<Exercise> Exercises { get; set; }
