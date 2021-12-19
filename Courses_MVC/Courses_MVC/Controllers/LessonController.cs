@@ -23,11 +23,13 @@ namespace Courses_MVC.Controllers
         public string StatusMessage { get; set; }
         public IActionResult LessonCourse(int id)
         {
+            
+            TempData.Keep("courseId");
             var exercise = _context.Exercises
                             .Where(l => l.lessonId == id)
                             .Count();
-            TempData["NumberofLesson"] = exercise;
             ViewBag.listExercise = exercise;
+
             var courseDetail = (_context.Lessons
                                 .Where(l => l.courseId == id)
                                 .Include(l => l.Course)
@@ -36,6 +38,7 @@ namespace Courses_MVC.Controllers
             {
                 StatusMessage = "Khóa học đang được phát triển";
                 return Redirect("/Courses/DanhSachHienTHi");
+              
             }    
             else
             {
@@ -44,15 +47,15 @@ namespace Courses_MVC.Controllers
         }
         public IActionResult LessonDetail(int id)
         {
+                                    
             var courseDetail = (_context.Lessons
                                 .Include(l => l.Course)
                                 ).FirstOrDefault(l => l.lessonId == id);
             var listExercise = _context.Exercises
                                 .Where(e => e.lessonId == id)
-                                .ToList();
-
+                                .ToList().Count();
             ViewBag.listExercise = listExercise;
-
+           
             return View(courseDetail);
         }
         //Khánh Duy//
