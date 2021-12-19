@@ -1,6 +1,6 @@
 ﻿
 @model Lesson
-@{ 
+@{
 
     var id = Model.lessonId;
     int idLastlesson = Convert.ToInt32(TempData["NumberofLesson"]);
@@ -27,10 +27,10 @@
             <b> <i class="fas fa-chalkboard"></i> Bài tập</b>
             @foreach (var item in ViewBag.listExercise)
             {
-                    <ol>
-                        <i class="fas fa-pencil-alt"></i>
-                        <a href="">Bài tâp @item.exerciseId</a>
-                    </ol>
+                <ol>
+                    <i class="fas fa-pencil-alt"></i>
+                    <a href="">Bài tâp @item.exerciseId</a>
+                </ol>
 
             }
         </div>
@@ -50,7 +50,7 @@
                 }
                 else
                 {
-                     <div class="pre-lesson">
+                    <div class="pre-lesson">
                         <a href="/lesson/LessonDetail?Id=@idNext" class="pre-lesson-btn">Tiếp theo</a>
                     </div>
                     <div class="next-lesson">
@@ -65,3 +65,8 @@
 
 
 </body>
+
+
+
+
+

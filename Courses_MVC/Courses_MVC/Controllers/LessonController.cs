@@ -50,9 +50,9 @@ namespace Courses_MVC.Controllers
             var listExercise = _context.Exercises
                                 .Where(e => e.lessonId == id)
                                 .ToList();
-            
+
             ViewBag.listExercise = listExercise;
-          
+
             return View(courseDetail);
         }
         //Khánh Duy//

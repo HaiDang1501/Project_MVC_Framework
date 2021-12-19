@@ -27,32 +27,8 @@ namespace Courses_MVC.Controllers
         [Authorize(Policy = "AllowEditRole")]
         public async Task<IActionResult> Index()
         {
-            var contactIndex = _context.Contact.Include(c => c.AppUser);
-            return View(await contactIndex.ToListAsync());
-        }
-        [HttpPost]
-        public async Task<IActionResult> Index(string search)
-        {
-            var contactIndex = from ct in _context.Contact
-                               select ct;
-            if (!string.IsNullOrEmpty(search))
-            {
-                contactIndex = contactIndex.Where(c => c.HoTen.Contains(search)).Include(c => c.AppUser);
-            }
-            else
-            {
-                contactIndex = contactIndex.Include(c => c.AppUser);
-            }
-            return View(await contactIndex.ToListAsync());
-        }
-
-        public async Task<IActionResult> ThemContact()
-        {
-            //var themContact = await (from ct in _context.Contact
-            //                         select ct).Include(c => c.AppUser).ToListAsync();
-            ViewData["user"] = new SelectList(_context.Users, "Id", "UserName");
-            return View();
-
+            var coursesContext = _context.Contact.Include(c => c.AppUser);
+            return View(await coursesContext.ToListAsync());
         }
 
         // GET: Contacts/Details/5
@@ -112,6 +88,15 @@ namespace Courses_MVC.Controllers
             return View(contact);
         }
 
+
+        public async Task<IActionResult> ThemContact()
+        {
+            //var themContact = await (from ct in _context.Contact
+            //                         select ct).Include(c => c.AppUser).ToListAsync();
+            ViewData["user"] = new SelectList(_context.Users, "Id", "UserName");
+            return View();
+
+        }
 
         // GET: Contacts/Delete/5
         public async Task<IActionResult> Delete(int? id)

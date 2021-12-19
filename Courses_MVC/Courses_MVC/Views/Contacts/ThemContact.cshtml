@@ -47,8 +47,12 @@
         </form>
     </div>
 </div>
+<script>
+    const active_lienhe = document.querySelector('#active--lienhe')
 
+    active_lienhe.classList.add('active--css')
+    document.querySelector('#active--khoahoc').classList.remove('active--css')
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
