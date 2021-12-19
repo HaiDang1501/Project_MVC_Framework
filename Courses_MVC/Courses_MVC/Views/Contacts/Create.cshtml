@@ -8,7 +8,7 @@
 }
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-<link rel="stylesheet" href="~/css/Contact.css"> 
+<link rel="stylesheet" href="~/css/Contact.css">
 <div class=" contact-container">
     <div class="contact-information">
         <h2 class="contact-title">Thông tin liên hệ</h2>
@@ -44,7 +44,7 @@
                 <div class="form-group mt-3">
                     <label asp-for="HoTen" class="control-label">Họ tên <span class="text-danger">*</span></label>
                     <input asp-for="HoTen" value="@UserManager.GetUserName(User)" class="form-control" disabled />
-                </div>               
+                </div>
             }
             else
             {
@@ -57,8 +57,8 @@
                     <label asp-for="email" class="control-label">Email <span class="text-danger">*</span></label>
                     <input asp-for="email" class="form-control" />
                     <span asp-validation-for="email" class="text-danger"></span>
-                </div>        
-                
+                </div>
+
             }
             <div class="form-group mt-3">
                 <label asp-for="SDT" class="control-label">Số điện thoại <span class="text-danger">*</span></label>
@@ -72,17 +72,18 @@
             </div>
             <div class="form-group mt-3">
                 <label asp-for="content" class="control-label">Nội dung</label>
-                <textarea asp-for="content" class="form-control" required rows="4"></textarea>
+                <textarea asp-for="content" class="form-control" required rows="4" id="content"></textarea>
                 <span asp-validation-for="content" class="text-danger"></span>
             </div>
             <div class="form-group mb-4">
-                <input type="submit" name="submit" value="Gửi" onclick="submit()" class="btn btn-primary btn-block col-md-4 mt-4 offset-md-4"/>
+                <input type="submit" name="submit" value="Gửi" onclick="submit()" class="btn btn-primary btn-block col-md-4 mt-4 offset-md-4" />
             </div>
         </form>
         <img src="~/img/—Pngtree—online education training course design_5331074.png" alt="" class="course-img">
     </div>
 
 </div>
+
 
 
 @section Scripts {
