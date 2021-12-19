@@ -68,7 +68,14 @@ namespace Courses_MVC.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "Mật khẩu nhập lại không đúng.")]
             public string ConfirmPassword { get; set; }
 
-            
+            [Required(ErrorMessage = "Phải nhập {0}")]
+            [DataType(DataType.DateTime)]
+            [Display(Name = "Ngày sinh")]
+            [DisplayFormat(DataFormatString ="{0:dd/MMM/yyyy}", ApplyFormatInEditMode = true)]
+            public DateTime Birthday { get; set; }
+
+            [Display(Name = "Giới tính")]
+            public string Gender { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -88,7 +95,7 @@ namespace Courses_MVC.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = Input.UserName, Email = Input.Email };
+                var user = new AppUser { UserName = Input.UserName, Email = Input.Email, birthday = Input.Birthday, gender = Input.Gender };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
