@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8111
--- Generation Time: Dec 18, 2021 at 11:02 AM
+-- Generation Time: Dec 20, 2021 at 03:40 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -202,7 +202,7 @@ CREATE TABLE `course` (
   `discription` varchar(1000) NOT NULL,
   `price` int(11) NOT NULL DEFAULT 0,
   `originalPrice` int(11) NOT NULL,
-  `imgCourse` varchar(50) NOT NULL,
+  `imgCourse` varchar(500) NOT NULL,
   `totalTime` varchar(100) NOT NULL,
   `totalStudent` int(11) NOT NULL,
   `topicId` int(11) NOT NULL,
@@ -268,7 +268,7 @@ CREATE TABLE `exercise` (
   `content` varchar(1000) NOT NULL,
   `deadline` date NOT NULL,
   `lessonId` int(11) NOT NULL,
-  `teacherId` varchar(767) DEFAULT NULL
+  `teacher_id` varchar(767) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -476,7 +476,9 @@ INSERT INTO `__efmigrationshistory` (`MigrationId`, `ProductVersion`) VALUES
 ('20211214154704_addcontactmodel', '3.1.21'),
 ('20211217075108_new4', '3.1.21'),
 ('20211217084053_new5', '3.1.21'),
-('20211218025334_new6', '3.1.21');
+('20211218025334_new6', '3.1.21'),
+('20211219170614_new7', '3.1.21'),
+('20211220023920_new8', '3.1.21');
 
 --
 -- Indexes for dumped tables
@@ -551,7 +553,7 @@ ALTER TABLE `discount`
 ALTER TABLE `exercise`
   ADD PRIMARY KEY (`exerciseId`),
   ADD KEY `IX_exercise_lessonId` (`lessonId`),
-  ADD KEY `IX_exercise_teacherId` (`teacherId`);
+  ADD KEY `teacher_id` (`teacher_id`);
 
 --
 -- Indexes for table `exerciseinuser`
@@ -627,7 +629,7 @@ ALTER TABLE `discount`
 -- AUTO_INCREMENT for table `exercise`
 --
 ALTER TABLE `exercise`
-  MODIFY `exerciseId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `exerciseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `lesson`
@@ -675,7 +677,8 @@ ALTER TABLE `course`
 -- Constraints for table `exercise`
 --
 ALTER TABLE `exercise`
-  ADD CONSTRAINT `FK_exercise_lesson_lessonId` FOREIGN KEY (`lessonId`) REFERENCES `lesson` (`lessonId`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_exercise_lesson_lessonId` FOREIGN KEY (`lessonId`) REFERENCES `lesson` (`lessonId`) ON DELETE CASCADE,
+  ADD CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `appuser` (`Id`);
 
 --
 -- Constraints for table `exerciseinuser`
