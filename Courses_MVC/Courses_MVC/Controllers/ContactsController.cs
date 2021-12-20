@@ -102,7 +102,7 @@ namespace Courses_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult ThemContact([Bind("AppUserId,contactId,AppUserId,HoTen,email,SDT,title,content")] Contact contact)
+        public IActionResult ThemContact([Bind("AppUserId,contactId,HoTen,email,SDT,title,content")] Contact contact)
         {
             if (ModelState.IsValid)
             {
@@ -126,6 +126,7 @@ namespace Courses_MVC.Controllers
                 UserName = ""
             });
             ViewData["user"] = new SelectList(user, "Id", "UserName");
+
             return View();
 
         }
