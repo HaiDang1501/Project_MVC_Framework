@@ -26,6 +26,7 @@
 
         <link href="~/css/CourseDetail.css" rel="stylesheet" />
         <body>
+            
             <div class="container col-9 container-custom">
                 <div class="course-header mt-5 ">
                     <div class="course-header-left col-7">
@@ -72,11 +73,9 @@
                                 <a href="/lesson/LessonDetail?Id=@item.lessonId">@item.title</a>
                             </div>
                             <div class="one-lesson-des">
-                                @item.description
-                                @*Lập trình hướng đối tượng (Object-Oriented-Programming) là phương pháp lập
-                                    trình dựa trên đối tượng để tìm ra bản chất của vấn đề.*@
+                                <p><b>Mô tả:</b> @item.description</p>                               
                             </div>
-                            <div class="one-lesson-exer"><p><i class="fab fa-leanpub"></i> Sô lượng bài tập: @ViewBag.listExercise </p></div>
+                            
                         </div>
                     }
                 </div>

@@ -92,3 +92,10 @@
             .pre-lesson:hover a, .next-lesson:hover a {
                 color: #fff;
             }
+.one-lesson-exer p {
+    font-weight: 500;
+}
+
+    .one-lesson-exer p i {
+        margin-right: 5px;
+    }

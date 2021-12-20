@@ -10,13 +10,14 @@
 }
 <link href="~/css/LessonDetail.css" rel="stylesheet" />
 <body>
-    
+   
     <div class="container col-9 container-custom mb-5">
         <div class="lesson-title mt-4 p-4 pb-2 text-center">@Model.title</div>
-        <div class="lesson-des pb-1 pt-3 p-4">
+        <div class="lesson-des pb-0 pt-3 p-4">
             <b>Mô tả:</b>
             <p>@Model.description</p>
         </div>
+        <div class="one-lesson-exer pb-0  p-4"><p><i class="fab fa-leanpub"></i> Sô lượng bài tập: @ViewBag.numberOfExercise</p></div>
         <div class="lesson-content mb-3 p-4 pb-2">
             <b>Nội dung:</b>
             <p>
