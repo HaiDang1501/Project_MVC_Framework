@@ -18,18 +18,13 @@ namespace Courses_MVC.Controllers
         {
             _context = context;
         }
+       
         //Khánh Duy//
         [TempData]
         public string StatusMessage { get; set; }
         public IActionResult LessonCourse(int id)
         {
-            
-            TempData.Keep("courseId");
-            var exercise = _context.Exercises
-                            .Where(l => l.lessonId == id)
-                            .Count();
-            ViewBag.listExercise = exercise;
-
+           
             var courseDetail = (_context.Lessons
                                 .Where(l => l.courseId == id)
                                 .Include(l => l.Course)
@@ -38,35 +33,63 @@ namespace Courses_MVC.Controllers
             {
                 StatusMessage = "Khóa học đang được phát triển";
                 return Redirect("/Courses/DanhSachHienTHi");
-              
             }    
             else
             {
                 return View(courseDetail);
             }               
         }
-        public IActionResult LessonDetail(int id)
+        public IActionResult LessonDetail(int? id)
         {
-                                    
-            var courseDetail = (_context.Lessons
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var lessonDetail = (_context.Lessons
                                 .Include(l => l.Course)
                                 ).FirstOrDefault(l => l.lessonId == id);
+            if (lessonDetail == null)
+            {
+                return NotFound();
+            }   
+            var listLessonInCourseId = _context.Lessons
+                                        .Include(l =>l.Course)
+                                        .Where( c => c.courseId == lessonDetail.courseId)
+                                        .ToList();
+            ViewBag.listLesson = listLessonInCourseId.ToArray();                                                  
             var listExercise = _context.Exercises
                                 .Where(e => e.lessonId == id)
-                                .ToList().Count();
+                                .ToList();
             ViewBag.listExercise = listExercise;
-           
-            return View(courseDetail);
-        }
-        //Khánh Duy//
-        // GET: Lesson
-        public async Task<IActionResult> Index()
-        {
-            var LessonContext = _context.Lessons.Include(c => c.lessonId);
-            return View(await LessonContext.ToListAsync());
+            ViewBag.numberOfExercise = listExercise.Count();
+            return View(lessonDetail);
         }
 
-        // GET: Lesson/Details/5
+        public async Task<IActionResult> ListlessonAdmin()
+        {
+            var listlesson = _context.Lessons
+                            .Include(l => l.Course);
+            return View(await listlesson.ToListAsync()); 
+            
+        }
+        [HttpPost]
+        public async Task<IActionResult> ListlessonAdmin(string? searchString)
+        {
+            var listlesson = _context.Lessons
+                            .Include(l => l.Course);
+            if(!string.IsNullOrEmpty(searchString))
+            {
+                listlesson = listlesson.Where(l => l.title.Contains(searchString)).Include(l => l.Course);
+            }    
+            else
+            {
+                listlesson = _context.Lessons
+                            .Include(l => l.Course);
+            }
+            return View(await listlesson.ToListAsync());
+        }
+
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -83,6 +106,93 @@ namespace Courses_MVC.Controllers
             }
 
             return View(lesson);
+        }
+        public async Task<IActionResult> CreateLesson()
+        {
+            ViewData["courseId"] = new SelectList(_context.Courses, "courseId", "courseName");
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateLesson(Lesson lesson)
+        {
+            if(!ModelState.IsValid)
+            {
+                _context.Lessons.Add(lesson);
+                await _context.SaveChangesAsync();
+                StatusMessage = $"Thêm thành công";
+                return RedirectToAction(nameof(ListlessonAdmin));
+            }
+            else
+            {
+                StatusMessage = $"Thêm không thành công";
+                return RedirectToAction(nameof(ListlessonAdmin));
+            }    
+            ViewData["courseId"] = new SelectList(_context.Courses, "courseId", "courseName", lesson.courseId);
+            return View(lesson);
+        }
+
+        public async Task<IActionResult> Updatelesson(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var lessonNeedUpdate = await _context.Lessons.Include(l => l.Course).FirstOrDefaultAsync(l => l.lessonId == id);
+            if(lessonNeedUpdate == null)
+            {
+                return NotFound();
+            }
+            ViewData["courseId"] = new SelectList(_context.Courses, "courseId", "courseName");
+            return View(lessonNeedUpdate);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async  Task<IActionResult> Updatelesson(int id,Lesson lessonUpdate)
+        {
+            var lesson = await _context.Lessons.FirstOrDefaultAsync(l => l.lessonId == lessonUpdate.lessonId);
+            //if (lesson == null)
+            //{
+            //    return NotFound();
+            //}
+            if (!ModelState.IsValid)
+            {
+                lesson.title = lessonUpdate.title;
+                lesson.content = lessonUpdate.content;
+                lesson.description = lessonUpdate.description;
+                lesson.courseId = lessonUpdate.courseId;
+                _context.SaveChanges();
+                StatusMessage = $"Cập nhật thành công";
+                return RedirectToAction(nameof(ListlessonAdmin));
+            }
+            return View();
+            //if (id != lessonUpdate.lessonId)
+            //{
+            //    return NotFound();
+            //}
+
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        _context.Update(lessonUpdate);
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!LessonExists(lessonUpdate.lessonId))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //ViewData["courseId"] = new SelectList(_context.Discounts, "courseId", "courseName", lessonUpdate.courseId);
+            //return View(lessonUpdate);
         }
 
         // GET: Lesson/Create
