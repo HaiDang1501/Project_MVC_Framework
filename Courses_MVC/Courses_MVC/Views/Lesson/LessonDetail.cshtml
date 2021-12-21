@@ -3,14 +3,16 @@
 @{
 
     var id = Model.lessonId;
-    int idLastlesson = Convert.ToInt32(TempData["NumberofLesson"]);
-    int idmax = idLastlesson + 1;
+    var idCourse = Model.courseId;
     var idNext = id + 1;
     var idPre = id - 1;
+    var listLesson = ViewBag.listLesson;
+    var length = listLesson.Length;
+    var idMin = listLesson[0].lessonId;
+    var idMax = listLesson[length-1].lessonId;
 }
 <link href="~/css/LessonDetail.css" rel="stylesheet" />
 <body>
-   
     <div class="container col-9 container-custom mb-5">
         <div class="lesson-title mt-4 p-4 pb-2 text-center">@Model.title</div>
         <div class="lesson-des pb-0 pt-3 p-4">
@@ -37,21 +39,26 @@
         </div>
         <div class="move-lesson p-4 pt-0">
             @{
-                if (idPre == 0)
+                if (idPre == idMin - 1)
                 {
+                    <div class="next-lesson">
+                        <a href="/Lesson/LessonCourse?Id=@Model.courseId" class="pre-lesson-btn">Quay lại khóa học</a>
+                    </div> 
                     <div class="pre-lesson">
                         <a href="/lesson/LessonDetail?Id=@idNext" class="pre-lesson-btn">Tiếp theo</a>
                     </div>
                 }
-                else if (idNext == 3)
+                else if (idNext == idMax + 1)
                 {
                     <div class="next-lesson">
                         <a href="/lesson/LessonDetail?Id=@idPre" class="pre-lesson-btn">Quay lại</a>
                     </div>
+                    <div class="next-lesson">
+                        <a href="/Lesson/LessonCourse?Id=@Model.courseId" class="pre-lesson-btn">Quay lại khóa học</a>
+                    </div>
                 }
                 else
                 {
-
                     <div class="next-lesson">
                         <a href="/lesson/LessonDetail?Id=@idPre" class="pre-lesson-btn">Quay lại</a>
                     </div>

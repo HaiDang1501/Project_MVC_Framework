@@ -79,10 +79,12 @@
     }
 
     .move-lesson .pre-lesson, .next-lesson {
-        padding: 10px 20px;
+        padding: 10px 10px;
         background-color: #059862;
         border-radius: 30px;
+        width:200px
     }
+
 
         .pre-lesson:hover, .next-lesson:hover {
             cursor: pointer;

@@ -13,10 +13,10 @@
         <partial name="_AlertMessage" />
         <h1 class="text-center mt-3">Danh sách khóa học</h1>
         <div class="search-create-course-admin">
-            <form action="/Course/DanhSachHienThi" method="post">
-                <div class="form-inline">
-                    <label class="control-label" style="margin-right: 5px;">Tìm kiếm user</label>
-                    <input type="text" name="search" class="form-control col-md-6">
+            <form action="/Courses/listCourseAdmin" method="post">
+                <div class="form-inline ">
+                    <label class="control-label " style="margin-right: 5px;">Tìm kiếm user</label>
+                    <input type="text" name="searchString" class="form-control col-md-6">
                     <input type="submit" class="btn btn-info" name="submit" value="search">
                 </div>
             </form>
