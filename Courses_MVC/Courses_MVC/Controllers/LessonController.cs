@@ -113,9 +113,10 @@ namespace Courses_MVC.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateLesson(Lesson lesson)
         {
-            if(!ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 _context.Lessons.Add(lesson);
                 await _context.SaveChangesAsync();
@@ -127,8 +128,8 @@ namespace Courses_MVC.Controllers
                 StatusMessage = $"Thêm không thành công";
                 return RedirectToAction(nameof(ListlessonAdmin));
             }    
-            ViewData["courseId"] = new SelectList(_context.Courses, "courseId", "courseName", lesson.courseId);
             return View(lesson);
+
         }
 
         public async Task<IActionResult> Updatelesson(int? id)
@@ -151,12 +152,9 @@ namespace Courses_MVC.Controllers
         public async  Task<IActionResult> Updatelesson(int id,Lesson lessonUpdate)
         {
             var lesson = await _context.Lessons.FirstOrDefaultAsync(l => l.lessonId == lessonUpdate.lessonId);
-            //if (lesson == null)
-            //{
-            //    return NotFound();
-            //}
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                //lesson.lessonId = lessonUpdate.lessonId;
                 lesson.title = lessonUpdate.title;
                 lesson.content = lessonUpdate.content;
                 lesson.description = lessonUpdate.description;
@@ -165,7 +163,7 @@ namespace Courses_MVC.Controllers
                 StatusMessage = $"Cập nhật thành công";
                 return RedirectToAction(nameof(ListlessonAdmin));
             }
-            return View();
+            return View(lessonUpdate);
             //if (id != lessonUpdate.lessonId)
             //{
             //    return NotFound();
@@ -195,84 +193,132 @@ namespace Courses_MVC.Controllers
             //return View(lessonUpdate);
         }
 
-        // GET: Lesson/Create
-        public IActionResult Create()
-        {
-            ViewData["courseId"] = new SelectList(_context.Courses, "courseId", "courseName");// "originalPrice","imgCourse","totalTime","totalStudent","ToppicId","discountId");
-            return View();
-        }
 
-        // POST: Courses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("lesonId,title,content,courseId")] Lesson lesson)
+        public IActionResult DeleteLesson(int? id)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(lesson);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["courseId"] = new SelectList(_context.Courses, "courseId", "courseName", lesson.courseId);
-            return View(lesson);
-        }
+            //if(id == null)
+            //{
+            //    return NotFound();
+            //}
+            //var lessonDelete = await _context.Lessons
+            //                            .Include(a => a.courseId)
+            //                            .FirstOrDefaultAsync(l => l.lessonId == id);
+            //if(lessonDelete ==null)
+            //{
+            //    return NotFound();
+            //}    
+            //return View(lessonDelete);
 
-        // GET: Lesson/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var lesson = await _context.Lessons.FindAsync(id);
+            var lesson =  _context.Lessons.Include( l => l.Course)               
+                                .FirstOrDefault(m => m.lessonId == id);
             if (lesson == null)
             {
                 return NotFound();
             }
-            ViewData["courseId"] = new SelectList(_context.Discounts, "courseId", "courseName", lesson.courseId);
+
             return View(lesson);
         }
 
-        // POST: Lesson/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+
+        [HttpPost, ActionName("DeleteLesson")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("lessonId,title,content,courseId")] Lesson lesson)
+
+        public async Task<IActionResult> DeleteLessonConfirm(int? id)
         {
-            if (id != lesson.lessonId)
+            var lesson = await _context.Lessons.FirstOrDefaultAsync(l => l.lessonId == id);
+            if(lesson == null)
             {
-                return NotFound();
+                StatusMessage = $"Xóa không thành công";
+                return RedirectToAction(nameof(ListlessonAdmin));
             }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(lesson);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LessonExists(lesson.lessonId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["courseId"] = new SelectList(_context.Discounts, "courseId", "courseName", lesson.courseId);
-            return View(lesson);
+            _context.Lessons.Remove(lesson);
+            await _context.SaveChangesAsync();
+            StatusMessage = $"Xóa thành công";
+            return RedirectToAction(nameof(ListlessonAdmin));
         }
+        // GET: Lesson/Create
+        //public IActionResult Create()
+        //{
+        //    ViewData["courseId"] = new SelectList(_context.Courses, "courseId", "courseName");// "originalPrice","imgCourse","totalTime","totalStudent","ToppicId","discountId");
+        //    return View();
+        //}
 
-        // GET: Lesson/Delete/5
+        //// POST: Courses/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(Lesson lesson)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(lesson);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(ListlessonAdmin));
+        //    }
+        //    ViewData["courseId"] = new SelectList(_context.Courses, "courseId", "courseName", lesson.courseId);
+        //    return View(lesson);
+        //}
+
+        //// GET: Lesson/Edit/5
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var lesson = await _context.Lessons.FindAsync(id);
+        //    if (lesson == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["courseId"] = new SelectList(_context.Discounts, "courseId", "courseName", lesson.courseId);
+        //    return View(lesson);
+        //}
+
+        //// POST: Lesson/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("lessonId,title,content,courseId")] Lesson lesson)
+        //{
+        //    if (id != lesson.lessonId)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(lesson);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!LessonExists(lesson.lessonId))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["courseId"] = new SelectList(_context.Discounts, "courseId", "courseName", lesson.courseId);
+        //    return View(lesson);
+        //}
+
+        //// GET: Lesson/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
