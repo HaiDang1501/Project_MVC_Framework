@@ -3,14 +3,16 @@ using System;
 using Courses_MVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Courses_MVC.Migrations
 {
     [DbContext(typeof(CoursesContext))]
-    partial class CoursesContextModelSnapshot : ModelSnapshot
+    [Migration("20211223022359_new10")]
+    partial class new10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,21 +239,10 @@ namespace Courses_MVC.Migrations
                         .HasColumnType("varchar(500)")
                         .HasMaxLength(500);
 
-                    b.Property<string>("input")
-                        .IsRequired()
-                        .HasColumnType("varchar(500)")
-                        .HasMaxLength(500);
-
                     b.Property<int>("lessonId")
                         .HasColumnType("int");
 
-                    b.Property<string>("output")
-                        .IsRequired()
-                        .HasColumnType("varchar(500)")
-                        .HasMaxLength(500);
-
                     b.Property<string>("userId")
-                        .IsRequired()
                         .HasColumnType("varchar(767)");
 
                     b.HasKey("exerciseId");
@@ -303,7 +294,6 @@ namespace Courses_MVC.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("title")
@@ -560,9 +550,7 @@ namespace Courses_MVC.Migrations
 
                     b.HasOne("Courses_MVC.Models.AppUser", "AppUser")
                         .WithMany("Exercises")
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("userId");
                 });
 
             modelBuilder.Entity("Courses_MVC.Models.ExerciseInUser", b =>

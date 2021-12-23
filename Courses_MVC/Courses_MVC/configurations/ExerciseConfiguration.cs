@@ -18,15 +18,23 @@ namespace Courses_MVC.configurations
 
             builder.HasOne(x => x.AppUser)
                 .WithMany(x => x.Exercises)
-                .HasForeignKey(x => x.teacherId);
+                .HasForeignKey(x => x.userId);
                 
             //lessonID
             builder.Property(x => x.lessonId).IsRequired();
 
+            builder.Property(x => x.exerciseName).IsRequired()
+                .HasMaxLength(500);
+
             builder.HasOne(x => x.Lesson)
                 .WithMany(x => x.Exercises)
                 .HasForeignKey(x => x.lessonId);
-                
+
+            builder.Property(x => x.input).IsRequired()
+                .HasMaxLength(500);
+
+            builder.Property(x => x.output).IsRequired()
+                .HasMaxLength(500);
 
             builder.HasKey(x => x.exerciseId);
             builder.Property(x => x.exerciseId).ValueGeneratedOnAdd();

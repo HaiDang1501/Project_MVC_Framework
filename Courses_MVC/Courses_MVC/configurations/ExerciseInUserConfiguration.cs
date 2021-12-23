@@ -14,15 +14,15 @@ namespace Courses_MVC.configurations
         {
             builder.ToTable("exerciseInUser"); 
 
-            builder.HasKey(x => new { x.studentId, x.exerciseId });
+            builder.HasKey(x => new { x.userId, x.exerciseId });
 
-            builder.Property(x => x.status).IsRequired()
-                .HasMaxLength(500);
+            builder.Property(x => x.content).IsRequired()
+                .HasColumnType("text");
 
             builder.Property(x => x.submit).IsRequired()
                 .HasColumnType("datetime");
 
-            builder.Property(x => x.scores).IsRequired()
+            builder.Property(x => x.scores)
                 .HasColumnType("float");
 
             builder.HasOne(x => x.Exercise)
@@ -31,7 +31,7 @@ namespace Courses_MVC.configurations
 
             builder.HasOne(x => x.AppUser)
                 .WithMany(x => x.ExerciseInUsers)
-                .HasForeignKey(x => x.studentId);
+                .HasForeignKey(x => x.userId);
                 
         }
     }

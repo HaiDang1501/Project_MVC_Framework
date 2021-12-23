@@ -17,7 +17,7 @@ namespace Courses_MVC.configurations
             builder.HasKey(x => x.receiptId);
             builder.Property(x => x.receiptId).ValueGeneratedOnAdd();
 
-            builder.Property(x => x.totalPrice).IsRequired()
+            builder.Property(x => x.totalPrice)
                 .HasDefaultValue(0);
 
 

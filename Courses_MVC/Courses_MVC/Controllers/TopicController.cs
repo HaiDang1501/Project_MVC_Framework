@@ -19,135 +19,121 @@ namespace Courses_MVC.Controllers
             _context = context;
         }
 
-
+        [TempData]
+        public string StatusMessage { get; set; }
 
         // GET: Topic
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> DanhSachTopic()
         {
-            var TopicContext = _context.Topic.Include(c => c.topicId);
+            var TopicContext = from topic in _context.Topic select topic;
             return View(await TopicContext.ToListAsync());
         }
 
-        // GET: Topic/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpPost]
+        public async Task<IActionResult> DanhSachTopic(string? search)
         {
-            if (id == null)
+            var TopicContext = from topic in _context.Topic select topic;
+            if (!string.IsNullOrEmpty(search))
             {
-                return NotFound();
+                TopicContext = TopicContext.Where(c => c.topicName.Contains(search));
             }
-
-            var topic = await _context.Topic
-                .FirstOrDefaultAsync(m => m.topicId == id);
-            if (topic == null)
-            {
-                return NotFound();
-            }
-
-            return View(topic);
+            return View(await TopicContext.ToListAsync());
         }
 
-        // GET: Topic/Create
-        public IActionResult Create()
+
+        public IActionResult ThemTopic()
         {
             return View();
         }
 
-        // POST: Topic/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("topicId,topicName")] Topic topic)
+        public IActionResult ThemTopic(Topic topic)
         {
+            if(topic == null)
+            {
+                return NotFound();
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(topic);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.SaveChanges();
+                StatusMessage = $"Thêm thành công chủ đề {topic.topicName}";
+                return RedirectToAction(nameof(DanhSachTopic));
+            }
+            else
+            {
+                StatusMessage = $"Thêm không thành công";
+                return RedirectToAction(nameof(DanhSachTopic));
+            }
+        }
+
+        public IActionResult XoaTopic(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var topic = _context.Topic.FirstOrDefault(c => c.topicId == id);
+            if(topic == null)
+            {
+                return NotFound();
             }
             return View(topic);
         }
 
-        // GET: Topic/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpPost, ActionName("XoaTopic")]
+        [ValidateAntiForgeryToken]
+        public IActionResult XoaTopicComfirm(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var topic = _context.Topic.FirstOrDefault(c => c.topicId == id);
+            if (topic == null)
+            {
+                return NotFound();
+            }
+            _context.Remove(topic);
+            _context.SaveChanges();
+            StatusMessage = $"Xóa thành công chủ đề {topic.topicName}";
+            return RedirectToAction(nameof(DanhSachTopic));
+        }
+        // GET: Topic/Details/5
+        public IActionResult ChiTietTopic(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var topic = await _context.Topic.FindAsync(id);
+            var topic = _context.Topic.FirstOrDefault(c => c.topicId == id);
             if (topic == null)
             {
                 return NotFound();
             }
+
             return View(topic);
         }
 
-        // POST: Topic/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("topicId,topicName")] Topic topic)
+        public IActionResult ChiTietTopic(int? id,Topic topic)
         {
-            if (id != topic.topicId)
+            if (id == topic.topicId)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(topic);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TopicExists(topic.topicId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(topic);
-        }
-
-        // GET: Topic/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
+            var result = _context.Topic.FirstOrDefault(c => c.topicId == id);
+            if (result == null)
             {
                 return NotFound();
             }
-
-            var topic = await _context.Topic
-                .FirstOrDefaultAsync(m => m.topicId == id);
-            if (topic == null)
-            {
-                return NotFound();
-            }
-
-            return View(topic);
+            result.topicName = topic.topicName;
+            _context.SaveChanges();
+            StatusMessage = $"Cập nhập thành công {topic.topicName}";
+            return RedirectToAction(nameof(DanhSachTopic));
         }
-
-        // POST: Topic/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var toppic = await _context.Topic.FindAsync(id);
-            _context.Topic.Remove(toppic);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool TopicExists(int id)
         {
             return _context.Topic.Any(e => e.topicId == id);

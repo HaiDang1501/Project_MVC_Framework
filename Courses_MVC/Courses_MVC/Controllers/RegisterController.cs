@@ -80,7 +80,7 @@ namespace Courses_MVC.Controllers
                     courseId = register.courseId
 
                 });
-                _context.SaveChanges(); ;
+                _context.SaveChanges(); 
                 StatusMessage = $"Thêm thành công";
                 return RedirectToAction(nameof(DanhSachDangKi));
             }
@@ -131,22 +131,25 @@ namespace Courses_MVC.Controllers
             ViewData["course"] = new SelectList(_context.Courses, "courseId", "courseName", result.courseId);
             return View(result);
         }
-
-        public IActionResult CapNhatDangKi(int id,[Bind("registerId, userId, courseId, timeReg")] Register register)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChiTietDangKi(int? id, Register register)
         {
-            if(id != register.registerId)
+            var result = _context.Registers.FirstOrDefault(c => c.registerId == id);
+            if (result != null)
             {
-                return NotFound();      
-            }
-            if (ModelState.IsValid)
-            {
-                _context.Update(register);
+                result.timeReg = register.timeReg;
+                result.userId = register.userId;
+                result.courseId = register.courseId;
                 _context.SaveChanges(); ;
                 StatusMessage = $"Cập nhật thành công";
                 return RedirectToAction(nameof(DanhSachDangKi));
             }
-            StatusMessage = $"Thêm không thành công ";
-            return View(register);
+            else
+            {
+                StatusMessage = $"Thêm không thành công ";
+                return View();
+            }
         }
     }
 }

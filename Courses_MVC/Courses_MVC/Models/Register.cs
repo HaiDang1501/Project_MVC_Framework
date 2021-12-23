@@ -11,7 +11,6 @@ namespace Courses_MVC.Models
         public int registerId { get; set; }
 
         [Display(Name = "Ngày đăng kí")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime timeReg { get; set; }
 
         [Display(Name = "Tên khách hàng")]

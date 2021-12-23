@@ -9,7 +9,10 @@ namespace Courses_MVC.Models
     public class Contact
     {
         public int contactId { get; set; }
+
+        [Display(Name = "Tên người dùng")]
         public string AppUserId { get; set; }
+
         public AppUser AppUser { get; set; }
 
         public string HoTen { get; set; }
@@ -21,6 +24,7 @@ namespace Courses_MVC.Models
 
         [Display(Name = "Số điện thoại")]
         [Phone]
+        [StringLength(100, ErrorMessage = "{0} phải dài từ {1} kí tự.")]
         [Required(ErrorMessage ="Phải nhập số điện thoại")]
         public string  SDT { get; set; }
 
