@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8111
--- Generation Time: Dec 20, 2021 at 03:40 AM
+-- Generation Time: Dec 24, 2021 at 04:45 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -98,6 +98,7 @@ CREATE TABLE `appuser` (
 --
 
 INSERT INTO `appuser` (`Id`, `UserName`, `NormalizedUserName`, `Email`, `NormalizedEmail`, `EmailConfirmed`, `PasswordHash`, `SecurityStamp`, `ConcurrencyStamp`, `PhoneNumber`, `PhoneNumberConfirmed`, `TwoFactorEnabled`, `LockoutEnd`, `LockoutEnabled`, `AccessFailedCount`, `address`, `birthday`, `gender`) VALUES
+('677aa397-36b0-4676-a955-7e6c4297fb3a', 'TranPhanHaiDang', 'TRANPHANHAIDANG', 'haidangtr15012001@gmail.com', 'HAIDANGTR15012001@GMAIL.COM', 1, 'AQAAAAEAACcQAAAAEHU/i3B1VXzyAQ8WhlMJr9NfdOKGReMiEHbPwAW7rLDoP1zY2FDhlXMMzyRXtv6Kgg==', 'T77DV3Y4DASQLVAHKZUGBCUMGMNXIU6M', '13933af4-916c-4c5d-97ee-7a956aaa4f2e', NULL, 0, 0, NULL, 1, 0, NULL, '2001-01-15 00:00:00', 'Nam'),
 ('71a4c50d-fc68-474a-895b-8682f0141b93', 'KhanhDuy', 'KHANHDUY', '19521420@gm.uit.edu.vn', '19521420@GM.UIT.EDU.VN', 1, 'AQAAAAEAACcQAAAAENb1Pgwlh5SCkeLef1AH1W4QYJC4iS1syKbOZJu0ai39XXyoGjGZA7zpoCzGOe+Ezw==', 'J3RIIU7AGPH4EMKDZ5CGPE2ZTRQR3RBK', '346b9806-4410-44ab-b6e4-629ace18799d', NULL, 0, 0, NULL, 1, 0, NULL, '2001-03-18 00:00:00', 'Nam'),
 ('9c994d92-d7c9-4597-b379-ce8551183d15', 'GiangBanh', 'GIANGBANH', '19521443@gm.uit.edu.vn', '19521443@GM.UIT.EDU.VN', 1, 'AQAAAAEAACcQAAAAEHAIakBwVv6yNKhG0hms38pox8qKru135S9XttNzPdaybXfVhhuGqKm88GE79LcShQ==', 'VUZAPVG66VUGG45GYH77ZTP6ZGEQHVTI', 'd843d277-90f4-4200-86a5-857faabce17c', NULL, 0, 0, NULL, 1, 0, NULL, '2001-01-01 00:00:00', 'Nam'),
 ('a88ce81e-968c-4be8-83a8-234be543fa90', '19521319@gm.uit.edu.vn', '19521319@GM.UIT.EDU.VN', '19521319@gm.uit.edu.vn', '19521319@GM.UIT.EDU.VN', 1, 'AQAAAAEAACcQAAAAED1vDZ2bRHnM6Lby4s9kCoawvkqUKg7m9FVcZ2mFBZi3O87KBnTfioMLrfqp0w5mkw==', 'HWOOIVCXGEJ3X6H73HPFRB5OIP2KXIVO', '0a845a87-12ea-4e92-8cf0-f83d964d4b6c', '+84123456', 0, 0, NULL, 1, 0, 'Đồng Tháp', '2001-01-15 20:32:00', NULL),
@@ -202,35 +203,37 @@ CREATE TABLE `course` (
   `discription` varchar(1000) NOT NULL,
   `price` int(11) NOT NULL DEFAULT 0,
   `originalPrice` int(11) NOT NULL,
-  `imgCourse` varchar(500) NOT NULL,
+  `imgCourse` varchar(5000) NOT NULL,
   `totalTime` varchar(100) NOT NULL,
   `totalStudent` int(11) NOT NULL,
   `topicId` int(11) NOT NULL,
   `discountId` int(11) NOT NULL,
-  `rating` int(11) NOT NULL DEFAULT 0
+  `rating` int(11) NOT NULL DEFAULT 0,
+  `captionLink` varchar(500) NOT NULL DEFAULT '',
+  `link` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`courseId`, `courseName`, `discription`, `price`, `originalPrice`, `imgCourse`, `totalTime`, `totalStudent`, `topicId`, `discountId`, `rating`) VALUES
-(1, 'Lập trình hướng đối tượng trong C++\r\n', 'Khóa học C++ OOP giúp các lập trình viên học được kỹ thuật lập trình mà tất cả logic, yêu cầu thực tế đều được xây dựng xoay quanh các đối tượng. Hiểu được cách thức hoạt động của C++ OOP sẽ làm đơn giản hóa việc bảo trì và dễ dàng mở rộng trong việc thiết kế phần mềm.\r\n', 0, 200000, '', '100 giờ', 5000, 3, 3, 9),
-(2, 'Truyền thông và Mạng máy tính', 'Khóa học cung cấp cho lập trình viên những kiến thức cơ bản và dễ hiểu về mạng máy tính và truyền thông dữ liệu.\r\n', 0, 500000, '', '115 giờ 15 phút', 545, 3, 1, 7),
-(3, 'Phần mềm máy tính', 'Phần mềm luôn là công cụ cần thiết trong mọi lĩnh vực, khóa học này sẽ giúp bạn hiểu được các khái niệm về phần mềm và các phần mềm phổ biến hiện nay.\r\n', 0, 800000, '', '80 giờ', 890, 3, 3, 9),
-(4, 'Phần cứng máy tính', 'Khóa học này tập trung vào việc cung cấp các kiến thức chung về các bộ phận của máy tính để bạn có thể áp dụng vào việc lựa chọn và sử dụng máy tính.\r\n', 0, 500000, '', '150 giờ', 545, 3, 2, 8),
-(5, 'C cho người mới bắt đầu', 'Khóa học lập trình C cho người mới bắt đầu. Khóa học này sẽ cung cấp những kiến thức cơ bản và là nền tảng để bạn đi xa hơn trên con đường lập trình.\r\n', 0, 750000, '', '200 giờ', 1500, 4, 1, 9),
-(6, 'C++ cho người mới bắt đầu', 'Khóa học lập trình C++ cơ bản cho người mới bắt đầu. Khóa học này sẽ cung cấp những kiến thức cơ bản, dễ hiểu nhất về ngôn ngữ lập trình C++.\r\n', 0, 500000, '', '200 giờ', 2000, 4, 4, 10),
-(7, 'Làm quen với SQL', 'Khóa học này sẽ giúp các lập trình viên nắm được nguyên tắc, cú pháp và cách thức hoạt động của SQL (Structured Query Language).\r\n', 0, 650000, '', '150 giờ', 2000, 4, 2, 9),
-(8, 'Javascript căn bản', 'Giúp học viên nắm vững các nguyên tắc và cú pháp cơ bản trong Javascript - ngôn ngữ lập trình phổ biến nhất trên thế giới.\r\n', 0, 750000, '', '175 giờ ', 1500, 4, 5, 7),
-(9, 'Python cơ bản', 'Khóa học lập trình Python cơ bản với các bài tập và lý thuyết dễ hiểu, học xong bạn có thể tự tin để tới với các chủ đề nâng cao hơn của Python.\r\n', 0, 550000, '', '130 giờ', 1300, 4, 2, 9),
-(10, 'C# cơ bản', 'Khóa học lập trình C# kèm thực hành, khóa học sẽ giúp bạn làm quen với lập trình cũng như tạo nền tảng tư duy và kỹ năng cơ bản khi giải các bài tập.\r\n', 0, 750000, '', '140 giờ', 1500, 4, 2, 10),
-(11, 'Java cơ bản', 'Khóa học lập trình Java cơ bản cho người mới bắt đầu, khóa học này sẽ là nền tảng cho khóa Java nâng cao để tiến tới Java Web hay lập trình Android, …\r\n', 0, 800000, '', '200 giờ', 2500, 4, 4, 9),
-(12, 'Thuật toán căn bản', 'Với khóa học thuật toán cơ bản, bạn sẽ học được cách tư duy và giải quyết các bài toán lập trình cơ bản mà một lập trình viên cần có.\r\n', 0, 850000, '', '175 giờ', 500, 6, 1, 8),
-(13, 'Thực hành với SQL', 'Khóa học này sẽ giúp bạn biết về một số chức năng chính cần thiết để sắp xếp, lọc và phân loại thông tin trong cơ sở dữ liệu quan hệ, mở rộng bộ công cụ SQL của bạn và giúp bạn có khả năng giải quyết các vấn đề phức tạp hơn thông qua bộ công cụ này. Yêu cầu: Bạn cần hoàn thành khóa Làm quen với SQL để có kiến thức cơ bản trước khi\r\n', 0, 800000, '', '250 giờ 15 phút', 1400, 6, 2, 9),
-(14, 'Cấu trúc dữ liệu và giải thuật', 'Khóa học này sẽ giúp các bạn hiểu thuật toán cũng như hiểu rõ bản chất của các cấu trúc dữ liệu - điều kiện để trở thành lập trình viên giỏi.\r\n', 0, 200000, '', '150 giờ', 2000, 4, 3, 8),
-(15, 'Lập trình hướng đối tượng trong Java', 'Lập trình hướng đối tượng (Object-Oriented-Programming) là phương pháp lập trình dựa trên đối tượng để tìm ra bản chất của vấn đề. Khóa học Java OOP giúp các lập trình viên học được kỹ thuật lập trình mà tất cả logic, yêu cầu thực tế đều được xây dựng xoay quanh các đối tượng. Hiểu được cách thức hoạt động của Java OOP sẽ làm đơn giản hóa việc bảo trì và dễ dàng mở rộng trong việc thiết kế phần mềm.\r\n', 0, 800000, '', '200 giờ', 1500, 6, 3, 8),
-(16, 'C++ nâng cao', 'Khóa học lập trình C++ nâng cao sẽ giúp bạn hiểu sâu hơn về C++ với một số khái niệm như con trỏ, mảng, cấp phát bộ nhớ động, struct,…\r\n', 0, 850000, '', '250 giờ', 545, 7, 5, 9);
+INSERT INTO `course` (`courseId`, `courseName`, `discription`, `price`, `originalPrice`, `imgCourse`, `totalTime`, `totalStudent`, `topicId`, `discountId`, `rating`, `captionLink`, `link`) VALUES
+(1, 'Lập trình hướng đối tượng trong C++', 'Khóa học C++ OOP giúp các lập trình viên học được kỹ thuật lập trình mà tất cả logic, yêu cầu thực tế đều được xây dựng xoay quanh các đối tượng. Hiểu được cách thức hoạt động của C++ OOP sẽ làm đơn giản hóa việc bảo trì và dễ dàng mở rộng trong việc thiết kế phần mềm.', 0, 200000, 'https://drive.google.com/uc?id=1tg8t9mU6fK2NiIaoOpZGDBqKyDHl3GWK ', '100 giờ', 5000, 3, 3, 9, '', ''),
+(2, 'Truyền thông và Mạng máy tính', 'Khóa học cung cấp cho lập trình viên những kiến thức cơ bản và dễ hiểu về mạng máy tính và truyền thông dữ liệu.', 0, 500000, '', '115 giờ 15 phút', 545, 3, 1, 7, '', ''),
+(3, 'Phần mềm máy tính', 'Phần mềm luôn là công cụ cần thiết trong mọi lĩnh vực, khóa học này sẽ giúp bạn hiểu được các khái niệm về phần mềm và các phần mềm phổ biến hiện nay.\r\n', 0, 800000, '', '80 giờ', 890, 3, 3, 9, '', ''),
+(4, 'Phần cứng máy tính', 'Khóa học này tập trung vào việc cung cấp các kiến thức chung về các bộ phận của máy tính để bạn có thể áp dụng vào việc lựa chọn và sử dụng máy tính.\r\n', 0, 500000, '', '150 giờ', 545, 3, 2, 8, '', ''),
+(5, 'C cho người mới bắt đầu', 'Khóa học lập trình C cho người mới bắt đầu. Khóa học này sẽ cung cấp những kiến thức cơ bản và là nền tảng để bạn đi xa hơn trên con đường lập trình.\r\n', 0, 750000, '', '200 giờ', 1500, 4, 1, 9, '', ''),
+(6, 'C++ cho người mới bắt đầu', 'Khóa học lập trình C++ cơ bản cho người mới bắt đầu. Khóa học này sẽ cung cấp những kiến thức cơ bản, dễ hiểu nhất về ngôn ngữ lập trình C++.\r\n', 0, 500000, '', '200 giờ', 2000, 4, 4, 10, '', ''),
+(7, 'Làm quen với SQL', 'Khóa học này sẽ giúp các lập trình viên nắm được nguyên tắc, cú pháp và cách thức hoạt động của SQL (Structured Query Language).\r\n', 0, 650000, '', '150 giờ', 2000, 4, 2, 9, '', ''),
+(8, 'Javascript căn bản', 'Giúp học viên nắm vững các nguyên tắc và cú pháp cơ bản trong Javascript - ngôn ngữ lập trình phổ biến nhất trên thế giới.\r\n', 0, 750000, '', '175 giờ ', 1500, 4, 5, 7, '', ''),
+(9, 'Python cơ bản', 'Khóa học lập trình Python cơ bản với các bài tập và lý thuyết dễ hiểu, học xong bạn có thể tự tin để tới với các chủ đề nâng cao hơn của Python.\r\n', 0, 550000, '', '130 giờ', 1300, 4, 2, 9, '', ''),
+(10, 'C# cơ bản', 'Khóa học lập trình C# kèm thực hành, khóa học sẽ giúp bạn làm quen với lập trình cũng như tạo nền tảng tư duy và kỹ năng cơ bản khi giải các bài tập.\r\n', 0, 750000, '', '140 giờ', 1500, 4, 2, 10, '', ''),
+(11, 'Java cơ bản', 'Khóa học lập trình Java cơ bản cho người mới bắt đầu, khóa học này sẽ là nền tảng cho khóa Java nâng cao để tiến tới Java Web hay lập trình Android, …\r\n', 0, 800000, '', '200 giờ', 2500, 4, 4, 9, '', ''),
+(12, 'Thuật toán căn bản', 'Với khóa học thuật toán cơ bản, bạn sẽ học được cách tư duy và giải quyết các bài toán lập trình cơ bản mà một lập trình viên cần có.\r\n', 0, 850000, '', '175 giờ', 500, 6, 1, 8, '', ''),
+(13, 'Thực hành với SQL', 'Khóa học này sẽ giúp bạn biết về một số chức năng chính cần thiết để sắp xếp, lọc và phân loại thông tin trong cơ sở dữ liệu quan hệ, mở rộng bộ công cụ SQL của bạn và giúp bạn có khả năng giải quyết các vấn đề phức tạp hơn thông qua bộ công cụ này. Yêu cầu: Bạn cần hoàn thành khóa Làm quen với SQL để có kiến thức cơ bản trước khi\r\n', 0, 800000, '', '250 giờ 15 phút', 1400, 6, 2, 9, '', ''),
+(14, 'Cấu trúc dữ liệu và giải thuật', 'Khóa học này sẽ giúp các bạn hiểu thuật toán cũng như hiểu rõ bản chất của các cấu trúc dữ liệu - điều kiện để trở thành lập trình viên giỏi.\r\n', 0, 200000, '', '150 giờ', 2000, 4, 3, 8, '', ''),
+(15, 'Lập trình hướng đối tượng trong Java', 'Lập trình hướng đối tượng (Object-Oriented-Programming) là phương pháp lập trình dựa trên đối tượng để tìm ra bản chất của vấn đề. Khóa học Java OOP giúp các lập trình viên học được kỹ thuật lập trình mà tất cả logic, yêu cầu thực tế đều được xây dựng xoay quanh các đối tượng. Hiểu được cách thức hoạt động của Java OOP sẽ làm đơn giản hóa việc bảo trì và dễ dàng mở rộng trong việc thiết kế phần mềm.\r\n', 0, 800000, '', '200 giờ', 1500, 6, 3, 8, '', ''),
+(16, 'C++ nâng cao', 'Khóa học lập trình C++ nâng cao sẽ giúp bạn hiểu sâu hơn về C++ với một số khái niệm như con trỏ, mảng, cấp phát bộ nhớ động, struct,…\r\n', 0, 850000, '', '250 giờ', 545, 7, 5, 9, '', '');
 
 -- --------------------------------------------------------
 
@@ -252,7 +255,7 @@ CREATE TABLE `discount` (
 INSERT INTO `discount` (`discountId`, `discription`, `time`, `sale`) VALUES
 (1, 'Khuyến mãi ngày valentine', '2021-12-16 04:49:04', 0.8),
 (2, 'Kỉ niệm 10 năm thành lập', '2021-11-01 00:00:00', 0.2),
-(3, 'Khuyến mãi ngày tết', '2021-11-02 00:00:00', 0.15),
+(3, 'Khuyến mãi ngày tết', '2021-11-02 00:00:00', 0.25),
 (4, 'Siêu sale back to school', '2021-11-20 00:00:00', 0.1),
 (5, 'Mừng trung thu', '2021-11-01 00:00:00', 0.05),
 (6, 'Khuyến mãi lần đầu đăng kí', '2021-11-01 00:00:00', 0.25);
@@ -268,8 +271,18 @@ CREATE TABLE `exercise` (
   `content` varchar(1000) NOT NULL,
   `deadline` date NOT NULL,
   `lessonId` int(11) NOT NULL,
-  `teacher_id` varchar(767) NOT NULL
+  `userId` varchar(767) NOT NULL,
+  `exerciseName` varchar(500) NOT NULL DEFAULT '',
+  `input` varchar(500) NOT NULL DEFAULT '',
+  `output` varchar(500) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `exercise`
+--
+
+INSERT INTO `exercise` (`exerciseId`, `content`, `deadline`, `lessonId`, `userId`, `exerciseName`, `input`, `output`) VALUES
+(1, 'Nội dung 1', '2021-12-15', 75, '9c994d92-d7c9-4597-b379-ce8551183d15', 'Bài tập 1', '', '');
 
 -- --------------------------------------------------------
 
@@ -279,11 +292,18 @@ CREATE TABLE `exercise` (
 
 CREATE TABLE `exerciseinuser` (
   `exerciseId` int(11) NOT NULL,
-  `studentId` varchar(767) NOT NULL,
+  `userId` varchar(767) NOT NULL,
   `submit` datetime NOT NULL,
   `scores` float NOT NULL,
-  `status` varchar(500) NOT NULL
+  `content` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `exerciseinuser`
+--
+
+INSERT INTO `exerciseinuser` (`exerciseId`, `userId`, `submit`, `scores`, `content`) VALUES
+(1, '71a4c50d-fc68-474a-895b-8682f0141b93', '2021-12-25 14:48:00', 10, '<p>vbcxbxc</p>');
 
 -- --------------------------------------------------------
 
@@ -296,7 +316,7 @@ CREATE TABLE `lesson` (
   `title` varchar(200) NOT NULL,
   `content` text NOT NULL,
   `courseId` int(11) NOT NULL,
-  `description` text DEFAULT NULL
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -418,9 +438,40 @@ CREATE TABLE `receipt` (
 CREATE TABLE `register` (
   `registerId` int(11) NOT NULL,
   `timeReg` datetime NOT NULL,
-  `userId` varchar(100) NOT NULL,
+  `userId` varchar(767) NOT NULL,
   `courseId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `register`
+--
+
+INSERT INTO `register` (`registerId`, `timeReg`, `userId`, `courseId`) VALUES
+(3, '2021-12-01 15:59:00', '9c994d92-d7c9-4597-b379-ce8551183d15', 14),
+(4, '2021-12-21 15:59:00', 'a88ce81e-968c-4be8-83a8-234be543fa90', 11),
+(5, '2021-12-09 12:00:00', '9c994d92-d7c9-4597-b379-ce8551183d15', 8),
+(6, '2021-12-17 14:38:00', 'f5ebe639-df16-4e3e-bbc9-8e7dc9400707', 13),
+(7, '2021-12-14 14:44:00', 'f5ebe639-df16-4e3e-bbc9-8e7dc9400707', 12),
+(8, '2021-12-14 14:44:00', 'f5ebe639-df16-4e3e-bbc9-8e7dc9400707', 12),
+(9, '2021-12-01 15:59:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 7),
+(10, '2021-12-01 14:47:00', 'f5ebe639-df16-4e3e-bbc9-8e7dc9400707', 4),
+(11, '2021-12-30 15:15:00', 'f5ebe639-df16-4e3e-bbc9-8e7dc9400707', 16),
+(12, '2021-12-22 15:21:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 13),
+(13, '0001-01-01 00:00:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(14, '0001-01-01 00:00:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(15, '2021-12-23 16:31:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(16, '2021-12-23 16:33:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(17, '2021-12-23 16:33:00', '9c994d92-d7c9-4597-b379-ce8551183d15', 12),
+(18, '2021-12-28 16:45:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(19, '2021-12-26 16:45:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(20, '2021-12-10 16:47:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(21, '2021-12-22 16:49:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(22, '2021-12-21 16:50:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(23, '2021-12-25 10:04:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(24, '2021-12-12 10:04:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(25, '2021-12-25 10:04:00', '9c994d92-d7c9-4597-b379-ce8551183d15', 12),
+(26, '2021-12-24 22:33:00', '71a4c50d-fc68-474a-895b-8682f0141b93', 12),
+(27, '2021-12-11 22:33:00', 'a88ce81e-968c-4be8-83a8-234be543fa90', 12);
 
 -- --------------------------------------------------------
 
@@ -438,11 +489,11 @@ CREATE TABLE `topic` (
 --
 
 INSERT INTO `topic` (`topicId`, `topicName`) VALUES
-(3, 'Basic knowledge'),
-(4, 'Basic programming'),
-(5, 'Advanced programming'),
-(6, 'Problem Solving'),
-(7, 'Advanced Skills');
+(3, 'Kiến thức cơ bản'),
+(4, 'Lập trình cơ bản'),
+(5, 'Lập trình nâng cao'),
+(6, 'Giải quyết vấn đề'),
+(7, ' Kỹ năng nâng cao');
 
 -- --------------------------------------------------------
 
@@ -478,7 +529,10 @@ INSERT INTO `__efmigrationshistory` (`MigrationId`, `ProductVersion`) VALUES
 ('20211217084053_new5', '3.1.21'),
 ('20211218025334_new6', '3.1.21'),
 ('20211219170614_new7', '3.1.21'),
-('20211220023920_new8', '3.1.21');
+('20211220023920_new8', '3.1.21'),
+('20211223022359_new10', '3.1.21'),
+('20211223083535_new11', '3.1.21'),
+('20211224154413_new12', '3.1.21');
 
 --
 -- Indexes for dumped tables
@@ -553,15 +607,15 @@ ALTER TABLE `discount`
 ALTER TABLE `exercise`
   ADD PRIMARY KEY (`exerciseId`),
   ADD KEY `IX_exercise_lessonId` (`lessonId`),
-  ADD KEY `teacher_id` (`teacher_id`);
+  ADD KEY `teacher_id` (`userId`);
 
 --
 -- Indexes for table `exerciseinuser`
 --
 ALTER TABLE `exerciseinuser`
-  ADD PRIMARY KEY (`exerciseId`),
+  ADD PRIMARY KEY (`exerciseId`,`userId`),
   ADD KEY `IX_exerciseInUser_exerciseId` (`exerciseId`),
-  ADD KEY `FK_exerciseInUser_AppUser_studentId` (`studentId`);
+  ADD KEY `userId` (`userId`);
 
 --
 -- Indexes for table `lesson`
@@ -617,7 +671,7 @@ ALTER TABLE `appuserclaim`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `discount`
@@ -647,13 +701,13 @@ ALTER TABLE `receipt`
 -- AUTO_INCREMENT for table `register`
 --
 ALTER TABLE `register`
-  MODIFY `registerId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `registerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `topicId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `topicId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -678,14 +732,14 @@ ALTER TABLE `course`
 --
 ALTER TABLE `exercise`
   ADD CONSTRAINT `FK_exercise_lesson_lessonId` FOREIGN KEY (`lessonId`) REFERENCES `lesson` (`lessonId`) ON DELETE CASCADE,
-  ADD CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `appuser` (`Id`);
+  ADD CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `appuser` (`Id`);
 
 --
 -- Constraints for table `exerciseinuser`
 --
 ALTER TABLE `exerciseinuser`
-  ADD CONSTRAINT `FK_exerciseInUser_AppUser_studentId` FOREIGN KEY (`studentId`) REFERENCES `appuser` (`Id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_exerciseInUser_exercise_exerciseId` FOREIGN KEY (`exerciseId`) REFERENCES `exercise` (`exerciseId`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_exerciseInUser_exercise_exerciseId` FOREIGN KEY (`exerciseId`) REFERENCES `exercise` (`exerciseId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `exerciseinuser_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `appuser` (`Id`);
 
 --
 -- Constraints for table `lesson`
@@ -703,7 +757,8 @@ ALTER TABLE `receipt`
 -- Constraints for table `register`
 --
 ALTER TABLE `register`
-  ADD CONSTRAINT `FK_register_course_courseId` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_register_course_courseId` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE CASCADE,
+  ADD CONSTRAINT `register_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `appuser` (`Id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

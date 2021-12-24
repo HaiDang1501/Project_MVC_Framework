@@ -9,12 +9,13 @@
     var listLesson = ViewBag.listLesson;
     var length = listLesson.Length;
     var idMin = listLesson[0].lessonId;
-    var idMax = listLesson[length-1].lessonId;
+    var idMax = listLesson[length - 1].lessonId;
 }
 <link href="~/css/LessonDetail.css" rel="stylesheet" />
 <body>
     <div class="container col-9 container-custom mb-5">
         <div class="lesson-title mt-4 p-4 pb-2 text-center">@Model.title</div>
+        <iframe width="727" height="409" src="https://www.youtube.com/embed/NW5ShqomZBE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <div class="lesson-des pb-0 pt-3 p-4">
             <b>Mô tả:</b>
             <p>@Model.description</p>
@@ -32,7 +33,7 @@
             {
                 <ol>
                     <i class="fas fa-pencil-alt"></i>
-                    <a href="">Bài tâp @item.exerciseId</a>
+                    <a href="/Exercises/DetailsInUI?Id=@item.exerciseId">Bài tâp @item.exerciseId</a>
                 </ol>
 
             }
@@ -43,7 +44,7 @@
                 {
                     <div class="next-lesson">
                         <a href="/Lesson/LessonCourse?Id=@Model.courseId" class="pre-lesson-btn">Quay lại khóa học</a>
-                    </div> 
+                    </div>
                     <div class="pre-lesson">
                         <a href="/lesson/LessonDetail?Id=@idNext" class="pre-lesson-btn">Tiếp theo</a>
                     </div>

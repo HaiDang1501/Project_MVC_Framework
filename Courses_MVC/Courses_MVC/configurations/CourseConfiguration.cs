@@ -34,10 +34,16 @@ namespace Courses_MVC.configurations
             builder.Property(x => x.price).IsRequired()
                 .HasDefaultValue(0);
 
+            builder.Property(x => x.link).IsRequired()
+                .HasMaxLength(5000);
+
+            builder.Property(x => x.captionLink).IsRequired()
+                .HasMaxLength(500);
+
             builder.Property(x => x.originalPrice).IsRequired();
 
             builder.Property(x => x.imgCourse).IsRequired()
-                .HasMaxLength(500);
+                .HasMaxLength(5000);
 
             /*builder.HasMany(x => x.Lessons)
                 .WithOne();*/

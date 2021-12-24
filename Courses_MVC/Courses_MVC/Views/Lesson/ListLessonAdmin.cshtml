@@ -15,13 +15,13 @@
         <div class="search-create-course-admin">
             <form action="/Lesson/ListlessonAdmin" method="post">
                 <div class="form-inline form-inline-lesson">
-                    <label class="control-label search-lesson" style="margin-right: 5px;">Tìm kiếm bài học</label>
+                    <label class="control-label search-lesson" style="margin-right: 5px;">Tìm kiếm</label>
                     <input type="text" name="searchString" class="form-control col-md-6">
                     <input type="submit" class="btn btn-info" name="submit" value="search">
                 </div>
             </form>
             <div>
-                <a asp-controller="Lessons" asp-action="CreateLesson" class="btn btn-outline-success"><i class="fas fa-plus"></i>Thêm</a>
+                <a asp-controller="Lesson" asp-action="CreateLesson" class="btn btn-outline-success"><i class="fas fa-plus"></i>Thêm</a>
             </div>
         </div>
         <div class=" m-5 mt-0 table-overflow-listLesson ">
@@ -55,10 +55,7 @@
                             </td>
                             <td>
                                 <a asp-action="Details" asp-route-id="@item.lessonId"><i class="far fa-edit"></i></a> |
-                                <a asp-action="Delete" asp-route-id="@item.lessonId"><i class="far fa-trash-alt"></i></a>
-                                @*<a asp-action="Edit" asp-route-id="@item.lessonId">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.lessonId">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.lessonId">Delete</a>*@
+                                <a asp-action="DeleteLesson" asp-route-id="@item.lessonId"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     }

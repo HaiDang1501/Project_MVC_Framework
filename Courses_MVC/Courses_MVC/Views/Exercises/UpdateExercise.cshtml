@@ -1,0 +1,52 @@
+﻿@model Courses_MVC.Models.Exercise
+
+@{
+    ViewData["Title"] = "Chỉnh sửa bài luyện tập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main class="main">
+    <div class="sidebar-admin">
+        <partial name="_NavBar" />
+    </div>
+    <section class="section-add_course">
+        <partial name="_AlertMessage" />
+        <h1 class="text-center mt-3">Cập nhật bài luyện tập</h1>
+        <div class="p-4">
+            <form asp-action="UpdateExercise" class="form-update-course">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="exerciseId" />
+                <div class="form-group">
+                    <label asp-for="content" class="control-label">Nội dung</label>
+                    <input asp-for="content" class="form-control" />
+                    <span asp-validation-for="content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="deadline" class="control-label">Deadline</label>
+                    <input asp-for="deadline" class="form-control" />
+                    <span asp-validation-for="deadline" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="lessonId" class="control-label">Bài học</label>
+                    <select asp-for="lessonId" class="form-control" asp-items="ViewBag.lessonId"></select>
+                    <span asp-validation-for="lessonId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="userId" class="control-label">Tác giả</label>
+                    <select asp-for="userId" class="form-control" asp-items="ViewBag.userId"></select>
+                    <span asp-validation-for="userId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Cập nhật" class="btn btn-primary add-update-btn" />
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<script>
+    const active_lienhe = document.querySelector('#active--baihoc')
+    active_lienhe.classList.add('active--css')
+    /*document.querySelector('#active--khoahoc').classList.remove('active--css')*/
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

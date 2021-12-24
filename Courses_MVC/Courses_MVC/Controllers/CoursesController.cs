@@ -40,6 +40,7 @@ namespace Courses_MVC.Controllers
             }
             else
             {
+                StatusMessage = $"Không tìm thấy";
                 coursesContext = _context.Courses.Include(c => c.Discount).Include(c => c.Topic);
             }
             return View(coursesContext.ToList());
@@ -49,8 +50,10 @@ namespace Courses_MVC.Controllers
         {
             var listCourse = _context.Courses
                             .Include(d => d.Discount).Include(t => t.Topic)
-                            .ToListAsync();
-            return View(await listCourse);
+                            ;
+            var Total = listCourse.Count();
+            ViewData["count"] = Total;
+            return View(await listCourse.ToListAsync());
         }
         [HttpPost]
 
@@ -58,14 +61,18 @@ namespace Courses_MVC.Controllers
         {
             var listCourse = (from cs in _context.Courses
                               select cs);
+            var Total = listCourse.Count();
+            
             if (!string.IsNullOrEmpty(searchString))
             {
                 listCourse = listCourse.Where(c => c.courseName.Contains(searchString)).Include(d => d.Discount).Include(t => t.Topic);
+                Total = listCourse.Count();
             }
             else
             {
-                listCourse = _context.Courses.Include(d => d.Discount).Include(t => t.Topic); 
+                listCourse = _context.Courses.Include(d => d.Discount).Include(t => t.Topic);
             }
+            ViewData["count"] = Total;
             return View(await listCourse.ToArrayAsync());
         }
         // GET: Courses
@@ -150,47 +157,29 @@ namespace Courses_MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateCourse(int? id, Course updateCourse)
         {
-            Course Course = await _context.Courses.FirstOrDefaultAsync(c => c.courseId == updateCourse.courseId);
-            Course.courseName = updateCourse.courseName;
-            Course.discription = updateCourse.discription;
-            Course.price = updateCourse.price;
-            Course.topicId = updateCourse.topicId;
-            Course.discountId = updateCourse.discountId;
-            Course.totalTime = updateCourse.totalTime;
-            Course.totalStudent = updateCourse.totalStudent;
-            Course.imgCourse = updateCourse.imgCourse;
-            Course.originalPrice = updateCourse.originalPrice;
-            _context.SaveChanges();
-            StatusMessage = $"Cập nhật thành công";
-            return RedirectToAction(nameof(listCourseAdmin));
-            //if (id != updateCourse.courseId)
-            //{
-            //    return NotFound();
-            //}
-            //if(ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        _context.Update(updateCourse);
-            //        await _context.SaveChangesAsync();
-            //    }
-            //    catch
-            //    {
-            //        if(!CourseExists(updateCourse.courseId))
-            //        {
-            //            return NotFound();
-            //        }
-            //        else
-            //        {
-            //            throw;
-            //        }
-            //    }
-            //    return RedirectToAction(nameof(listCourseAdmin));
-            //}
+            if (ModelState.IsValid)
+            {
+                Course Course = await _context.Courses.FirstOrDefaultAsync(c => c.courseId == updateCourse.courseId);
+                Course.courseName = updateCourse.courseName;
+                Course.discription = updateCourse.discription;
+                Course.price = updateCourse.price;
+                Course.topicId = updateCourse.topicId;
+                Course.discountId = updateCourse.discountId;
+                Course.totalTime = updateCourse.totalTime;
+                Course.totalStudent = updateCourse.totalStudent;
+                Course.imgCourse = updateCourse.imgCourse;
+                Course.originalPrice = updateCourse.originalPrice;
+                _context.SaveChanges();
+                StatusMessage = $"Cập nhật thành công";
+                return RedirectToAction(nameof(listCourseAdmin));
+            }
+            else
+            {
+                StatusMessage = $"Cập nhật không thành công";
+                return RedirectToAction(nameof(listCourseAdmin));
+            }
 
-            //ViewData["discountId"] = new SelectList(_context.Discounts, "discountId", "discription", updateCourse.discountId);
-            //ViewData["topicId"] = new SelectList(_context.Topic, "topicId", "topicName", updateCourse.topicId);
-            //return View(updateCourse);
+            
         }
 
 
@@ -233,127 +222,6 @@ namespace Courses_MVC.Controllers
         {
             return _context.Courses.Any(e => e.courseId == id);
         }
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var course = await _context.Courses
-        //        .Include(c => c.Discount)
-        //        .Include(c => c.Topic)
-        //        .FirstOrDefaultAsync(m => m.courseId == id);
-        //    if (course == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(course);
-        //}
-
-        //// POST: Courses/Delete/5
-
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var course = await _context.Courses.FindAsync(id);
-        //    _context.Courses.Remove(course);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-
-
-
-
-
-
-
-
-        //public IActionResult Create()
-        //{
-        //    ViewData["discountId"] = new SelectList(_context.Discounts, "discountId", "discription");
-        //    ViewData["topicId"] = new SelectList(_context.Topic, "topicId", "topicName");
-        //    return View();
-        //}
-
-        // POST: Courses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        //public async Task<IActionResult> Create([Bind("courseId,courseName,discription,price,originalPrice,totalTime,totalStudent,topicId,discountId")] Course course)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(course);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["discountId"] = new SelectList(_context.Discounts, "discountId", "discription", course.discountId);
-        //    ViewData["topicId"] = new SelectList(_context.Topic, "topicId", "topicName", course.topicId);
-        //    return View(course);
-        //}
-
-        //// GET: Courses/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var course = await _context.Courses.FindAsync(id);
-        //    if (course == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["discountId"] = new SelectList(_context.Discounts, "discountId", "discription", course.discountId);
-        //    ViewData["topicId"] = new SelectList(_context.Topic, "topicId", "topicName", course.topicId);
-        //    return View(course);
-        //}
-
-        //// POST: Courses/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("courseId,courseName,discription,price,originalPrice,imgCourse,totalTime,totalStudent,topicId,discountId")] Course course)
-        //{
-        //    if (id != course.courseId)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(course);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!CourseExists(course.courseId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["discountId"] = new SelectList(_context.Discounts, "discountId", "discription", course.discountId);
-        //    ViewData["topicId"] = new SelectList(_context.Topic, "topicId", "topicName", course.topicId);
-        //    return View(course);
-        //}
-
-        // GET: Courses/Delete/5
+        
     }
 }

@@ -3,6 +3,8 @@
 *@
 @model IEnumerable<Courses_MVC.Models.Course>
 @{
+    ViewData["Title"] = "Danh sách khóa học";
+
 }
 <partial name="_AlertMessage" />
 <link href="~/css/Courses.css" rel="stylesheet" />
@@ -30,9 +32,9 @@
                             @if (item.topicId == tp.topicId)
                             {
                                 <div class="one-course">
-                                    <div class="course-image"><img src="./course-img.jpg" alt=""></div>
+                                    <div class="course-image"><img src="@item.imgCourse" alt=""></div>
                                     <div class="one-course-content">
-                                        <div class="course-rate"><p>10/10</p></div>
+                                        <div class="discount">- @(item.Discount.sale*100)%</div>
                                         <div class="course-title"><a href="/Lesson/LessonCourse?Id=@item.courseId">@item.courseName</a></div>
                                         <div class="course-des more">
                                             <p>
@@ -40,7 +42,8 @@
                                             </p>
                                         </div>
                                         <button id="read-mode-btn" type="button">...Xem thêm</button>
-                                        <div class="course-price"><p>@item.originalPrice VNĐ</p></div>
+                                        <div class="origin-price">500.000 <sup>đ</sup></div>
+                                        <div class="course-price"><p>@item.originalPrice <sup>đ</sup></p></div>
                                     </div>
                                 </div>
                             }
@@ -52,7 +55,7 @@
     </div>
 </div>
 <script>
-    
+
     var moreless = document.getElementById("read-mode-btn");
     moreless.addEventListener("click", readmore);
     var desContainer = document.getElementById("course-des");
@@ -67,6 +70,6 @@
             desContainer.style.height = '100px';
         }
     }
-        
-    
+
+
 </script>

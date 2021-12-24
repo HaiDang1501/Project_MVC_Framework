@@ -147,6 +147,11 @@ namespace Courses_MVC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("captionLink")
+                        .IsRequired()
+                        .HasColumnType("varchar(500)")
+                        .HasMaxLength(500);
+
                     b.Property<string>("courseName")
                         .IsRequired()
                         .HasColumnType("varchar(50)")
@@ -162,8 +167,13 @@ namespace Courses_MVC.Migrations
 
                     b.Property<string>("imgCourse")
                         .IsRequired()
-                        .HasColumnType("varchar(500)")
-                        .HasMaxLength(500);
+                        .HasColumnType("text")
+                        .HasMaxLength(5000);
+
+                    b.Property<string>("link")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasMaxLength(5000);
 
                     b.Property<int>("originalPrice")
                         .HasColumnType("int");
