@@ -82,7 +82,6 @@
         padding: 10px 10px;
         background-color: #059862;
         border-radius: 30px;
-        width:200px
     }
 
 
@@ -101,3 +100,7 @@
     .one-lesson-exer p i {
         margin-right: 5px;
     }
+#place-do-exercise {
+    display: block;
+    width: 100%;
+}

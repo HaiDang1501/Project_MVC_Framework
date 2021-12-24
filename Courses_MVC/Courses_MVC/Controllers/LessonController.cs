@@ -83,6 +83,7 @@ namespace Courses_MVC.Controllers
             }    
             else
             {
+                StatusMessage = $"Không tìm thấy";
                 listlesson = _context.Lessons
                             .Include(l => l.Course);
             }
@@ -117,7 +118,7 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> CreateLesson(Lesson lesson)
         {
             if(ModelState.IsValid)
-            {
+            { 
                 _context.Lessons.Add(lesson);
                 await _context.SaveChangesAsync();
                 StatusMessage = $"Thêm thành công";
@@ -161,6 +162,11 @@ namespace Courses_MVC.Controllers
                 lesson.courseId = lessonUpdate.courseId;
                 _context.SaveChanges();
                 StatusMessage = $"Cập nhật thành công";
+                return RedirectToAction(nameof(ListlessonAdmin));
+            }
+            else
+            {
+                StatusMessage = $"Cập nhật không thành công";
                 return RedirectToAction(nameof(ListlessonAdmin));
             }
             return View(lessonUpdate);

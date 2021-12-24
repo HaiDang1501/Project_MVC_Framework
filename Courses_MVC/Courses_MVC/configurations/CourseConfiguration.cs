@@ -37,7 +37,7 @@ namespace Courses_MVC.configurations
             builder.Property(x => x.originalPrice).IsRequired();
 
             builder.Property(x => x.imgCourse).IsRequired()
-                .HasMaxLength(500);
+                .HasMaxLength(5000);
 
             /*builder.HasMany(x => x.Lessons)
                 .WithOne();*/

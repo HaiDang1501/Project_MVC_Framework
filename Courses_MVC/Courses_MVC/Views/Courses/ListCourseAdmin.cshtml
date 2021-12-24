@@ -9,13 +9,13 @@
     <div class="sidebar-admin">
         <partial name="_NavBar" />
     </div>
-    <section>
+    <section class="section-courseadmin">
         <partial name="_AlertMessage" />
         <h1 class="text-center mt-3">Danh sách khóa học</h1>
         <div class="search-create-course-admin">
             <form action="/Courses/listCourseAdmin" method="post">
                 <div class="form-inline ">
-                    <label class="control-label " style="margin-right: 5px;">Tìm kiếm user</label>
+                    <label class="control-label " style="margin-right: 5px;">Tìm kiếm</label>
                     <input type="text" name="searchString" class="form-control col-md-6">
                     <input type="submit" class="btn btn-info" name="submit" value="search">
                 </div>
@@ -34,18 +34,18 @@
                         <th>
                             @Html.DisplayNameFor(model => model.courseName)
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.discription)
-                        </th>
+                        </th>*@
                         <th>
                             @Html.DisplayNameFor(model => model.price)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.originalPrice)
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.imgCourse)
-                        </th>
+                        </th>*@
                         <th>
                             @Html.DisplayNameFor(model => model.totalTime)
                         </th>
@@ -70,18 +70,18 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.courseName)
                             </td>
-                            <td>
+                            @*<td>
                                 @Html.DisplayFor(modelItem => item.discription)
-                            </td>
+                            </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.price)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.originalPrice)
                             </td>
-                            <td>
+                            @*<td>
                                 @Html.DisplayFor(modelItem => item.imgCourse)
-                            </td>
+                            </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.totalTime)
                             </td>

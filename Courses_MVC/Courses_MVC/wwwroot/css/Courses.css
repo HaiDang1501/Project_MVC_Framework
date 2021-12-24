@@ -58,9 +58,10 @@
 }
 
 .one-course {
+    position:relative;
     width: 25%;
     margin: 20px;
-    font-size: 20px;
+    font-size: 16px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
@@ -71,7 +72,7 @@
     }
 
 .one-course-content {
-    padding: 0 20px;
+    padding: 0 10px;
 }
 
 .one-course .course-image img {
@@ -84,7 +85,10 @@
     font-weight: 600;
     color: rgb(40, 107, 207);
 }
-
+.one-course-content .course-title
+{
+    margin:10px 0;
+}
 .one-course-content .course-title a {
     text-decoration: none;
     color: #000;
@@ -101,13 +105,22 @@
 .one-course-content .course-des {
     text-align: justify;
     font-size: 16px;
+    text-indent:10px;
     height:100px;
     overflow:hidden;
 }
-
+.one-course-content .origin-price {
+    color: rgb(153, 152, 152);
+    text-decoration: line-through;
+    text-align: right;
+    margin: 0;
+    font-size:14px;
+}
 .one-course-content .course-price {
     color: rgb(79, 91, 194);
     font-weight: 600;
+    text-align: right;
+   margin-top : -10px;
 }
 #read-mode-btn {
     background: none;
@@ -119,4 +132,15 @@
 {
     cursor:pointer;
     color:green;
+}
+.discount {
+    padding: 5px;
+    background-color: orangered;
+    color: #fff;
+    text-align: center;
+    line-height: 1.5;
+    position: absolute;
+    top: 0px;
+    left: -1px;
+    border-radius: 10px 0 10px 0;
 }

@@ -40,6 +40,7 @@ namespace Courses_MVC.Controllers
             }
             else
             {
+                StatusMessage = $"Không tìm thấy";
                 coursesContext = _context.Courses.Include(c => c.Discount).Include(c => c.Topic);
             }
             return View(coursesContext.ToList());
@@ -150,19 +151,28 @@ namespace Courses_MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateCourse(int? id, Course updateCourse)
         {
-            Course Course = await _context.Courses.FirstOrDefaultAsync(c => c.courseId == updateCourse.courseId);
-            Course.courseName = updateCourse.courseName;
-            Course.discription = updateCourse.discription;
-            Course.price = updateCourse.price;
-            Course.topicId = updateCourse.topicId;
-            Course.discountId = updateCourse.discountId;
-            Course.totalTime = updateCourse.totalTime;
-            Course.totalStudent = updateCourse.totalStudent;
-            Course.imgCourse = updateCourse.imgCourse;
-            Course.originalPrice = updateCourse.originalPrice;
-            _context.SaveChanges();
-            StatusMessage = $"Cập nhật thành công";
-            return RedirectToAction(nameof(listCourseAdmin));
+            if(ModelState.IsValid)
+            {
+                Course Course = await _context.Courses.FirstOrDefaultAsync(c => c.courseId == updateCourse.courseId);
+                Course.courseName = updateCourse.courseName;
+                Course.discription = updateCourse.discription;
+                Course.price = updateCourse.price;
+                Course.topicId = updateCourse.topicId;
+                Course.discountId = updateCourse.discountId;
+                Course.totalTime = updateCourse.totalTime;
+                Course.totalStudent = updateCourse.totalStudent;
+                Course.imgCourse = updateCourse.imgCourse;
+                Course.originalPrice = updateCourse.originalPrice;
+                _context.SaveChanges();
+                StatusMessage = $"Cập nhật thành công";
+                return RedirectToAction(nameof(listCourseAdmin));
+            } 
+            else
+            {
+                StatusMessage = $"Cập nhật không thành công";
+                return RedirectToAction(nameof(listCourseAdmin));
+            }    
+            
             //if (id != updateCourse.courseId)
             //{
             //    return NotFound();

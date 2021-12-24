@@ -71,6 +71,10 @@ namespace Courses_MVC.Migrations
                     b.Property<DateTime?>("birthday")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("gender")
+                        .HasColumnType("varchar(10)")
+                        .HasMaxLength(10);
+
                     b.HasKey("Id");
 
                     b.ToTable("AppUser");
@@ -122,6 +126,7 @@ namespace Courses_MVC.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("email")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("title")
@@ -157,8 +162,8 @@ namespace Courses_MVC.Migrations
 
                     b.Property<string>("imgCourse")
                         .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("text")
+                        .HasMaxLength(5000);
 
                     b.Property<int>("originalPrice")
                         .HasColumnType("int");

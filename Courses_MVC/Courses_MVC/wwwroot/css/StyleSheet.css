@@ -113,10 +113,14 @@ table {
     counter-increment: tableCount;
 }
 /*khánh duy*/
+.section-courseadmin
+{
+    width:100%;
+}
 .search-create-course-admin {
     display: flex;
     justify-content: space-between;
-   margin:20px;
+    margin: 20px;
 }
 .row-listcourses-admin {
     height: 50px;
