@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Courses_MVC.Controllers
 {
@@ -222,6 +224,116 @@ namespace Courses_MVC.Controllers
         {
             return _context.Courses.Any(e => e.courseId == id);
         }
+        public const string CARTKEY = "cart";
+        // Lấy cart từ Session (danh sách CartItem)
+        List<CarItem> GetCartItems()
+        {
+            var session = HttpContext.Session;
+            string jsoncart = session.GetString(CARTKEY);
+            if (jsoncart != null)
+            {
+                return JsonConvert.DeserializeObject<List<CarItem>>(jsoncart);
+            }
+            return new List<CarItem>();
+        }
+
         
+        // Xóa cart khỏi session
+        void ClearCart()
+        {
+            var session = HttpContext.Session;
+            session.Remove(CARTKEY);
+        }
+
+        // Lưu Cart (Danh sách CartItem) vào session
+        void SaveCartSession(List<CarItem> ls)
+        {
+            var session = HttpContext.Session;
+            string jsoncart = JsonConvert.SerializeObject(ls);
+            session.SetString(CARTKEY, jsoncart);
+        }
+         public IActionResult AddtoCart (int? courseId)
+        {
+            var course = _context.Courses.FirstOrDefault(l => l.courseId == courseId);
+            if (course == null)
+            {
+                return NotFound("Không có khóa học");
+            }
+            var cart = GetCartItems();
+            var cartItem = cart.Find(l => l.Course.courseId == courseId);
+            if (cartItem != null)
+            {
+                cartItem.Quantity++;
+            }    
+            else
+            {
+                cart.Add(new CarItem()
+                {
+                    Course = course,
+                    Quantity = 1
+                }); 
+            }
+
+            SaveCartSession(cart);
+            return RedirectToAction(nameof(DanhSachHienThi));
+        }
+        public IActionResult AddtoCartInLesson(int? courseId)
+        {
+            var course = _context.Courses.FirstOrDefault(l => l.courseId == courseId);
+            if (course == null)
+            {
+                return NotFound("Không có khóa học");
+            }
+            var cart = GetCartItems();
+            var cartItem = cart.Find(l => l.Course.courseId == courseId);
+            if (cartItem != null)
+            {
+                cartItem.Quantity++;
+            }
+            else
+            {
+                cart.Add(new CarItem()
+                {
+                    Course = course,
+                    Quantity = 1
+                });
+            }
+
+            SaveCartSession(cart);
+            return RedirectToAction(nameof(CartDisplay));
+        }
+        public IActionResult CartDisplay()
+        {
+            return View(GetCartItems());
+        }
+
+
+        public IActionResult UpdateCart(int courseId,int quantity)
+        {
+            var cart = GetCartItems();
+            var cartItem = cart.Find(c => c.Course.courseId == courseId);
+            if( cartItem !=null)
+            {
+                cartItem.Quantity = quantity;
+            }
+            SaveCartSession(cart);
+            return Ok();
+        }
+        public IActionResult DeleteCart(int courseId)
+        {
+            var cart = GetCartItems();
+            var cartItem = cart.Find(c => c.Course.courseId == courseId);
+            if( cartItem !=null)
+            {
+                cart.Remove(cartItem);
+            }
+            SaveCartSession(cart);
+            return RedirectToAction(nameof(CartDisplay));
+        }
+        public IActionResult ClearCartAll()
+        {
+            ClearCart();
+            return RedirectToAction(nameof(CartDisplay));
+        }
     }
 }

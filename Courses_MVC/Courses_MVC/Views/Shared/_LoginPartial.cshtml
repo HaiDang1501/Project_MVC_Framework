@@ -35,9 +35,14 @@
                 </a>
             </div>
         </div>
+
     }
     else
     {
+        
+        <div class="mr-4 mt-2">
+             @await Html.PartialAsync("_cart")
+        </div>
         <div class="dropdown">
             <button type="button" class="dropdown-toggle mr-md-2 btn btn-outline-info" data-toggle="dropdown">
                 <i class="far fa-user-circle"></i> @UserManager.GetUserName(User)
@@ -52,18 +57,20 @@
                 </a>
             </div>
         </div>
+
+
     }
 }
 else
 {
-<ul class="navbar-nav">
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Đăng kí</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Đăng nhập</a>
-    </li>
-</ul>
-    
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Đăng kí</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Đăng nhập</a>
+        </li>
+    </ul>
+
 }
 

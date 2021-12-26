@@ -139,7 +139,7 @@ namespace Courses_MVC.Controllers
             {
                 exerUpdate.content = exercise.content;
                 exerUpdate.deadline = exercise.deadline;
-                exerUpdate.userId = exercise.userId;
+                exerUpdate.UserId = exercise.UserId;
                 exerUpdate.lessonId = exerUpdate.lessonId;
 
                 _context.SaveChanges();
@@ -199,7 +199,7 @@ namespace Courses_MVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["userId"] = new SelectList(_context.Users, "Id", "Id", exercise.userId);
+            ViewData["userId"] = new SelectList(_context.Users, "Id", "Id", exercise.UserId);
             ViewData["lessonId"] = new SelectList(_context.Lessons, "lessonId", "content", exercise.lessonId);
             return View(exercise);
         }
@@ -236,7 +236,7 @@ namespace Courses_MVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["userId"] = new SelectList(_context.Users, "Id", "Id", exercise.userId);
+            ViewData["userId"] = new SelectList(_context.Users, "Id", "Id", exercise.UserId);
             ViewData["lessonId"] = new SelectList(_context.Lessons, "lessonId", "content", exercise.lessonId);
             return View(exercise);
         }

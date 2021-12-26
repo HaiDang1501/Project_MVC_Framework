@@ -38,7 +38,7 @@ namespace Courses_MVC.Models
 
         [Required(ErrorMessage = "Phải nhập {0}")]
         [Display(Name = "Tên người dùng")]
-        public string userId { get; set; }
+        public string UserId { get; set; }
 
         public AppUser AppUser { get; set; }
 

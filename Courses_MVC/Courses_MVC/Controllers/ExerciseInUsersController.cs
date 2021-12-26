@@ -177,7 +177,23 @@ namespace Courses_MVC.Controllers
             StatusMessage = $"Xóa thành công ";
             return RedirectToAction(nameof(DanhSachBTUser));
         }
-
+         public IActionResult SubmitExercise(string userId, int exerciseId,string content)
+        {
+            if(content == null)
+            {
+                ModelState.AddModelError(string.Empty, "Chưa có nội dung bài làm");
+            }
+            _context.ExerciseInUsers.Add(new ExerciseInUser()
+            {
+                userId = "264b663a-54c4-48e9-8c90-5672caa3be2c",
+                exerciseId = exerciseId,
+                content = content
+            }) ;
+            _context.SaveChanges();
+            StatusMessage = $"Nộp bài thành công ";
+            return RedirectToAction(nameof(DanhSachBTUser));
+;
+        }
         
         // POST: ExerciseInUsers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

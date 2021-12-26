@@ -1,4 +1,10 @@
-﻿@model Exercise
+﻿@using Microsoft.AspNetCore.Identity
+@using Courses_MVC.Models
+@using Microsoft.AspNetCore.Authorization
+@model Exercise
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
 @{
     var listId = ViewBag.listIdExercise;
     var idcurrent = Model.exerciseId;
@@ -10,30 +16,61 @@
 }
 <link href="~/css/LessonDetail.css" rel="stylesheet" />
 <div class="container col-9 container-custom mb-5">
-    <div class="lesson-title mt-4 p-4 pb-2 text-center ">Bài Tập @Model.exerciseId</div>
+    <partial name="_AlertMessage" />
+    <div class="lesson-title mt-4 p-4 pb-2 text-center ">@Model.exerciseName</div>
     <div class="lesson-info pb-2 pt-3 p-4">
         <div class="lesson-info-teacher"><i class="fas fa-chalkboard-teacher"></i><b>Tác giả:</b> @Model.AppUser.UserName</div>
         <div class="lesson-info-deadline"><i class="fas fa-hourglass-start">Deadline:</i> @Model.deadline</div>
     </div>
-    <div class="lesson-content mb-3 p-4 pb-2">
+    <div class="lesson-content mb-3 pl-4 pr-4">
         <b>Nội dung:</b>
         <p>
             @Model.content
+            @UserManager.GetUserName(User)
+          
+
         </p>
     </div>
-    <div class="exercise-input mb-1 p-4 pb-1">
+    <div class="exercise-input mb-1 pl-4 pr-4">
         <b>Input:</b>
-        <p>n = 10</p>
+        <p>@Model.input</p>
     </div>
-    <div class="exercise-output mb-1 p-4 pb-1">
+    <div class="exercise-output mb-1 pl-4 pr-4">
         <b>Output:</b>
-        <p>Array A = [0,1,2,3,4,5,6,7,8,9]</p>
+        <p>@Model.output</p>
     </div>
-    <div class="do-exercise mb-3 p-4 pb-2">
-        <form>
+    <div class="do-exercise mb-3 pl-4 pr-4">
+        @*<form asp-action="ThemSVBT" class="col-md-10 offset-md-2 mt-5">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mt-3">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" asp-items="@UserManager.GetUserId(User)"></input>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="exerciseId" class="control-label"></label>
+                <input asp-for="exerciseId" class="form-control" asp-items="@Model.exerciseId"></input>
+            </div>
+            <div class="form-group mt-3">
+                <label asp-for="content" class="control-label"></label>
+                <textarea asp-for="content" class="form-control" id="content"></textarea>
+                <span asp-validation-for="content" class="text-danger"></span>
+            </div>
+            <div class="form-row mb-4">
+                <div class="form-group col-md-6">
+                    <input type="submit" name="submit" value="Creat" class="btn btn-primary btn-block" />
+                </div>
+                <div class="form-group col-md-6">
+                    <a asp-action="DanhSachBTUser" class="btn btn-secondary btn-block"><i class="fa fa-table"></i>Trở về</a>
+                </div>
+            </div>
+        </form>*@
+        <form action="/ExerciseInUsers/SubmitExercise" method="post">
+            <input type="hidden" name="exerciseId" value="@Model.exerciseId" />
+            @*<input type="hidden" name="userId" value=" @UserManager.GetUserId(User).ToString()" />*@
             <label for="place-do-exercise"><b>Làm bài tập:</b></label>
-            <textarea name="doExercsie" id="place-do-exercise" cols="30" rows="10" placeholder="Nhập bài làm của bạn">
-
+            <textarea name="content"
+                      id="place-do-exercise"
+                      cols="30" rows="10" placeholder="Nhập bài làm của bạn">
             </textarea>
             <button class="btn btn-primary" type="submit">Nộp bài</button>
         </form>
@@ -44,7 +81,7 @@
         @if (idPre == idMin - 1)
         {
             <div class="next-lesson">
-                <a href="/lesson/LessonDetail?Id=@Model.lessonId" class="pre-lesson-btn">Quay lại khóa học</a>
+                <a href="/lesson/LessonDetail?Id=@Model.lessonId" class="pre-lesson-btn">Quay lại bài học</a>
             </div>
             <div class="pre-lesson">
                 <a href="/Exercises/DetailsInUI?Id=@idNext" class="pre-lesson-btn">Kế tiếp</a>
@@ -56,7 +93,7 @@
                 <a href="/Exercises/DetailsInUI?Id=@idPre" class="pre-lesson-btn">Quay lại</a>
             </div>
             <div class="next-lesson">
-                <a href="/lesson/LessonDetail?Id=@Model.lessonId" class="pre-lesson-btn">Quay lại khóa học</a>
+                <a href="/lesson/LessonDetail?Id=@Model.lessonId" class="pre-lesson-btn">Quay lại bài học</a>
             </div>
         }
         else

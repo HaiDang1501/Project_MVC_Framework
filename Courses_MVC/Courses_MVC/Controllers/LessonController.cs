@@ -90,22 +90,19 @@ namespace Courses_MVC.Controllers
         }
 
 
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            if (id == null)
+            if( id == null)
             {
                 return NotFound();
             }
-
-            var lesson = await _context.Lessons
-                .Include(c => c.courseId)
-                .FirstOrDefaultAsync(m => m.lessonId == id);
-            if (lesson == null)
+            var lesson = _context.Lessons.Include(l => l.Course).FirstOrDefault(l => l.lessonId == id);
+            if( lesson == null)
             {
                 return NotFound();
             }
-
             return View(lesson);
+                        
         }
         public IActionResult CreateLesson()
         {

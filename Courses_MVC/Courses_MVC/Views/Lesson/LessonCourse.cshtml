@@ -2,6 +2,8 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "Khóa học";
+
 }
 @model IEnumerable<Courses_MVC.Models.Lesson>
 @{
@@ -21,6 +23,8 @@
         var coursePrice = listLesson[0].Course.price;
         var courseTime = listLesson[0].Course.totalTime;
         var courseCount = listLesson.Length;
+        var courseId = listLesson[0].courseId;
+        var coureValue = listLesson[0].Course.rating;
         var totalStuden = 20;
 
 
@@ -33,7 +37,7 @@
                         <h2>@courseNama</h2>
                         <div class="course-student-values">
                             <p>@totalStuden</p>
-                            <p class="value">8.5/10</p>
+                            <p class="value">@coureValue/10</p>
                         </div>
                         <div class="course-des">
                             <p>
@@ -59,8 +63,8 @@
                         </div>
                     </div>
                     <div class="course-header-right-add-button col-2">
-                        <div class="add-car-btn">
-                            <a href=""><i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+                        <div class="add-car-btn btn-success">
+                            <a href="/Courses/AddtoCartInLesson?courseId=@courseId">Đăng kí ngay</a>
                         </div>
                     </div>
                 </div>
