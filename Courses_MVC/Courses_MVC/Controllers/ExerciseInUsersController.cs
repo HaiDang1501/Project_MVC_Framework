@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Courses_MVC.Data;
 using Courses_MVC.Models;
-
 namespace Courses_MVC.Controllers
 {
     public class ExerciseInUsersController : Controller
@@ -177,9 +176,10 @@ namespace Courses_MVC.Controllers
             StatusMessage = $"Xóa thành công ";
             return RedirectToAction(nameof(DanhSachBTUser));
         }
-         public IActionResult SubmitExercise(string userId, int exerciseId,string content)
+         public IActionResult SubmitExercise( int lessonId ,int exerciseId,string content)
         {
-            if(content == null)
+            int curentlessonId = lessonId;
+            if (content == null)
             {
                 ModelState.AddModelError(string.Empty, "Chưa có nội dung bài làm");
             }
@@ -190,8 +190,8 @@ namespace Courses_MVC.Controllers
                 content = content
             }) ;
             _context.SaveChanges();
-            StatusMessage = $"Nộp bài thành công ";
-            return RedirectToAction(nameof(DanhSachBTUser));
+            StatusMessage = $"Nộp bài tập thành công";
+            return RedirectToAction("LessonDetail","lesson",new {id= curentlessonId})
 ;
         }
         

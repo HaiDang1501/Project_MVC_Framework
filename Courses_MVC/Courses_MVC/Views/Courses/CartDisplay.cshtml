@@ -1,4 +1,5 @@
-﻿@model List<Courses_MVC.Models.CarItem>
+﻿@using System.Collections;
+@model List<Courses_MVC.Models.CarItem>
 @{
     ViewData["Title"] = "Giỏ hàng";
 
@@ -11,6 +12,13 @@
 {
     decimal total = 0;
     int stt = 1;
+    int sttmodel = 1;
+    List<int> list = new List<int>();
+    foreach ( var i in Model)
+    {
+        list.Add(i.Course.courseId);
+    }
+
 
 
     <div class="cart-container container-fluid ">
@@ -94,7 +102,7 @@
 
 
                             <tr>
-                                <td>@(stt++)</td>
+                                <td>@(sttmodel++)</td>
                                 <td>@cartitem.Course.courseName</td>
                                 <td>@(cartitem.Course.originalPrice.ToString("n0"))</td>
                                 <td>@cartitem.Quantity</td>
@@ -111,14 +119,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    @*<form asp-action="DeleteLesson">
-                        <input type="hidden" asp-for="lessonId" />
-                        <input type="submit" value="Delete" class="btn btn-danger" /> |
-                        <div class="back-admin">
-                            <a asp-action="ListLAdmin">Back to List</a>
-                        </div>
-                    </form>*@
-                    <button type="button" class="btn btn-primary">Xác nhận</button>
+                    <form action="/Register/ConfirmCart" method="post">
+                        @foreach (var item in list)
+                        {
+                            <input type="hidden" name="courseId" value="@item" />
+                        }
+                        <button type="submit"  class="btn btn-primary">Xác nhận</button>
+                    </form>
+                   
                 </div>
             </div>
         </div>

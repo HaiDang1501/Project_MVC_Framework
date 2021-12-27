@@ -151,5 +151,23 @@ namespace Courses_MVC.Controllers
                 return View();
             }
         }
+
+        public IActionResult ConfirmCart(List<int> courseId)
+        {
+            foreach( var item in courseId)
+            {
+                _context.Registers.Add(new Register()
+                {
+                    userId = "264b663a-54c4-48e9-8c90-5672caa3be2c",
+                    courseId = item,
+                    timeReg = DateTime.UtcNow
+                }) ;
+                _context.SaveChanges();
+                           
+            }
+            StatusMessage = $"Đăng ký thành công";
+            int registerStatus = 1;
+            return RedirectToAction("ClearAfterRegister", "Courses", new { status= registerStatus });
+        }
     }
 }

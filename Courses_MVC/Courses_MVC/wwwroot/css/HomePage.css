@@ -480,3 +480,9 @@
         flex-wrap: wrap;
     }
 }
+.logo
+{
+    margin-bottom:-50px;
+    margin-top:-50px;
+    margin-right:10px;
+}
