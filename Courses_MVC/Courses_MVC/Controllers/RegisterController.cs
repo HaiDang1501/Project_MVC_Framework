@@ -24,6 +24,8 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> DanhSachDangKi()
         {
             var list = await _context.Registers.Include(x => x.Course).Include(x => x.AppUser).ToListAsync();
+            var count = list.Count();
+            ViewData["count"] = count;
             return View(list);
         }
 
@@ -31,12 +33,16 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> DanhSachDangKi(string? search)
         {
             var list = from rg in _context.Registers select rg;
+            var count = list.Count();
+            
             if (!string.IsNullOrEmpty(search))
             {
                 list = list.Where(x => x.AppUser.UserName.Contains(search)).Include(x => x.Course).Include(x => x.AppUser);
+                count = list.Count();
             }
             else
                 list = list.Include(x => x.Course).Include(x => x.AppUser);
+            ViewData["count"] = count;
             return View(await list.ToListAsync());
         }
 
@@ -131,10 +137,22 @@ namespace Courses_MVC.Controllers
             ViewData["course"] = new SelectList(_context.Courses, "courseId", "courseName", result.courseId);
             return View(result);
         }
+
+        public IActionResult CapNhatDangKi(int? id)
+        {
+            var result = _context.Registers.Include(c => c.AppUser).Include(c => c.Course).FirstOrDefault(c => c.registerId == id);
+            ViewData["user"] = new SelectList(_context.Users, "Id", "UserName", result.userId);
+            ViewData["course"] = new SelectList(_context.Courses, "courseId", "courseName", result.courseId);
+            return View(result);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChiTietDangKi(int? id, Register register)
+        public IActionResult CapNhatDangKi(int?id, Register register)
         {
+            if(id == 0)
+            {
+                return NotFound();
+            }
             var result = _context.Registers.FirstOrDefault(c => c.registerId == id);
             if (result != null)
             {
@@ -148,7 +166,7 @@ namespace Courses_MVC.Controllers
             else
             {
                 StatusMessage = $"Thêm không thành công ";
-                return View();
+                return RedirectToAction(nameof(DanhSachDangKi));
             }
         }
     }

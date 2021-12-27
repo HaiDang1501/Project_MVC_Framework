@@ -25,6 +25,8 @@ namespace Courses_MVC.Controllers
         // GET: Topic
         public async Task<IActionResult> DanhSachTopic()
         {
+            var countTopic = _context.Topic.Count();
+            ViewData["count"] = countTopic;
             var TopicContext = from topic in _context.Topic select topic;
             return View(await TopicContext.ToListAsync());
         }
@@ -33,10 +35,14 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> DanhSachTopic(string? search)
         {
             var TopicContext = from topic in _context.Topic select topic;
+            var countTopic = TopicContext.Count();
+            
             if (!string.IsNullOrEmpty(search))
             {
                 TopicContext = TopicContext.Where(c => c.topicName.Contains(search));
+                countTopic = TopicContext.Count();
             }
+            ViewData["count"] = countTopic;
             return View(await TopicContext.ToListAsync());
         }
 
@@ -78,27 +84,13 @@ namespace Courses_MVC.Controllers
             {
                 return NotFound();
             }
-            return View(topic);
-        }
-
-        [HttpPost, ActionName("XoaTopic")]
-        [ValidateAntiForgeryToken]
-        public IActionResult XoaTopicComfirm(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var topic = _context.Topic.FirstOrDefault(c => c.topicId == id);
-            if (topic == null)
-            {
-                return NotFound();
-            }
             _context.Remove(topic);
             _context.SaveChanges();
             StatusMessage = $"Xóa thành công chủ đề {topic.topicName}";
             return RedirectToAction(nameof(DanhSachTopic));
         }
+
+        
         // GET: Topic/Details/5
         public IActionResult ChiTietTopic(int? id)
         {
@@ -116,9 +108,25 @@ namespace Courses_MVC.Controllers
             return View(topic);
         }
 
+        public IActionResult CapNhatTopic(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var topic = _context.Topic.FirstOrDefault(c => c.topicId == id);
+            if (topic == null)
+            {
+                return NotFound();
+            }
+
+            return View(topic);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ChiTietTopic(int? id,Topic topic)
+        public IActionResult CapNhatTopic(int? id,Topic topic)
         {
             if (id == topic.topicId)
             {

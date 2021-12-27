@@ -49,8 +49,7 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> listCourseAdmin()
         {
             var listCourse = _context.Courses
-                            .Include(d => d.Discount).Include(t => t.Topic)
-                            ;
+                            .Include(d => d.Discount).Include(t => t.Topic);
             var Total = listCourse.Count();
             ViewData["count"] = Total;
             return View(await listCourse.ToListAsync());

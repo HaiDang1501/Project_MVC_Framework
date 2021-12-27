@@ -24,21 +24,28 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> ListExerciseAdmin()
         {
             var listExercises = await _context.Exercises.Include(e => e.AppUser).Include(e => e.Lesson).ToListAsync();
+            var count = listExercises.Count();
+            ViewData["count"] = count;
             return View(listExercises);
         }
         [HttpPost]
         public async Task<IActionResult> ListExerciseAdmin(string? searchString)
         {
             var listExercises = _context.Exercises.Include(e => e.AppUser).Include(e => e.Lesson);
+            var count = listExercises.Count();
+            
             if (!string.IsNullOrEmpty(searchString))
             {
                 listExercises = listExercises.Where(e => e.Lesson.title.Contains(searchString)).Include(e => e.AppUser).Include(e => e.Lesson);
+                count = listExercises.Count();
             }
             else
             {
                 StatusMessage = $"Không tìm thấy";
                 listExercises = _context.Exercises.Include(e => e.AppUser).Include(e => e.Lesson);
+                count = listExercises.Count();
             }
+            ViewData["count"] = count;
             return View(await listExercises.ToListAsync());
         }
 
@@ -133,9 +140,13 @@ namespace Courses_MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult UpdateExercise(Exercise exercise)
         {
-            var exerUpdate = _context.Exercises.FirstOrDefault(e => e.exerciseId == exercise.exerciseId);
+            if(exercise.exerciseId == 0)
+            {
+                return NotFound();
+            }
+            var exerUpdate = _context.Exercises.Include(c=>c.AppUser).FirstOrDefault(e => e.exerciseId == exercise.exerciseId);
             var idlesson = exercise.lessonId;
-            if (ModelState.IsValid)
+            if (exerUpdate != null)
             {
                 exerUpdate.content = exercise.content;
                 exerUpdate.deadline = exercise.deadline;

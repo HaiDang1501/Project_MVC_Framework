@@ -19,7 +19,7 @@ namespace Courses_MVC.Models
         public string discription { get; set; }
 
         [Required(ErrorMessage = "Phải nhập {0}")]
-        [Display(Name = "Giá")]
+        [Display(Name = "Giá niêm yết")]
         public int price { get; set; }
 
         [Required(ErrorMessage = "Phải nhập {0}")]

@@ -8,12 +8,13 @@
     <partial name="_NavBar" />
     <section>
         <partial name="_AlertMessage" />
-        <h1 class="text-center mt-3">Thông tin đăng kí khóa học</h1>
+        <h1 class="text-center mt-3">@ViewData["Title"]</h1>
+        <p class="count--css">Số lượng đăng kí: @ViewBag.count</p>
         <div class="search-create">
-            <form action="" method="post"> 
+            <form action="" method="post">
                 <div class="form-inline">
                     <label class="control-label" style="margin-right: 5px;">Tìm kiếm khóa học</label>
-                    <input type="text" name="search" class="form-control col-md-5"/>
+                    <input type="text" name="search" class="form-control col-md-5" />
                     <input type="submit" class="btn btn-info" name="submit" value="search" />
 
                 </div>
@@ -44,23 +45,23 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td class="counterCell">
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AppUser.UserName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Course.courseName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.timeReg)
-                        </td>
-                        <td>
-                            <a asp-action="ChiTietDangKi" asp-route-id="@item.registerId"><i class="far fa-edit"></i></a> |
-                            <a asp-action="XoaDangKi" asp-route-id="@item.registerId" class="text-danger" onclick="return confirm('Bạn chắn chắn xóa chứ?')"><i class="far fa-trash-alt"></i></a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="counterCell">
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppUser.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Course.courseName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.timeReg)
+                            </td>
+                            <td>
+                                <a asp-action="ChiTietDangKi" asp-route-id="@item.registerId"><i class="far fa-edit"></i></a> |
+                                <a asp-action="XoaDangKi" asp-route-id="@item.registerId" class="text-danger" onclick="return confirm('Bạn chắn chắn xóa chứ?')"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

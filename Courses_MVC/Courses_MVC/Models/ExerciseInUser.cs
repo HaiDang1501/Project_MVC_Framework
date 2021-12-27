@@ -30,6 +30,7 @@ namespace Courses_MVC.Models
         public DateTime submit { get; set; }
 
         [Display(Name = "Điểm")]
+        [Range(0,10,ErrorMessage ="{0} phải nằm từ thang điểm 0 đến 10")]
         public float scores { get; set; }
 
     }

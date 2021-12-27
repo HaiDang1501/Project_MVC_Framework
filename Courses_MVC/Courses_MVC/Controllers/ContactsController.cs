@@ -28,6 +28,8 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> Index()
         {
             var contactContext = _context.Contact.Include(c => c.AppUser);
+            var count = contactContext.Count();
+            ViewData["count"] = count;
             return View(await contactContext.ToListAsync());
         }
 
@@ -35,12 +37,19 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> Index(string? search)
         {
             var contactContext = from ct in _context.Contact select ct;
+            var count = contactContext.Count();
+            
             if (!string.IsNullOrEmpty(search))
             {
                 contactContext = contactContext.Where(c => c.HoTen.Contains(search)).Include(c => c.AppUser);
+                count = contactContext.Count();
             }
             else
+            {
                 contactContext = contactContext.Include(c => c.AppUser);
+                count = contactContext.Count();
+            }    
+            ViewData["count"] = count;
             return View(await contactContext.ToListAsync());
         }
 

@@ -8,6 +8,7 @@
     <section>
         <partial name="_AlertMessage" />
         <h1 class="text-center mt-3">@ViewData["Title"]</h1>
+        <p class="count--css">Số lượng sinh viên làm bài tập: @ViewBag.count</p>
         <div class="search-create">
             <form action="" method="post">
                 <div class="form-inline">
@@ -38,9 +39,6 @@
                             @Html.DisplayNameFor(model => model.submit)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.content)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.scores)
                         </th>
                         <th>Chức năng</th>
@@ -49,30 +47,26 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td class="counterCell">
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AppUser.UserName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Exercise.exerciseName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.submit)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.content)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.scores)
-                        </td>
-                        <td>
-                            <a asp-action="ChiTietBTUser" asp-route-excerciseId="@item.exerciseId" asp-route-userId="@item.userId"><i class="far fa-edit"></i></a> |
-                            <a asp-action="XoaBTUser" asp-route-excerciseId="@item.exerciseId" asp-route-userId="@item.userId" class="text-danger" onclick="return confirm('Bạn chắn chắn xóa chứ?')"><i class="far fa-trash-alt"></i></a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="counterCell">
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppUser.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Exercise.exerciseName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.submit)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.scores)
+                            </td>
+                            <td>
+                                <a asp-action="ChiTietBTUser" asp-route-exerciseId="@item.exerciseId" asp-route-userId="@item.userId"><i class="far fa-edit"></i></a> |
+                                <a asp-action="XoaBTUser" asp-route-exerciseId="@item.exerciseId" asp-route-userId="@item.userId" class="text-danger" onclick="return confirm('Bạn chắn chắn xóa chứ?')"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

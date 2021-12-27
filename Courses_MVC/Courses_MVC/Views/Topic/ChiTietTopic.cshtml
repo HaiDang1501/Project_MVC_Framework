@@ -2,33 +2,46 @@
 @{
     ViewData["Title"] = "Chi tiết chủ đề";
 }
-<div class="main">
-    <partial name="_NavBar" />
-    <div class="col-md-8">
-        <partial name="_AlertMessage" />
-        <h2 class="contact-title text-center">@ViewData["Title"]</h2>
-        <form asp-controller="Topic" asp-action="ChiTietTopic" class="col-md-10 offset-md-2 mt-5">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group mt-3">
-                <label asp-for="topicId" class="control-label"></label>
-                <input asp-for="topicId" class="form-control" disabled />
-            </div>
-            <div class="form-group mt-3">
-                <label asp-for="topicName" class="control-label"></label>
-                <input asp-for="topicName" class="form-control" />
-            </div>
-            <div class="form-row mb-4">
-                <div class="form-group col-md-6">
-                    <input type="submit" name="submit" value="Update" class="btn btn-primary btn-block" />
-                </div>
-                <div class="form-group col-md-6">
-                    <a asp-action="DanhSachTopic" class="btn btn-secondary btn-block"><i class="fa fa-table"></i>Trở về</a>
-                </div>
-            </div>
 
-        </form>
+<main class="main">
+    <div class="sidebar-admin">
+        <partial name="_NavBar" />
     </div>
-</div>
+    <section class="section-add_course">
+        <partial name="_AlertMessage" />
+        <h1 class="text-center mt-3">@ViewData["Title"]</h1>
+        <div class="ml-5">
+            <div class="">
+                <hr />
+
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.topicId)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.topicId)
+                    </dd>
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.topicName)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.topicName)
+                    </dd>
+                </dl>
+            </div>
+            <div class="option-detail">
+
+                <div class="back-admin">
+                    <a asp-action="DanhSachTopic">Danh sách chủ đề</a>
+                </div>
+                <div class="main-option">
+                    <a asp-action="CapNhatTopic" asp-route-id="@Model.topicId">Chỉnh sửa</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
 
 <script>
     const active_lienhe = document.querySelector('#active--chude')

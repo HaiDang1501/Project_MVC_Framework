@@ -25,7 +25,10 @@ namespace Courses_MVC.Controllers
         // GET: ExerciseInUsers
         public async Task<IActionResult> DanhSachBTUser()
         {
+            
             var exerciseInUser = _context.ExerciseInUsers.Include(e => e.AppUser).Include(e => e.Exercise);
+            var count = exerciseInUser.Count();
+            ViewData["count"] = count;
             return View(await exerciseInUser.ToListAsync());
         }
 
@@ -34,14 +37,19 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> DanhSachBTUser(string search)
         {
             var exerciseInUser = from exInUs in _context.ExerciseInUsers select exInUs;
+            var count = exerciseInUser.Count();
+            
             if (!string.IsNullOrEmpty(search))
             {
                 exerciseInUser = exerciseInUser.Where(c => c.AppUser.UserName.Contains(search)).Include(c => c.AppUser).Include(c => c.Exercise);
+                count = exerciseInUser.Count();
             }
             else
             {
                 exerciseInUser = exerciseInUser.Include(c => c.AppUser).Include(c => c.Exercise);
+                count = exerciseInUser.Count();
             }
+            ViewData["count"] = count;
             return View(await exerciseInUser.ToListAsync());
         }
 
@@ -113,16 +121,35 @@ namespace Courses_MVC.Controllers
         }
 
         // GET: ExerciseInUsers/Details/5
-        public async Task<IActionResult> ChiTietBTUser(int excerciseId, string userId)
+        public async Task<IActionResult> ChiTietBTUser(int exerciseId, string userId)
         {
-            if (excerciseId == 0 && userId == null)
+            if (exerciseId == 0 && userId == null)
             {
                 return NotFound();
             }
 
             var result = await _context.ExerciseInUsers
-                .Where(c => c.userId == userId).Include(e => e.AppUser).Include(e => e.Exercise).Where(c => c.exerciseId == excerciseId).FirstOrDefaultAsync();
-            ViewData["userId"] = new SelectList(_context.Users, "Id", "UserName", result.userId );
+                .Where(c => c.userId == userId).Include(e => e.AppUser).Include(e => e.Exercise).Where(c => c.exerciseId == exerciseId).FirstOrDefaultAsync();
+            //ViewData["userId"] = new SelectList(_context.Users, "Id", "UserName", result.userId );
+            //ViewData["exerciseId"] = new SelectList(_context.Exercises, "exerciseId", "exerciseName", result.exerciseId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return View(result);
+        }
+
+        public async Task<IActionResult> CapNhatBTUser(int exerciseId, string userId)
+        {
+            if (exerciseId == 0 && userId == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _context.ExerciseInUsers
+                .Where(c => c.userId == userId).Include(e => e.AppUser).Include(e => e.Exercise).Where(c => c.exerciseId == exerciseId).FirstOrDefaultAsync();
+            ViewData["userId"] = new SelectList(_context.Users, "Id", "UserName", result.userId);
             ViewData["exerciseId"] = new SelectList(_context.Exercises, "exerciseId", "exerciseName", result.exerciseId);
             if (result == null)
             {
@@ -133,11 +160,14 @@ namespace Courses_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChiTietBTUser(ExerciseInUser exerciseInUser)
+        public async Task<IActionResult> CapNhatBTUser(ExerciseInUser exerciseInUser)
         {
-
-            var result = _context.ExerciseInUsers
-                .Where(c => c.userId == exerciseInUser.userId).Include(e => e.AppUser).Include(e => e.Exercise).Where(c => c.exerciseId == exerciseInUser.exerciseId).FirstOrDefault();
+            if (exerciseInUser.exerciseId == 0 && exerciseInUser.userId == null)
+            {
+                return NotFound();
+            }
+            var result =await _context.ExerciseInUsers
+                .Where(c => c.userId == exerciseInUser.userId).Include(e => e.AppUser).Include(e => e.Exercise).Where(c => c.exerciseId == exerciseInUser.exerciseId).FirstOrDefaultAsync();
 
 
             if (result == null)

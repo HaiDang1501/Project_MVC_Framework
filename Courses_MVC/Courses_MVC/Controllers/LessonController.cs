@@ -69,6 +69,8 @@ namespace Courses_MVC.Controllers
         {
             var listlesson = _context.Lessons
                             .Include(l => l.Course);
+            var count = listlesson.Count();
+            ViewData["count"] = count;
             return View(await listlesson.ToListAsync()); 
             
         }
@@ -77,15 +79,20 @@ namespace Courses_MVC.Controllers
         {
             var listlesson = _context.Lessons
                             .Include(l => l.Course);
-            if(!string.IsNullOrEmpty(searchString))
+            var count = listlesson.Count();
+            
+            if (!string.IsNullOrEmpty(searchString))
             {
                 listlesson = listlesson.Where(l => l.title.Contains(searchString)).Include(l => l.Course);
+                count = listlesson.Count();
             }    
             else
             {
                 listlesson = _context.Lessons
                             .Include(l => l.Course);
+                count = listlesson.Count();
             }
+            ViewData["count"] = count;
             return View(await listlesson.ToListAsync());
         }
 
