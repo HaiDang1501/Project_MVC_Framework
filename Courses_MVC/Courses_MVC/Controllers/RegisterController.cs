@@ -91,7 +91,7 @@ namespace Courses_MVC.Controllers
                 return RedirectToAction(nameof(DanhSachDangKi));
             }
             StatusMessage = $"Thêm không thành công ";
-            return View();
+            return RedirectToAction(nameof(DanhSachDangKi));
         }
 
         public IActionResult ThemDangKi()
@@ -133,8 +133,6 @@ namespace Courses_MVC.Controllers
         public IActionResult ChiTietDangKi(int? id)
         {
             var result = _context.Registers.Include(c => c.AppUser).Include(c => c.Course).FirstOrDefault(c => c.registerId == id);
-            ViewData["user"] = new SelectList(_context.Users, "Id", "UserName", result.userId);
-            ViewData["course"] = new SelectList(_context.Courses, "courseId", "courseName", result.courseId);
             return View(result);
         }
 
@@ -165,7 +163,7 @@ namespace Courses_MVC.Controllers
             }
             else
             {
-                StatusMessage = $"Thêm không thành công ";
+                StatusMessage = $"Cập nhật thành công ";
                 return RedirectToAction(nameof(DanhSachDangKi));
             }
         }

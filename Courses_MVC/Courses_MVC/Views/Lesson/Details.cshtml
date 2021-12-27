@@ -1,7 +1,7 @@
 ﻿@model Courses_MVC.Models.Lesson
 
 @{
-    ViewData["Title"] = "Chi tiết khóa học";
+    ViewData["Title"] = "Chi tiết bài học";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,7 +15,6 @@
         <h1 class="text-center mt-3">@ViewData["Title"]</h1>
         <div class="ml-5">
             <div class="content-option">
-                <h4>Bài học</h4>
                 <hr />
 
                 <dl class="row">
@@ -42,10 +41,10 @@
             <div class="option-detail">
 
                 <div class="back-admin">
-                    <a asp-action="Index">Back to List</a>
+                    <a asp-action="Index">Trở về</a>
                 </div>
                 <div class="main-option">
-                    <a asp-action="Updatelesson" asp-route-id="@Model.lessonId">Edit</a>
+                    <a asp-action="Updatelesson" asp-route-id="@Model.lessonId">Chỉnh sửa</a>
                 </div>
 
             </div>

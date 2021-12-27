@@ -288,6 +288,13 @@ namespace Courses_MVC.Migrations
                     b.Property<float>("scores")
                         .HasColumnType("float");
 
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100)
+                        .HasDefaultValue("Chưa chấm điểm");
+
                     b.Property<DateTime>("submit")
                         .HasColumnType("datetime");
 

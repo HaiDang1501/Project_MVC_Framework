@@ -19,17 +19,37 @@ namespace Courses_MVC.Controllers
             _context = context;
         }
 
-
+        [TempData]
+        public string StatusMessage { get; set; }
 
         // GET: Discount
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> DanhSachGiamGia()
         {
-            var TopicContext = _context.Discounts.Include(c => c.discountId);
-            return View(await TopicContext.ToListAsync());
+            var discountContext = _context.Discounts;
+            var count = discountContext.Count();
+            ViewData["count"] = count;
+            return View(await discountContext.ToListAsync());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DanhSachGiamGia(string search)
+        {
+
+            var discountContext = from discount in _context.Discounts select discount;
+            var count = discountContext.Count();
+            if (!string.IsNullOrEmpty(search))
+            {
+                discountContext = discountContext.Where(c => c.discription.Contains(search));
+                count = discountContext.Count();
+            }
+            
+            ViewData["count"] = count;
+            return View(await discountContext.ToListAsync());
         }
 
         // GET: Discount/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> ChiTietGiamGia(int? id)
         {
             if (id == null)
             {
@@ -46,81 +66,80 @@ namespace Courses_MVC.Controllers
             return View(discount);
         }
 
+        public async Task<IActionResult> CapNhatGiamGia(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var discount = await _context.Discounts
+                .FirstOrDefaultAsync(m => m.discountId == id);
+            if (discount == null)
+            {
+                return NotFound();
+            }
+
+            return View(discount);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CapNhatGiamGia(int id, Discount discount)
+        {
+            if(id == 0)
+            {
+                return NotFound();
+            }
+            var result = await _context.Discounts
+                .FirstOrDefaultAsync(m => m.discountId == id);
+            if (result != null)
+            {
+                result.discription = discount.discription;
+                result.sale = discount.sale;
+                result.time = discount.time;
+                _context.SaveChanges(); ;
+                StatusMessage = $"Cập nhật thành công";
+                return RedirectToAction(nameof(DanhSachGiamGia));
+            }
+            else
+            {
+                StatusMessage = $"Cập nhật không thành công ";
+                return RedirectToAction(nameof(DanhSachGiamGia));
+            }
+        }
+
         // GET: discount/Create
-        public IActionResult Create()
+        public IActionResult ThemGiamGia()
         {
             return View();
         }
 
-        // POST: discount/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("discountId,discription,time,sale")] Discount discount)
+        public IActionResult ThemGiamGia( Discount discount)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(discount);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(discount);
-        }
-
-        // GET: discount/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var discount = await _context.Discounts.FindAsync(id);
-            if (discount == null)
-            {
-                return NotFound();
-            }
-            return View(discount);
-        }
-
-        // POST: discount/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("discountId,discription,time,sale")] Discount discount)
-        {
-            if (id != discount.discountId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                _context.Discounts.Add(new Discount()
                 {
-                    _context.Update(discount);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DiscountExists(discount.discountId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                    time = discount.time,
+                    sale = discount.sale,
+                    discription = discount.discription
+
+                });
+                _context.SaveChanges();
+                StatusMessage = $"Thêm thành công";
+                return RedirectToAction(nameof(DanhSachGiamGia));
             }
-            return View(discount);
+            StatusMessage = $"Thêm không thành công";
+            return RedirectToAction(nameof(DanhSachGiamGia));
+
         }
 
-        // GET: discount/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        
+        public async Task<IActionResult> XoaGiamGia(int? id)
         {
             if (id == null)
             {
@@ -133,8 +152,10 @@ namespace Courses_MVC.Controllers
             {
                 return NotFound();
             }
-
-            return View(discount);
+            _context.Discounts.Remove(discount);
+            await _context.SaveChangesAsync();
+            StatusMessage = $"Xóa thành công chương trình giảm giá {discount.discription}";
+            return RedirectToAction(nameof(DanhSachGiamGia));
         }
 
         // POST: discount/Delete/5

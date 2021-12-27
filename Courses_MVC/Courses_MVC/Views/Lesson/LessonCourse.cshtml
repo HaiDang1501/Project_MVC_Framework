@@ -2,181 +2,181 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "Khóa học";
 }
 @model IEnumerable<Courses_MVC.Models.Lesson>
 @{
 
 
     var listLesson = Model.ToArray();
-    if (listLesson.Length == 0)
-    {
-        <script>
-            alert("Khóa học đang phát triển");
-        </script>
-    }
-    else
-    {
-        var courseNama = listLesson[0].Course.courseName;
-        var courseDes = listLesson[0].Course.discription;
-        var coursePrice = listLesson[0].Course.price;
-        var courseTime = listLesson[0].Course.totalTime;
-        var courseCount = listLesson.Length;
-        var totalStuden = 20;
+    <partial name="_AlertMessage" />
+
+    var courseNama = listLesson[0].Course.courseName;
+    var courseDes = listLesson[0].Course.discription;
+    var coursePrice = listLesson[0].Course.price;
+    var courseTime = listLesson[0].Course.totalTime;
+    var courseCount = listLesson.Length;
+    var courseId = listLesson[0].courseId;
+    var coureValue = listLesson[0].Course.rating;
+    var totalStuden = 20;
 
 
-        <link href="~/css/CourseDetail.css" rel="stylesheet" />
-        <body>
+    <link href="~/css/CourseDetail.css" rel="stylesheet" />
+    <body>
 
-            <div class="container col-9 container-custom">
-                <div class="course-header mt-5 ">
-                    <div class="course-header-left col-7">
-                        <h2>@courseNama</h2>
-                        <div class="course-student-values">
-                            <p>@totalStuden</p>
-                            <p class="value">8.5/10</p>
-                        </div>
-                        <div class="course-des">
-                            <p>
-                                @courseDes
-                            </p>
-                        </div>
+        <div class="container col-9 container-custom">
+            <div class="course-header mt-5 ">
+                <div class="course-header-left col-7">
+                    <h2>@courseNama</h2>
+                    <div class="course-student-values">
+                        <p>@totalStuden</p>
+                        <p class="value">@coureValue/10</p>
                     </div>
-                    <div class="course-header-right col-3">
-                        <div class="course-time">
-                            <p class="course-time-title">
-                                <i class="far fa-clock"></i>Thời gian:
-                            </p>
-                            <p>@courseTime</p>
-                        </div>
-                        <div class="count-lesson">
-                            <p class="count-lesson-title">
-                                <i class="fab fa-leanpub"></i>Số bài học
-                            </p>
-                            <p>@courseCount</p>
-                        </div>
-                        <div class="course-price">
-                            <p><i class="fas fa-donate"></i>@coursePrice VNĐ</p>
-                        </div>
-                    </div>
-                    <div class="course-header-right-add-button col-2">
-                        <div class="add-car-btn">
-                            <a href=""><i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                        </div>
+                    <div class="course-des">
+                        <p>
+                            @courseDes
+                        </p>
                     </div>
                 </div>
-                <div class="course-lesson mt-5 mb-5 pb-5">
-
-                    @foreach (var item in Model)
-                    {
-                        <div class="one-lesson">
-                            <div class="one-lesson-name">
-                                <a href="/lesson/LessonDetail?Id=@item.lessonId">@item.title</a>
-                            </div>
-                            <div class="one-lesson-des">
-                                <p><b>Mô tả:</b> @item.description</p>
-                            </div>
-
-                        </div>
-                    }
+                <div class="course-header-right col-3">
+                    <div class="course-time">
+                        <p class="course-time-title">
+                            <i class="far fa-clock"></i>Thời gian:
+                        </p>
+                        <p>@courseTime</p>
+                    </div>
+                    <div class="count-lesson">
+                        <p class="count-lesson-title">
+                            <i class="fab fa-leanpub"></i>Số bài học
+                        </p>
+                        <p>@courseCount</p>
+                    </div>
+                    <div class="course-price">
+                        <p><i class="fas fa-donate"></i>@coursePrice VNĐ</p>
+                    </div>
+                </div>
+                <div class="course-header-right-add-button col-2">
+                    <div class="add-car-btn btn-success">
+                        <a href="/Courses/AddtoCartInLesson?courseId=@courseId">Đăng kí ngay</a>
+                    </div>
                 </div>
             </div>
+            <div class="course-lesson mt-5 mb-5 pb-5">
 
-            <div class="container col-9 container-custom">
-                <div class="danhgiachung">
-                    <div class="danhgia__title">
-                        <p>Đánh giá của khách hàng về khóa học</p>
-                    </div>
-                    <div class="row padding--css">
-                        <div class="mumber-evaluate col-md-4">
-                            <h2 class="number-block">4.5</h2>
-                            <div class="star-evaluate">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                            </div>
-                            <p>163 đánh giá</p>
+                @foreach (var item in Model)
+                {
+                    <div class="one-lesson">
+                        <div class="one-lesson-name">
+                            <a href="/lesson/LessonDetail?Id=@item.lessonId">@item.title</a>
                         </div>
-                        <!-- <img id="dalat_danhgia" src="DuLichTrongNuoc__ChiTiet/dalat_danhgia.jpg" alt="Hình ảnh Đà Lạt"> -->
-                        <div class="col-md-8">
-                            <div class="">
-                                <div class="voting-block">
-                                    <div class="voting-element ">
-                                        <div class="five-star"></div>
-                                    </div>
-                                    <div class="voting-star">
-                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                    </div>
-                                    <p class="voting-number">80%</p>
+                        <div class="one-lesson-des">
+                            <p><b>Mô tả:</b> @item.description</p>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="container col-9 container-custom">
+            <div class="danhgiachung">
+                <div class="danhgia__title">
+                    <p>Đánh giá của khách hàng về khóa học</p>
+                </div>
+                <div class="row padding--css">
+                    <div class="mumber-evaluate col-md-4">
+                        <h2 class="number-block">4.5</h2>
+                        <div class="star-evaluate">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <p>163 đánh giá</p>
+                    </div>
+                    <!-- <img id="dalat_danhgia" src="DuLichTrongNuoc__ChiTiet/dalat_danhgia.jpg" alt="Hình ảnh Đà Lạt"> -->
+                    <div class="col-md-8">
+                        <div class="">
+                            <div class="voting-block">
+                                <div class="voting-element ">
+                                    <div class="five-star"></div>
                                 </div>
-                                <div class="voting-block">
-                                    <div class="voting-element ">
-                                        <div class="four-star"></div>
-                                    </div>
-                                    <div class="voting-star">
-                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                                    </div>
-                                    <p class="voting-number">20%</p>
+                                <div class="voting-star">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                                 </div>
-                                <div class="voting-block">
-                                    <div class="voting-element ">
-                                        <div class="three-star"></div>
-                                    </div>
-                                    <div class="voting-star">
-                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-                                    </div>
-                                    <p class="voting-number">0%</p>
+                                <p class="voting-number">80%</p>
+                            </div>
+                            <div class="voting-block">
+                                <div class="voting-element ">
+                                    <div class="four-star"></div>
                                 </div>
-                                <div class="voting-block">
-                                    <div class="voting-element ">
-                                        <div class="tow-star"></div>
-                                    </div>
-                                    <div class="voting-star">
-                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-                                    </div>
-                                    <p class="voting-number">0%</p>
+                                <div class="voting-star">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
                                 </div>
-                                <div class="voting-block">
-                                    <div class="voting-element ">
-                                        <div class="one-star"></div>
-                                    </div>
-                                    <div class="voting-star">
-                                        <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-                                    </div>
-                                    <p class="voting-number">0%</p>
+                                <p class="voting-number">20%</p>
+                            </div>
+                            <div class="voting-block">
+                                <div class="voting-element ">
+                                    <div class="three-star"></div>
                                 </div>
+                                <div class="voting-star">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                                <p class="voting-number">0%</p>
+                            </div>
+                            <div class="voting-block">
+                                <div class="voting-element ">
+                                    <div class="tow-star"></div>
+                                </div>
+                                <div class="voting-star">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                                <p class="voting-number">0%</p>
+                            </div>
+                            <div class="voting-block">
+                                <div class="voting-element ">
+                                    <div class="one-star"></div>
+                                </div>
+                                <div class="voting-star">
+                                    <i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                                <p class="voting-number">0%</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="container col-9 container-custom mt-3">
-                <h3 class="title-h3">Nhận xét của học viên</h3>
-                <form action="" method="post" class="col-10 mt-4 offset-1 ">
-                    <div class="form-group col-12">
+        </div>
+        <div class="container col-9 container-custom mt-3">
+            <h3 class="title-h3">Nhận xét của học viên</h3>
+            <form asp-action="ThemBinhLuan" asp-controller="Comments" method="post" class="col-10 mt-4 offset-1 ">
+                <input type="hidden" name="courseId" value="@courseId" class="form-control mb-2 " />
+                <div class="form-group ">
+                    <input name="content" class="form-control mb-2" required placeholder="Bạn có thắc mắc về điều gì?" />
+                </div>
+                <div class="form-group mt-4">
+                    <label class="control-label">Điểm đánh giá</label>
+                    <input type="number" name="evaluate" class="form-control mb-2 " required />
+                </div>
+                <div class="form-group submit-form-css">
+                    <input type="submit" name="submit" value="Viết đánh giá" class="button--design " />
+                    <input type="button" name="more" value="Xem thêm đánh giá" class="button--design " />
+                </div>
 
-                        <input name="Title" class="form-control mb-2" required placeholder="Bạn có thắc mắc về điều gì?" />
-                    </div>
-                    <div class="form-group submit-form-css">
-                        <input type="submit" name="submit" value="Viết đánh giá" class="button--design " />
-                        <input type="button" name="more" value="Xem thêm đánh giá" class="button--design " />
-                    </div>
+            </form>
 
-                </form>
+            <hr>
 
-                <hr>
-
-                <div class="content-comment col-11">
-                    <div class="content-comment__icon">
-                        <i class="fas fa-user-circle"></i>
+            <div class="content-comment col-11">
+                <div class="content-comment__icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="content-comment-block">
+                    <p class="content-comment__Title">Trần Phan Hải Đăng</p>
+                    <div class="content-comment__star">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> ( 9/10 )
                     </div>
-                    <div class="content-comment-block">
-                        <p class="content-comment__Title">Trần Phan Hải Đăng</p>
-                        <div class="content-comment__star">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> ( 9/10 )
-                        </div>
-                        <p class="content-comment__content">Thầy giáo dạy đơn giản dễ hiểu phù hợp cho người bắt đầu. Very good</p>
-                    </div>
+                    <p class="content-comment__content">Thầy giáo dạy đơn giản dễ hiểu phù hợp cho người bắt đầu. Very good</p>
                 </div>
             </div>
-        </body>
-    }
+        </div>
+    </body>
 
 }

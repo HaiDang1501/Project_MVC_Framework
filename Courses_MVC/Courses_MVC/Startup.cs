@@ -128,6 +128,12 @@ namespace Courses_MVC
             //Đăng kí dịch vụ AuthorizationHandler
             services.AddTransient<IAuthorizationHandler, AppAuthorizationHandler>();
 
+
+            services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
+            services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
+                cfg.Cookie.Name = "KhanhDuy";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
+                cfg.IdleTimeout = new TimeSpan(0, 60, 0);    // Thời gian tồn tại của Session
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -147,6 +153,8 @@ namespace Courses_MVC
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession(); // Sử dụng session
 
             app.UseAuthentication();//phục hồi thông tin đã đăng nhập, xác thực, thông tin lưu trữ user, phân quyền user
             app.UseAuthorization();

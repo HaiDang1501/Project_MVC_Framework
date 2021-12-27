@@ -25,6 +25,7 @@ namespace Courses_MVC.Models
         public string content { get; set; }
 
         [Display(Name = "Điểm đánh giá")]
+        [Range(0,10,ErrorMessage ="{0} phải từ 0 đến 10 điểm")]
         [Required(ErrorMessage = "Phải nhập {0}")]
         public float evaluate { get; set; }   
 

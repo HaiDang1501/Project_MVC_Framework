@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Courses_MVC.Data;
 using Courses_MVC.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Courses_MVC.Controllers
 {
@@ -14,9 +15,12 @@ namespace Courses_MVC.Controllers
     {
         private readonly CoursesContext _context;
 
-        public ExerciseInUsersController(CoursesContext context)
+        private readonly UserManager<AppUser> _userManager;
+
+        public ExerciseInUsersController(CoursesContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [TempData]
@@ -110,7 +114,8 @@ namespace Courses_MVC.Controllers
                     exerciseId = exerciseInUser.exerciseId,
                     scores = exerciseInUser.scores,
                     submit = exerciseInUser.submit,
-                    content = exerciseInUser.content
+                    content = exerciseInUser.content,
+                    status = exerciseInUser.status
                 });
                 _context.SaveChanges();
                 StatusMessage = $"Thêm thành công ";
@@ -182,6 +187,7 @@ namespace Courses_MVC.Controllers
                 result.scores = exerciseInUser.scores;
                 result.submit = exerciseInUser.submit;
                 result.content = exerciseInUser.content;
+                result.status = exerciseInUser.status;
                 _context.SaveChanges();
                 StatusMessage = $"Cập nhật thành công ";
                 return RedirectToAction(nameof(DanhSachBTUser));
@@ -191,13 +197,13 @@ namespace Courses_MVC.Controllers
 
         }
 
-        public IActionResult XoaBTUser(int excerciseId, string userId)
+        public IActionResult XoaBTUser(int exerciseId, string userId)
         {
-            if(excerciseId == 0 && userId == null)
+            if(exerciseId == 0 && userId == null)
             {
                 return NotFound();
             }
-            var topic = _context.ExerciseInUsers.Where(c=>c.userId == userId).Where(c=>c.exerciseId == excerciseId).FirstOrDefault();
+            var topic = _context.ExerciseInUsers.Where(c=>c.userId == userId).Where(c=>c.exerciseId == exerciseId).FirstOrDefault();
             if (topic == null)
             {
                 return NotFound();
@@ -208,45 +214,27 @@ namespace Courses_MVC.Controllers
             return RedirectToAction(nameof(DanhSachBTUser));
         }
 
-        
-        // POST: ExerciseInUsers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ChiTietBTUser(string id, [Bind("content,submit,scores")] ExerciseInUser exerciseInUser)
-        //{
-        //    if (id != exerciseInUser.userId )
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(exerciseInUser);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!ExerciseInUserExists(exerciseInUser.userId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["studentId"] = new SelectList(_context.Users, "Id", "Id", exerciseInUser.userId);
-        //    ViewData["exerciseId"] = new SelectList(_context.Exercises, "exerciseId", "content", exerciseInUser.exerciseId);
-        //    return View(exerciseInUser);
-        //}
+        public IActionResult SubmitExercise(int exerciseId, string content)
+        {
+            var user = _userManager.GetUserId(User);
+            if (content == null)
+            {
+                ModelState.AddModelError(string.Empty, "Chưa có nội dung bài làm");
+            }
+            _context.ExerciseInUsers.Add(new ExerciseInUser()
+            {
+                userId = user,
+                exerciseId = exerciseId,
+                content = content,
+                submit = DateTime.UtcNow
+            }) ;
+            _context.SaveChanges();
+            StatusMessage = $"Nộp bài thành công ";
+            return RedirectToAction(nameof(DanhSachBTUser));
+        }
 
-        
+
 
         private bool ExerciseInUserExists(string id)
         {

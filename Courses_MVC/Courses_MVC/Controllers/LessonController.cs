@@ -97,22 +97,19 @@ namespace Courses_MVC.Controllers
         }
 
 
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var lesson = await _context.Lessons
-                .Include(c => c.courseId)
-                .FirstOrDefaultAsync(m => m.lessonId == id);
+            var lesson = _context.Lessons.Include(l => l.Course).FirstOrDefault(l => l.lessonId == id);
             if (lesson == null)
             {
                 return NotFound();
             }
-
             return View(lesson);
+
         }
         public IActionResult CreateLesson()
         {
@@ -174,13 +171,13 @@ namespace Courses_MVC.Controllers
                 StatusMessage = $"Cập nhật không thành công";
                 return RedirectToAction(nameof(ListlessonAdmin));
             }
-            
+
         }
 
 
         public IActionResult DeleteLesson(int? id)
         {
-            
+
 
             if (id == null)
             {
@@ -214,7 +211,7 @@ namespace Courses_MVC.Controllers
             StatusMessage = $"Xóa thành công";
             return RedirectToAction(nameof(ListlessonAdmin));
         }
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

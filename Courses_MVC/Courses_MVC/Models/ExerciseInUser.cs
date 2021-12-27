@@ -23,6 +23,11 @@ namespace Courses_MVC.Models
         [Display(Name = "Bài làm")]
         public string content { get; set; }
 
+        [Required(ErrorMessage = "Phải nhập {0}")]
+        
+        [Display(Name = "Tình trạng")]
+        public string status { get; set; }
+
         public AppUser AppUser { get; set; }
 
         [Required(ErrorMessage = "Phải nhập {0}")]

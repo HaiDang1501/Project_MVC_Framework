@@ -25,6 +25,10 @@ namespace Courses_MVC.configurations
             builder.Property(x => x.scores)
                 .HasColumnType("float");
 
+            builder.Property(x => x.status).HasDefaultValue("Chưa chấm điểm")
+                .HasMaxLength(100);
+            
+
             builder.HasOne(x => x.Exercise)
                 .WithMany(x => x.ExerciseInUsers)
                 .HasForeignKey(x => x.exerciseId);

@@ -219,7 +219,35 @@ table {
     margin-top:10px !important;
     word-wrap: break-word;
 }
+}
 
+dd {
+    text-align: left;
+}
+
+.cart-icon-number {
+    /* background-color: orangered; */
+    /* padding: 0 2px; */
+    /* border-radius: 48%; */
+    /* border: orangered; */
+    /* border-color: orange; */
+    font-size: 14px;
+    /* display: block; */
+    color: orangered;
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    font-weight: 500;
+}
+
+.cart-icon {
+    position: relative;
+}
+
+    .cart-icon i {
+        color: orangered;
+        font-size: 20px;
+    }
 .count--css {
     font-size: 18px;
     margin-left: 30px;

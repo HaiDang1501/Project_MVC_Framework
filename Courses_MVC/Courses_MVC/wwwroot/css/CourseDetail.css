@@ -47,7 +47,7 @@
 }
 
 .course-header-right {
-    width: 25%;
+    width: 35%;
     padding-top: 43px;
     padding-right: 20px;
     border-right: #a5adba 1px solid;
@@ -79,17 +79,17 @@
     padding: 10px;
 }
 
-    .course-header-right-add-button .add-car-btn {
+.add-car-btn {
         text-align: center;
         align-content: center;
         justify-content: center;
-        padding: 5px;
+        padding: 10px;
         background-color: orangered;
         border-radius: 10px;
         margin-top: 75px;
     }
 
-        .course-header-right-add-button .add-car-btn:hover {
+        .add-car-btn:hover {
             transform: scale(1.08);
             cursor: pointer;
         }
