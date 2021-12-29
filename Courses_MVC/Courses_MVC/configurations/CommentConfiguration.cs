@@ -14,8 +14,9 @@ namespace Courses_MVC.configurations
         {
             builder.ToTable("comment");
 
-            builder.HasKey(x => new { x.courseId, x.userId });
+            builder.HasKey(x => x.cmtId );
 
+            builder.Property(x => x.cmtId).ValueGeneratedOnAdd();
 
             builder.Property(x => x.content).IsRequired()
                 .HasMaxLength(1000);

@@ -29,7 +29,11 @@ namespace Courses_MVC.Controllers
                                 .Where(l => l.courseId == id)
                                 .Include(l => l.Course)
                                 ).ToList();
-            if(courseDetail.ToArray().Length ==0)
+            var listCmt = _context.Comments.Include(c => c.AppUser).Include(c => c.Course).Where(c=>c.courseId == id).ToList();
+            ViewBag.listCmt = listCmt;
+            var countCmt = listCmt.Count();
+            ViewBag.countCmt = countCmt;
+            if (courseDetail.ToArray().Length ==0)
             {
                 StatusMessage = "Khóa học đang được phát triển";
                 return Redirect("/Courses/DanhSachHienTHi");

@@ -1,10 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Courses_MVC.Models;
+@using Microsoft.AspNetCore.Identity;
 @{
     ViewData["Title"] = "Khóa học";
 }
 @model IEnumerable<Courses_MVC.Models.Lesson>
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 @{
 
 
@@ -19,11 +20,11 @@
     var courseId = listLesson[0].courseId;
     var coureValue = listLesson[0].Course.rating;
     var totalStuden = 20;
+    //Hải Đăng
 
 
     <link href="~/css/CourseDetail.css" rel="stylesheet" />
     <body>
-
         <div class="container col-9 container-custom">
             <div class="course-header mt-5 ">
                 <div class="course-header-left col-7">
@@ -75,6 +76,8 @@
 
                     </div>
                 }
+
+
             </div>
         </div>
 
@@ -89,7 +92,7 @@
                         <div class="star-evaluate">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
                         </div>
-                        <p>163 đánh giá</p>
+                        <p>@ViewBag.countCmt đánh giá</p>
                     </div>
                     <!-- <img id="dalat_danhgia" src="DuLichTrongNuoc__ChiTiet/dalat_danhgia.jpg" alt="Hình ảnh Đà Lạt"> -->
                     <div class="col-md-8">
@@ -146,36 +149,56 @@
         </div>
         <div class="container col-9 container-custom mt-3">
             <h3 class="title-h3">Nhận xét của học viên</h3>
-            <form asp-action="ThemBinhLuan" asp-controller="Comments" method="post" class="col-10 mt-4 offset-1 ">
-                <input type="hidden" name="courseId" value="@courseId" class="form-control mb-2 " />
-                <div class="form-group ">
-                    <input name="content" class="form-control mb-2" required placeholder="Bạn có thắc mắc về điều gì?" />
-                </div>
-                <div class="form-group mt-4">
-                    <label class="control-label">Điểm đánh giá</label>
-                    <input type="number" name="evaluate" class="form-control mb-2 " required />
-                </div>
-                <div class="form-group submit-form-css">
-                    <input type="submit" name="submit" value="Viết đánh giá" class="button--design " />
-                    <input type="button" name="more" value="Xem thêm đánh giá" class="button--design " />
-                </div>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <form asp-action="ThemBinhLuanUI" asp-controller="Comments" method="post" class="col-10 mt-4 offset-1 ">
+                    <input type="hidden" name="courseId" value="@courseId" class="form-control mb-2 " />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group ">
+                        <input name="content" class="form-control mb-2" required placeholder="Bạn có thắc mắc về điều gì?" />
+                    </div>
+                    <div class="form-group mt-4">
+                        <label class="control-label">Điểm đánh giá</label>
+                        <input type="number" min="0" max="10" step="0.01" name="evaluate" class="form-control mb-2 " required />
+                    </div>
+                    <div class="form-group submit-form-css">
+                        <input type="submit" name="submit" value="Viết đánh giá" class="button--design " />
+                        <input type="button" name="more" value="Xem thêm đánh giá" class="button--design " />
+                    </div>
 
-            </form>
+                </form>
+            }
+            else
+            {
+                <div class="form-group submit-form-css">
+                    <a class="button--design " id="login" asp-area="Identity" asp-page="/Account/Login" style="color:#000;" onclick="return confirm('Bạn phải đăng nhập mới được viết bình luận')">
+                    Viết đánh giá
+                    </a>
+                    <a class="button--design " href="#" style="color:#000;">Xem thêm đánh giá</a>
+                </div>
+                
+                
+            }
+
 
             <hr>
-
-            <div class="content-comment col-11">
-                <div class="content-comment__icon">
-                    <i class="fas fa-user-circle"></i>
-                </div>
-                <div class="content-comment-block">
-                    <p class="content-comment__Title">Trần Phan Hải Đăng</p>
-                    <div class="content-comment__star">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> ( 9/10 )
+            @foreach (var item in ViewBag.listCmt)
+            {
+                <div class="content-comment col-11 mb-5">
+                    <div class="content-comment__icon">
+                        <i class="fas fa-user-circle"></i>
                     </div>
-                    <p class="content-comment__content">Thầy giáo dạy đơn giản dễ hiểu phù hợp cho người bắt đầu. Very good</p>
+                    <div class="content-comment-block">
+                        <p class="content-comment__Title">@item.AppUser.UserName</p>
+                        <div class="content-comment__star">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> ( @item.evaluate/10 )
+                        </div>
+                        <p class="content-comment__content">@item.content</p>
+                    </div>
                 </div>
-            </div>
+            }
+
+
         </div>
     </body>
 

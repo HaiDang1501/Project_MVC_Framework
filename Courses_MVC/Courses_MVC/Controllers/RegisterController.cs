@@ -7,15 +7,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Courses_MVC.Data;
 using Courses_MVC.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Courses_MVC.Controllers
 {
     public class RegisterController : Controller
     {
         private readonly CoursesContext _context;
-        public RegisterController(CoursesContext context)
+        private readonly UserManager<AppUser> _userManager;
+        public RegisterController(CoursesContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [TempData]
@@ -166,6 +169,24 @@ namespace Courses_MVC.Controllers
                 StatusMessage = $"Cập nhật thành công ";
                 return RedirectToAction(nameof(DanhSachDangKi));
             }
+        }
+        public IActionResult ConfirmCart(List<int> courseId)
+        {
+            var user = _userManager.GetUserId(User);
+            foreach (var item in courseId)
+            {
+                _context.Registers.Add(new Register()
+                {
+                    userId = user,
+                    courseId = item,
+                    timeReg = DateTime.UtcNow
+                });
+                _context.SaveChanges();
+
+            }
+            StatusMessage = $"Đăng ký thành công";
+            int registerStatus = 1;
+            return RedirectToAction("ClearAfterRegister", "Courses", new { status = registerStatus });
         }
     }
 }

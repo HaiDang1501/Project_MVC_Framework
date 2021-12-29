@@ -6,7 +6,7 @@
     ViewData["Title"] = "Danh sách khóa học";
 
 }
-<partial name="_AlertMessage" />
+
 <link href="~/css/Courses.css" rel="stylesheet" />
 <div>
     <div class="courses-containner">
@@ -22,6 +22,7 @@
             </div>
         </div>
         <div class="courses-body">
+            <partial name="_AlertMessage" />
             @foreach (var tp in ViewBag.listTopic)
             {
                 <div class="group-topic">

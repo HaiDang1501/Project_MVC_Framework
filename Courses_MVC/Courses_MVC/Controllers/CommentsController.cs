@@ -54,9 +54,9 @@ namespace Courses_MVC.Controllers
         }
 
         // GET: Comments/Details/5
-        public async Task<IActionResult> ChiTietBinhLuan(int courseId, string userId)
+        public async Task<IActionResult> ChiTietBinhLuan(int id)
         {
-            if (courseId == -1 && userId == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -64,8 +64,7 @@ namespace Courses_MVC.Controllers
             var comment = await _context.Comments
                 .Include(c => c.AppUser)
                 .Include(c => c.Course)
-                .Where(c=>c.courseId == courseId)
-                .FirstOrDefaultAsync(m => m.userId == userId);
+                .FirstOrDefaultAsync(m => m.cmtId == id);
             if (comment == null)
             {
                 return NotFound();
@@ -75,9 +74,9 @@ namespace Courses_MVC.Controllers
         }
 
         
-        public async Task<IActionResult> CapNhatBinhLuan(int courseId, string userId)
+        public async Task<IActionResult> CapNhatBinhLuan(int id)
         {
-            if (courseId == -1 && userId == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -85,8 +84,7 @@ namespace Courses_MVC.Controllers
             var comment = await _context.Comments
                 .Include(c => c.AppUser)
                 .Include(c => c.Course)
-                .Where(c => c.courseId == courseId)
-                .FirstOrDefaultAsync(m => m.userId == userId);
+                .FirstOrDefaultAsync(m => m.cmtId == id);
             ViewData["user"] = new SelectList(_context.Users, "Id", "UserName", comment.userId);
             ViewData["course"] = new SelectList(_context.Courses, "courseId", "courseName", comment.courseId);
             if (comment == null)
@@ -99,15 +97,15 @@ namespace Courses_MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CapNhatBinhLuan( Comment comment)
+        public async Task<IActionResult> CapNhatBinhLuan(int id, Comment comment)
         {
-            if (comment.courseId == -1 && comment.userId == null)
+            if (comment.cmtId == null)
             {
                 return NotFound();
             }
 
             var result = await _context.Comments
-               .Where(c => c.userId == comment.userId).Include(e => e.AppUser).Include(e => e.Course).Where(c => c.courseId == comment.courseId).FirstOrDefaultAsync();
+               .Where(c => c.cmtId == id).Include(e => e.AppUser).Include(e => e.Course).FirstOrDefaultAsync();
 
             if (result != null)
             {
@@ -120,7 +118,7 @@ namespace Courses_MVC.Controllers
             }
             else
             {
-                StatusMessage = $"Thêm không thành công ";
+                StatusMessage = $"Cập nhật thành công ";
                 return RedirectToAction(nameof(DanhSachBinhLuan));
             }
         }
@@ -195,9 +193,9 @@ namespace Courses_MVC.Controllers
 
         
         // GET: Comments/Delete/5
-        public async Task<IActionResult> XoaBinhLuan(int courseId, string userId)
+        public async Task<IActionResult> XoaBinhLuan(int id)
         {
-            if (courseId == -1 && userId == null)
+            if (id==null)
             {
                 return NotFound();
             }
@@ -205,8 +203,7 @@ namespace Courses_MVC.Controllers
             var comment = await _context.Comments
                 .Include(c => c.AppUser)
                 .Include(c => c.Course)
-                .Where(c=>c.userId == userId)
-                .FirstOrDefaultAsync(m => m.courseId == courseId);
+                .FirstOrDefaultAsync(m => m.cmtId == id);
             if (comment == null)
             {
                 StatusMessage = "Xóa không thành công";
@@ -219,7 +216,29 @@ namespace Courses_MVC.Controllers
             return RedirectToAction(nameof(DanhSachBinhLuan));
         }
 
-        
+        public IActionResult ThemBinhLuanUI(int courseId, string content, float evaluate)
+        {
+            if(content == null && evaluate < 0 && evaluate > 10)
+            {
+                ModelState.AddModelError(string.Empty, "Không bình luận được");
+            }
+            
+            var user = _userManager.GetUserId(User);
+            if (ModelState.IsValid)
+            {
+                _context.Comments.Add(new Comment() { 
+                    courseId = courseId,
+                    userId = user,
+                    content = content,
+                    evaluate = evaluate
+                });
+                _context.SaveChanges();
+                StatusMessage = "Cảm ơn ý kiến đóng góp của bạn! ";
+                return RedirectToAction("DanhSachHienThi", "Courses");
+            }
+            StatusMessage = "Bình luận không thành công! ";
+            return RedirectToAction("DanhSachHienThi", "Courses");
+        }
 
         private bool CommentExists(int id)
         {

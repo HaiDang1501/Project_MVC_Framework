@@ -17,6 +17,12 @@
 
                 <dl class="row">
                     <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.cmtId)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.cmtId)
+                    </dd>
+                    <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.AppUser)
                     </dt>
                     <dd class="col-sm-10">
@@ -48,7 +54,7 @@
                     <a asp-action="DanhSachBinhLuan">Danh sách bình luận</a>
                 </div>
                 <div class="main-option">
-                    <a asp-action="CapNhatBinhLuan" asp-route-userId="@Model.userId" asp-route-courseId="@Model.courseId">Chỉnh sửa</a>
+                    <a asp-action="CapNhatBinhLuan" asp-route-id="@Model.cmtId">Chỉnh sửa</a>
                 </div>
 
             </div>

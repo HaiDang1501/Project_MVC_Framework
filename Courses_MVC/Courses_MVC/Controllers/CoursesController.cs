@@ -335,5 +335,18 @@ namespace Courses_MVC.Controllers
             ClearCart();
             return RedirectToAction(nameof(CartDisplay));
         }
+
+        public IActionResult ClearAfterRegister(int status)
+        {
+            if (status == 1)
+            {
+                ClearCart();
+                return RedirectToAction(nameof(DanhSachHienThi));
+            }
+            else
+            {
+                return RedirectToAction(nameof(DanhSachHienThi));
+            }
+        }
     }
 }

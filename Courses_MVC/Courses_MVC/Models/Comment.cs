@@ -8,6 +8,9 @@ namespace Courses_MVC.Models
 {
     public class Comment
     {
+        [Display(Name = "Mã bình luận")]
+        public int cmtId { get; set; }
+
         [Display(Name ="Tên người dùng")]
         [Required(ErrorMessage = "Phải nhập {0}")]
         public string userId { get; set; }

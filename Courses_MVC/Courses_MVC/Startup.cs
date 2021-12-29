@@ -33,7 +33,13 @@ namespace Courses_MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            IMvcBuilder build = services.AddRazorPages();
+
+            var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if(enviroment == Environments.Development)
+            {
+                build.AddRazorRuntimeCompilation();
+            }    
             //services.AddMvc();`
             //services.Add(new ServiceDescriptor(typeof(CourseContext), new CourseContext(Configuration.GetConnectionString("DefaultConnection"))));
             services.AddDbContext<CoursesContext>(options =>
@@ -125,6 +131,9 @@ namespace Courses_MVC
                 });
 
             });
+
+            
+
             //Đăng kí dịch vụ AuthorizationHandler
             services.AddTransient<IAuthorizationHandler, AppAuthorizationHandler>();
 
@@ -134,7 +143,11 @@ namespace Courses_MVC
                 cfg.Cookie.Name = "KhanhDuy";             // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
                 cfg.IdleTimeout = new TimeSpan(0, 60, 0);    // Thời gian tồn tại của Session
             });
+
+
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

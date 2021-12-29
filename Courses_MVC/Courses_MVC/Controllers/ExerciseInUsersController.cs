@@ -215,9 +215,10 @@ namespace Courses_MVC.Controllers
         }
 
 
-        public IActionResult SubmitExercise(int exerciseId, string content)
+        public IActionResult SubmitExercise(int lessonId,int exerciseId, string content)
         {
             var user = _userManager.GetUserId(User);
+            int curentlessonId = lessonId;
             if (content == null)
             {
                 ModelState.AddModelError(string.Empty, "Chưa có nội dung bài làm");
@@ -230,8 +231,8 @@ namespace Courses_MVC.Controllers
                 submit = DateTime.UtcNow
             }) ;
             _context.SaveChanges();
-            StatusMessage = $"Nộp bài thành công ";
-            return RedirectToAction(nameof(DanhSachBTUser));
+            StatusMessage = $"Nộp bài tập thành công";
+            return RedirectToAction("LessonDetail", "lesson", new { id = curentlessonId });
         }
 
 

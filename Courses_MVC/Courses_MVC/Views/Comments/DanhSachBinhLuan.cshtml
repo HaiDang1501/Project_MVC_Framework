@@ -58,8 +58,8 @@
                                 @Html.DisplayFor(modelItem => item.evaluate)
                             </td>
                             <td>
-                                <a asp-action="ChiTietBinhLuan" asp-route-userId="@item.userId" asp-route-courseId="@item.courseId"><i class="far fa-edit"></i></a> |
-                                <a asp-action="XoaBinhLuan" asp-route-userId="@item.userId" asp-route-courseId="@item.courseId" class="text-danger" onclick="return confirm('Bạn chắn chắn xóa chứ?')"><i class="far fa-trash-alt"></i></a>
+                                <a asp-action="ChiTietBinhLuan" asp-route-id="@item.cmtId" ><i class="far fa-edit"></i></a> |
+                                <a asp-action="XoaBinhLuan" asp-route-id="@item.cmtId" class="text-danger" onclick="return confirm('Bạn chắn chắn xóa chứ?')"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     }
