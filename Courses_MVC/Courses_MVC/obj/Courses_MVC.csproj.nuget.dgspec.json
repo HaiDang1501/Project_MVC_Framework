@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Framework\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj": {}
+    "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Framework\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj": {
+    "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Framework\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
         "projectName": "Courses_MVC",
-        "projectPath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Framework\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
+        "projectPath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Framework\\Courses_MVC\\Courses_MVC\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -80,6 +80,14 @@
               "target": "Package",
               "version": "[3.1.21, )"
             },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[3.1.22, )"
+            },
+            "Microsoft.AspNetCore.Session": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.21, )"
@@ -100,6 +108,10 @@
               "target": "Package",
               "version": "[3.1.21, )"
             },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[3.1.22, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.5, )"
@@ -119,6 +131,10 @@
             "MySqlConnector": {
               "target": "Package",
               "version": "[1.3.11, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             }
           },
           "imports": [
