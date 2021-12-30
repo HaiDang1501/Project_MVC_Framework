@@ -34,6 +34,9 @@ namespace Courses_MVC.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Discount> Discounts { get; set; }
+        public DbSet<Contact> Contact { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Room> Rooms { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new RegisterConfiguration());
@@ -47,6 +50,8 @@ namespace Courses_MVC.Data
             modelBuilder.ApplyConfiguration(new LessonConfiguration());
             modelBuilder.ApplyConfiguration(new DiscountConfiguration());
             modelBuilder.ApplyConfiguration(new ContactConfiguration());
+            modelBuilder.ApplyConfiguration(new MessageConfiguration());
+            modelBuilder.ApplyConfiguration(new RoomConfiguration());
 
 
             modelBuilder.Entity<IdentityRole<string>>(entity =>
@@ -91,7 +96,7 @@ namespace Courses_MVC.Data
                 //entity.Property(x => x.Name).HasMaxLength(100);
             });
         }
-        public DbSet<Courses_MVC.Models.Contact> Contact { get; set; }
+        
 
         
     }

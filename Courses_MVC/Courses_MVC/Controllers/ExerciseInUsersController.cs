@@ -228,7 +228,7 @@ namespace Courses_MVC.Controllers
                 userId = user,
                 exerciseId = exerciseId,
                 content = content,
-                submit = DateTime.UtcNow
+                submit = DateTime.Now
             }) ;
             _context.SaveChanges();
             StatusMessage = $"Nộp bài tập thành công";

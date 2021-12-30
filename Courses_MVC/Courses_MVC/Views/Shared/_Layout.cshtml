@@ -10,6 +10,7 @@
     <link href="~/css/StyleSheet.css" rel="stylesheet" />
     <link href="~/css/HomePage.css" rel="stylesheet" />
     <link href="~/css/comment.css" rel="stylesheet" />
+    <link href="~/css/chatrooms.css" rel="stylesheet" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -36,6 +37,9 @@
                         <li class="nav-item">
                             <a class="nav-link " asp-area="" asp-controller="Contacts" asp-action="Create">Liên hệ</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="TroChuyen">Trò chuyện</a>
+                        </li>
 
                     </ul>
 
@@ -45,8 +49,8 @@
         </nav>
 
     </header>
-    <div style="margin-top:80px;">
-        <main role="main" >
+    <div style="margin-top:60px;">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
@@ -55,9 +59,9 @@
         <div class="foot-container">
             <div class="footer-left">
                 <h2>Thông tin liên hệ</h2>
-                <p><i class="fas fa-users"></i>Nhóm 21</p>
-                <p><i class="fas fa-map-marker-alt"></i>Đại học Công Nghệ Thông Tin</p>
-                <p><i class="fas fa-phone-volume"></i>Số điện thoại: 0853814449</p>
+                <p><i class="fas fa-users"></i>  Nhóm 21</p>
+                <p><i class="fas fa-map-marker-alt"></i>  Đại học Công Nghệ Thông Tin</p>
+                <p><i class="fas fa-phone-volume"></i>  Số điện thoại: 0853814449</p>
             </div>
             <div class="footer-center">
                 <h2>Chính sách</h2>

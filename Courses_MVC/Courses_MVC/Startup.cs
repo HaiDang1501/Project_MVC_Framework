@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Courses_MVC.Services;
 using Microsoft.AspNetCore.Authorization;
 using Courses_MVC.Security.Requirements;
+using Courses_MVC.Hubs;
 
 namespace Courses_MVC
 {
@@ -33,6 +34,9 @@ namespace Courses_MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //cài đặt signalR
+            services.AddSignalR();
             IMvcBuilder build = services.AddRazorPages();
 
             var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -144,7 +148,8 @@ namespace Courses_MVC
                 cfg.IdleTimeout = new TimeSpan(0, 60, 0);    // Thời gian tồn tại của Session
             });
 
-
+            //cài đặt mapper cho signalR
+            services.AddAutoMapper(typeof(Startup));
         }
 
 
@@ -178,6 +183,7 @@ namespace Courses_MVC
                     name: "default",
                     pattern: "{controller=Home}/{action=HomePage}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

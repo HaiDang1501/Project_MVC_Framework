@@ -179,7 +179,7 @@ namespace Courses_MVC.Controllers
                 {
                     userId = user,
                     courseId = item,
-                    timeReg = DateTime.UtcNow
+                    timeReg = DateTime.Now
                 });
                 _context.SaveChanges();
 

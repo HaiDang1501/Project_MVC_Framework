@@ -19,6 +19,9 @@ namespace Courses_MVC.configurations
             builder.Property(x => x.address)
                 .HasMaxLength(200);
 
+            builder.Property(x => x.avatar)
+                .HasMaxLength(500);
+
             builder.Property(x => x.birthday)
                 .HasColumnType("datetime");
 
