@@ -234,10 +234,10 @@ namespace Courses_MVC.Controllers
                 });
                 _context.SaveChanges();
                 StatusMessage = "Cảm ơn ý kiến đóng góp của bạn! ";
-                return RedirectToAction("DanhSachHienThi", "Courses");
+                return RedirectToAction("LessonCourse", "Lesson", new { id = courseId });
             }
             StatusMessage = "Bình luận không thành công! ";
-            return RedirectToAction("DanhSachHienThi", "Courses");
+            return RedirectToAction("LessonCourse", "Lesson", new { id = courseId });
         }
 
         private bool CommentExists(int id)

@@ -2,13 +2,16 @@
 @using Courses_MVC.Models
 @using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService authorizationService
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@inject Courses_MVC.Data.CoursesContext context
+
 
 @{
     var resultAuthorize = await authorizationService.AuthorizeAsync(this.User, "ShowAdminMenu");
+    var user = context.Users.FirstOrDefault(c=>c.Id == UserManager.GetUserId(User));
 }
 
-@inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
 
 
 @if (SignInManager.IsSignedIn(User))
@@ -20,7 +23,7 @@
         </div>
         <div class="dropdown">
             <button type="button" class="dropdown-toggle mr-md-2 btn btn-outline-info" data-toggle="dropdown">
-                <i class="far fa-user-circle"></i> @UserManager.GetUserName(User)
+                <img src="/img/icons/@user.avatar" alt="avatar" style="width: 30px;"/> @UserManager.GetUserName(User)
             </button>
             <div class="dropdown-menu dropdown-menu-right col-md-5">
                 <a id="manage" class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hồ sơ</a>
@@ -48,9 +51,9 @@
         </div>
         <div class="dropdown">
             <button type="button" class="dropdown-toggle mr-md-2 btn btn-outline-info" data-toggle="dropdown">
-                <i class="far fa-user-circle"></i> @UserManager.GetUserName(User)
+                <img src="/img/icons/@user.avatar" alt="avatar" style="width: 30px;"/> @UserManager.GetUserName(User)
             </button>
-            <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-right col-md-5">
                 <a id="manage" class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hồ sơ</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item">
@@ -76,4 +79,6 @@ else
     </ul>
 
 }
+
+
 

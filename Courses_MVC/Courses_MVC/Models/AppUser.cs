@@ -13,6 +13,15 @@ namespace Courses_MVC.Models
 
         public DateTime? birthday { get; set; }
 
+        //public string FullName { get; set; }
+
+        public string avatar { get; set; }
+
+        public ICollection<Room> Rooms { get; set; }
+
+        public ICollection<Message> Messages { get; set; }
+        
+
         public string gender { get; set; }
 
         public ICollection<ExerciseInUser> ExerciseInUsers { get; set; }

@@ -68,6 +68,10 @@ namespace Courses_MVC.Migrations
                         .HasColumnType("varchar(200)")
                         .HasMaxLength(200);
 
+                    b.Property<string>("avatar")
+                        .HasColumnType("varchar(500)")
+                        .HasMaxLength(500);
+
                     b.Property<DateTime?>("birthday")
                         .HasColumnType("datetime");
 
@@ -82,12 +86,6 @@ namespace Courses_MVC.Migrations
 
             modelBuilder.Entity("Courses_MVC.Models.Comment", b =>
                 {
-                    b.Property<int>("courseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("userId")
-                        .HasColumnType("varchar(767)");
-
                     b.Property<int>("cmtId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
@@ -97,10 +95,19 @@ namespace Courses_MVC.Migrations
                         .HasColumnType("varchar(1000)")
                         .HasMaxLength(1000);
 
+                    b.Property<int>("courseId")
+                        .HasColumnType("int");
+
                     b.Property<float>("evaluate")
                         .HasColumnType("float");
 
-                    b.HasKey("courseId", "userId", "cmtId");
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("varchar(767)");
+
+                    b.HasKey("cmtId");
+
+                    b.HasIndex("courseId");
 
                     b.HasIndex("userId");
 
@@ -339,6 +346,36 @@ namespace Courses_MVC.Migrations
                     b.ToTable("lesson");
                 });
 
+            modelBuilder.Entity("Courses_MVC.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("varchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("ToRoomId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("ToRoomId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Courses_MVC.Models.Receipt", b =>
                 {
                     b.Property<int>("receiptId")
@@ -386,6 +423,28 @@ namespace Courses_MVC.Migrations
                     b.HasIndex("userId");
 
                     b.ToTable("register");
+                });
+
+            modelBuilder.Entity("Courses_MVC.Models.Room", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("Courses_MVC.Models.Topic", b =>
@@ -610,6 +669,21 @@ namespace Courses_MVC.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Courses_MVC.Models.Message", b =>
+                {
+                    b.HasOne("Courses_MVC.Models.AppUser", "AppUser")
+                        .WithMany("Messages")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Courses_MVC.Models.Room", "Room")
+                        .WithMany("Messages")
+                        .HasForeignKey("ToRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Courses_MVC.Models.Receipt", b =>
                 {
                     b.HasOne("Courses_MVC.Models.Register", "Register")
@@ -630,6 +704,15 @@ namespace Courses_MVC.Migrations
                     b.HasOne("Courses_MVC.Models.AppUser", "AppUser")
                         .WithMany("Registers")
                         .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Courses_MVC.Models.Room", b =>
+                {
+                    b.HasOne("Courses_MVC.Models.AppUser", "AppUser")
+                        .WithMany("Rooms")
+                        .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
