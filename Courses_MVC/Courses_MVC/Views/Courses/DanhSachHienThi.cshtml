@@ -1,7 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Microsoft.AspNetCore.Identity
+@using Courses_MVC.Models
 @model IEnumerable<Courses_MVC.Models.Course>
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@{ 
+   
+}
 @{
     ViewData["Title"] = "Danh sách khóa học";
 
@@ -45,12 +49,36 @@
                                         <div class="origin-price">500.000 <sup>đ</sup></div>
                                         <div class="course-price"><p>@item.originalPrice.ToString("n0") <sup>đ</sup></p></div>
                                         <div class="add-car-btn">
-                                            <a href="/Courses/AddtoCart?courseId=@item.courseId"
-                                               class="btn btn-success btn-sm float-right mb-2 ">
-                                                <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
-                                            </a>
+                                            @{
+                                                int check = 0;
+                                                foreach (var res in ViewBag.listCourseOfUser)
+                                                {
+                                                    if (res.courseId == item.courseId)
+                                                    {
+                                                        check++ ;
+                                                    }
+                                                }                                               
+                                                if (check == 0)
+                                                {
+                                                    <a href="/Courses/AddtoCart?courseId=@item.courseId"
+                                                       class="btn btn-success btn-sm float-right mb-2 add-car-custom ">
+                                                        <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+                                                    </a>
+                                                }
+                                                else
+                                                { 
+                                                <div class="course-had-registered">
+                                                    <button type="button" class="btn  btn-sm float-right mb-2 button-had-registered">
+                                                        Khóa học đã được đăng ký
+                                                    </button>
+                                                </div>
+                                                    
+                                                }
+                                            }
+
+
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             }

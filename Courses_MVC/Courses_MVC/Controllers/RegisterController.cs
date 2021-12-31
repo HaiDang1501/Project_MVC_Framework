@@ -1,4 +1,9 @@
 ﻿using System;
+using OfficeOpenXml;
+using System.Data;
+using System.IO;
+using System.Web;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Courses_MVC.Data;
 using Courses_MVC.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Courses_MVC.Controllers
 {
@@ -168,6 +174,44 @@ namespace Courses_MVC.Controllers
             StatusMessage = $"Đăng ký thành công";
             int registerStatus = 1;
             return RedirectToAction("ClearAfterRegister", "Courses", new { status= registerStatus });
+        }
+
+        public void Export(string file)
+        {
+
+
+            var listReg = _context.Registers.Select(r => new
+            {
+                STT = r.registerId,
+                Name = r.AppUser.UserName,
+                Course = r.Course.courseName,
+                Time = r.timeReg.ToString()
+            }).OrderBy(r=>r.STT).ToList() ;
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using(ExcelPackage pck = new ExcelPackage())
+            {
+                //pck.Workbook.Worksheets.Add("Dang ky").Cells["A1"].LoadFromCollection(listReg, true);
+                var worksheet = pck.Workbook.Worksheets.Add("Dang ky");
+                worksheet.Cells["A1"].LoadFromCollection(listReg, true);
+                worksheet.Cells["A1:AN1"].Style.Font.Bold = true;
+                worksheet.DefaultRowHeight = 18;
+                worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                worksheet.Column(7).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                worksheet.DefaultColWidth = 20;
+                worksheet.Column(2).AutoFit();
+                worksheet.Column(3).AutoFit();
+                pck.SaveAs(new FileInfo(file));
+
+            } 
+        }
+        public IActionResult ExportExcel()
+        {
+            string newExcelFile = @"D:\giaodien_frame\DanhSach.xlsx";
+            Export(newExcelFile);
+            StatusMessage = $"Xuất file excel thành công";
+            return RedirectToAction(nameof(DanhSachDangKi));
         }
     }
 }
