@@ -172,3 +172,19 @@
         color: orangered;
         font-size: 20px;
     }
+.add-car-custom:hover button {
+    transform: scale(1.08);
+}
+
+.course-had-registered {
+    text-align: right
+}
+
+    .course-had-registered .button-had-registered {
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-weight: 500;
+        color: #fff;
+        background-color: cornflowerblue;
+    } 

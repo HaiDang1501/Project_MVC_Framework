@@ -3,7 +3,7 @@
     ViewData["Title"] = "Danh sách đăng kí khóa học";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href="~/css/StyleSheet.css" rel="stylesheet" />
 <main class="main">
     <partial name="_NavBar" />
     <section>
@@ -21,6 +21,56 @@
             </form>
             <div>
                 <a asp-controller="Register" asp-action="ThemDangKi" class="btn btn-outline-success"><i class="far fa-plus-square"></i> Thêm</a>
+                @*<a asp-controller="Register" asp-action="ExportExcel" class="btn btn-outline-success"> Xuất file Excel</a>*@
+                <a class="btn btn-outline-success custom-excel" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="fas fa-file-export"></i> Xuất file Excel
+                </a>
+                <!-- Button trigger modal -->
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-center text-capitalize modal-title-custom" id="exampleModalLongTitle">Báo cáo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/Register/ExportExcel" method="post">
+                                    <label for="name">Tên học viên</label>
+                                    <select id="name" name="userId">
+                                        <option value="" selected disabled hidden>Choose here</option>
+                                        @foreach (var item in ViewBag.listUserDistinct)
+                                        {
+                                            <option value="@item.Id">@item.UserName</option>
+                                        }
+                                    </select>
+                                    <br />
+                                    <label for="course">Tên khóa học</label>
+                                    <select id="course" name="courseId">
+                                        <option value="" selected disabled hidden>Choose here</option>
+                                        @foreach (var item in Model)
+                                        {
+                                            <option value="@item.courseId">@item.Course.courseName</option>
+                                        }
+
+                                    </select>
+                                    <label for="filename">Tên file excel</label>
+                                    <input name="filename" id="filename" />
+                                    <br />
+                                    <div class="modal-footer">
+                                        @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>*@
+                                        <button type="submit" class="btn btn-outline-success">Xuất file</button>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="table-overflow">

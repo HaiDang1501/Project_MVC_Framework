@@ -34,14 +34,7 @@ namespace Courses_MVC.Models
         [Display(Name = "Tổng thời lượng")]
         public string totalTime { get; set; }
 
-        [Required(ErrorMessage = "Phải nhập {0}")]
-        [Display(Name = "Link bài học")]
-        public string link { get; set; }
-
-        [Required(ErrorMessage = "Phải nhập {0}")]
-        [Display(Name = "Caption")]
-        public string captionLink { get; set; }
-
+        
         [Required(ErrorMessage = "Phải nhập {0}")]
         [Display(Name = "Điểm đánh giá")]
         public int rating { get; set; }

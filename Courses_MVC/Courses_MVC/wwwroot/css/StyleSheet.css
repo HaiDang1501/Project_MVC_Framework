@@ -253,3 +253,35 @@ dd {
     margin-left: 30px;
     margin-top: 20px;
 }
+
+.modal-title-custom {
+    color: green !important;
+    font-weight: 500;
+}
+
+.custom-excel {
+    color: green !important;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+    .custom-excel:hover {
+        color: #fff !important;
+        background-color: green !important;
+    }
+
+.modal-body label {
+    margin-right: 10px;
+}
+
+#course {
+    margin-left: -3px;
+}
+
+.modal-body select {
+    border-radius: 5px;
+}
+
+.modal-body input {
+    border-radius: 5px;
+}

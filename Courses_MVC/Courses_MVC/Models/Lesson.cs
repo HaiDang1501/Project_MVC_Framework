@@ -23,6 +23,15 @@ namespace Courses_MVC.Models
         public string content { get; set; }
 
         [Required(ErrorMessage = "Phải nhập {0}")]
+        [Display(Name = "Link bài học")]
+        public string link { get; set; }
+
+        [Required(ErrorMessage = "Phải nhập {0}")]
+        [Display(Name = "Caption")]
+        public string captionLink { get; set; }
+
+
+        [Required(ErrorMessage = "Phải nhập {0}")]
         [Display(Name = "Khóa học")]
         public int courseId { get; set; }
 

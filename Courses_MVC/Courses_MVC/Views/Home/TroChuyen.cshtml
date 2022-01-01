@@ -76,7 +76,7 @@
                 <li>
                     <div class="chat-message d-flex " data-bind="css: $data.isMine() === true ? 'ismine' : 'isother'">
                         <div class="left-side">
-                            <img src="/img/icons/avatar1.png" class="message-avatar" 
+                            <img src="/img/icons/avatar1.png" class="message-avatar"
                                  data-bind="attr: { src: '/img/icons/' + $data.avatar() }" />
                         </div>
                         <div class="message-content d-flex flex-column">
@@ -110,7 +110,7 @@
                 <a id="emojibtn" href="#">
                     <i class="far fa-smile"></i>
                 </a>
-                <i class="fas fa-paper-plane" id="btn-send-message"  data-bind="click: sendNewMessage"></i>
+                <i class="fas fa-paper-plane" id="btn-send-message" data-bind="click: sendNewMessage"></i>
             </div>
             <div class="emoticon-container d-none" id="emojis-container">
                 <a href="#">
@@ -228,7 +228,7 @@
                     Đóng
                 </button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" data-bind="click: deleteRoom">
-                    
+
                     Xóa
                 </button>
             </div>
@@ -236,6 +236,12 @@
     </div>
 </div>
 
+<script>
+    const active_lienhe = document.querySelector('#navbar-trochuynen')
+
+    active_lienhe.classList.add('nav--active')
+    /*document.querySelector('#active--khoahoc').classList.remove('active--css')*/
+</script>
 
 @section Scripts{
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

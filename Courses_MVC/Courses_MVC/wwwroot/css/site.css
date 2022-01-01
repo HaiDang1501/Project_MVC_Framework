@@ -17,6 +17,11 @@ for details on configuring this project to bundle and minify static web assets. 
         border-bottom: 2px solid #b3d7ff;
         opacity: 1;
     }
+.nav--active {
+    color: #1b6ec2 !important;
+    border-bottom: 2px solid #b3d7ff;
+    opacity: 1;
+}
 a.navbar-brand {
     white-space: normal;
     text-align: center;

@@ -85,7 +85,12 @@
     <img src="https://drive.google.com/file/d/1tg8t9mU6fK2NiIaoOpZGDBqKyDHl3GWK/view?usp=sharing" alt="" class="course-img">
 </div>
 
+<script>
+    const active_lienhe = document.querySelector('#navbar-lienhe')
 
+    active_lienhe.classList.add('nav--active')
+    /*document.querySelector('#active--khoahoc').classList.remove('active--css')*/
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

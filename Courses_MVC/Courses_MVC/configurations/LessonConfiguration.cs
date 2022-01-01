@@ -20,6 +20,12 @@ namespace Courses_MVC.configurations
             builder.Property(x => x.title).IsRequired()
                 .HasMaxLength(200);
 
+            builder.Property(x => x.link).IsRequired()
+                .HasMaxLength(5000);
+
+            builder.Property(x => x.captionLink).IsRequired()
+                .HasMaxLength(500);
+
             builder.Property(x => x.content).IsRequired()
                 .HasMaxLength(1000);
 

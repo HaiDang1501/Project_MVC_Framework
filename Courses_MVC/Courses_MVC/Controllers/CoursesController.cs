@@ -8,23 +8,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
 
 namespace Courses_MVC.Controllers
 {
     public class CoursesController : Controller
     {
         private readonly CoursesContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public CoursesController(CoursesContext context)
+        public CoursesController(CoursesContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         [TempData]
         public string StatusMessage { get; set; }
         public IActionResult DanhSachHienThi()
         {
+            var user = _userManager.GetUserId(User);
             var listTopic = _context.Topic.ToList();
             ViewBag.listTopic = listTopic;
+            var listCourseOfUser = _context.Registers.Include(l => l.AppUser).Include(l => l.Course).Where(l => l.AppUser.Id == user).ToList();
+            ViewBag.listCourseOfUser = listCourseOfUser;
             var listCourse = _context.Courses.Include(c => c.Discount).Include(c => c.Topic);
             return View(listCourse.ToList());
         }

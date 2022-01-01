@@ -1,4 +1,9 @@
 ﻿using System;
+using OfficeOpenXml;
+using System.Data;
+using System.IO;
+using System.Web;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Courses_MVC.Data;
 using Courses_MVC.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using Ubiety.Dns.Core;
 
 namespace Courses_MVC.Controllers
 {
@@ -28,6 +35,7 @@ namespace Courses_MVC.Controllers
         {
             var list = await _context.Registers.Include(x => x.Course).Include(x => x.AppUser).ToListAsync();
             var count = list.Count();
+           
             ViewData["count"] = count;
             return View(list);
         }
@@ -169,6 +177,78 @@ namespace Courses_MVC.Controllers
                 StatusMessage = $"Cập nhật thành công ";
                 return RedirectToAction(nameof(DanhSachDangKi));
             }
+        }
+
+        public void Export(string file, string? userId, int? courseId)
+        {
+
+
+            var listReg = _context.Registers.Select(r => new
+            {
+                
+                ID = r.registerId,
+                Name = r.AppUser.UserName,
+                Course = r.Course.courseName,   
+                Time = r.timeReg.ToString()
+            }).OrderBy(r => r.ID).ToList();
+            if (userId == null && courseId == null)
+            {
+                listReg = listReg;
+            }
+            else if (courseId == null)
+            {
+                listReg = _context.Registers.Where(r => r.userId == userId).Select(r => new
+                {
+                    ID = r.registerId,
+                    Name = r.AppUser.UserName,
+                    Course = r.Course.courseName,
+                    Time = r.timeReg.ToString()
+                }).OrderBy(r => r.ID).ToList();
+            }
+            else if (userId == null)
+            {
+                listReg = _context.Registers.Where(r => r.courseId == courseId).Select(r => new
+                {
+                    ID = r.registerId,
+                    Name = r.AppUser.UserName,
+                    Course = r.Course.courseName,
+                    Time = r.timeReg.ToString()
+                }).OrderBy(r => r.ID).ToList();
+            }
+            else
+            {
+                listReg = _context.Registers.Where(r => r.courseId == courseId).Where(r => r.userId == userId).Select(r => new
+                {
+                    ID = r.registerId,
+                    Name = r.AppUser.UserName,
+                    Course = r.Course.courseName,
+                    Time = r.timeReg.ToString()
+                }).OrderBy(r => r.ID).ToList();
+            }
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (ExcelPackage pck = new ExcelPackage())
+            {
+                //pck.Workbook.Worksheets.Add("Dang ky").Cells["A1"].LoadFromCollection(listReg, true);
+                var worksheet = pck.Workbook.Worksheets.Add("Dang ky");
+                worksheet.Cells["A1"].LoadFromCollection(listReg, true);
+                worksheet.Cells["A1:AN1"].Style.Font.Bold = true;
+                worksheet.DefaultRowHeight = 18;
+                worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                worksheet.Column(7).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                worksheet.DefaultColWidth = 20;
+                worksheet.Column(2).AutoFit();
+                worksheet.Column(3).AutoFit();
+                pck.SaveAs(new FileInfo(file));
+
+            }
+        }
+        public IActionResult ExportExcel(string filename, string? userId, int? courseId)
+        {
+            string newExcelFile = @"D:\Xây dựng HTTT trên các framework\Project_MVC_Framework.git\" + filename + ".xlsx";
+            Export(newExcelFile, userId, courseId);
+            StatusMessage = $"Xuất file excel thành công";
+            return RedirectToAction(nameof(DanhSachDangKi));
         }
         public IActionResult ConfirmCart(List<int> courseId)
         {
