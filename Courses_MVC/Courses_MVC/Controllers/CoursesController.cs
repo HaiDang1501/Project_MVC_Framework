@@ -25,7 +25,7 @@ namespace Courses_MVC.Controllers
         {
             var listTopic = _context.Topic.ToList();
             ViewBag.listTopic = listTopic;
-            var listCourseOfUser = _context.Registers.Include(l => l.AppUser).Include(l => l.Course).Where(l => l.AppUser.Id == "264b663a-54c4-48e9-8c90-5672caa3be2c").ToList();
+            var listCourseOfUser = _context.Registers.Include(l => l.AppUser).Include(l => l.Course).Where(l => l.AppUser.Id == "111").ToList();
             ViewBag.listCourseOfUser = listCourseOfUser;
             var listCourse = _context.Courses.Include(c => c.Discount).Include(c => c.Topic);
             return View(listCourse.ToList());

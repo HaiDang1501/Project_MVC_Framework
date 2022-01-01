@@ -176,18 +176,50 @@ namespace Courses_MVC.Controllers
             return RedirectToAction("ClearAfterRegister", "Courses", new { status= registerStatus });
         }
 
-        public void Export(string file)
+        public void Export(string file, string? userId,int? courseId)
         {
-
-
             var listReg = _context.Registers.Select(r => new
             {
-                STT = r.registerId,
+                ID = r.registerId,
                 Name = r.AppUser.UserName,
                 Course = r.Course.courseName,
                 Time = r.timeReg.ToString()
-            }).OrderBy(r=>r.STT).ToList() ;
-
+            }).OrderBy(r => r.ID).ToList();
+            if (userId == null && courseId == null)
+            {
+                listReg = listReg;
+            }
+            else if (courseId == null)
+            {
+                listReg = _context.Registers.Where(r => r.userId == userId).Select(r => new
+                {
+                    ID = r.registerId,
+                    Name = r.AppUser.UserName,
+                    Course = r.Course.courseName,
+                    Time = r.timeReg.ToString()
+                }).OrderBy(r => r.ID).ToList();
+            }
+            else if (userId == null)
+            {
+                listReg = _context.Registers.Where(r => r.courseId == courseId).Select(r => new
+                {
+                    ID = r.registerId,
+                    Name = r.AppUser.UserName,
+                    Course = r.Course.courseName,
+                    Time = r.timeReg.ToString()
+                }).OrderBy(r => r.ID).ToList();
+            }
+            else
+            {
+                listReg = _context.Registers.Where(r => r.courseId == courseId).Where(r => r.userId == userId).Select(r => new
+                {
+                    ID = r.registerId,
+                    Name = r.AppUser.UserName,
+                    Course = r.Course.courseName,
+                    Time = r.timeReg.ToString()
+                }).OrderBy(r => r.ID).ToList();
+            }    
+ 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using(ExcelPackage pck = new ExcelPackage())
             {
@@ -206,12 +238,13 @@ namespace Courses_MVC.Controllers
 
             } 
         }
-        public IActionResult ExportExcel()
+        public IActionResult ExportExcel( string filename, string? userId, int? courseId)
         {
-            string newExcelFile = @"D:\giaodien_frame\DanhSach.xlsx";
-            Export(newExcelFile);
+            string newExcelFile = @"D:\giaodien_frame\" + filename +".xlsx";
+            Export(newExcelFile, userId, courseId);
             StatusMessage = $"Xuất file excel thành công";
             return RedirectToAction(nameof(DanhSachDangKi));
+
         }
     }
 }
