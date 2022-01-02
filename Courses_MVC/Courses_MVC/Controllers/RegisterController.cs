@@ -30,6 +30,10 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> DanhSachDangKi()
         {
             var list = await _context.Registers.Include(x => x.Course).Include(x => x.AppUser).ToListAsync();
+            var listUser = await _context.Users.ToListAsync();
+            var listCourse = await _context.Courses.ToListAsync();
+            ViewBag.listCourse = listCourse;
+            ViewBag.listUser = listUser;
             return View(list);
         }
 
@@ -164,7 +168,7 @@ namespace Courses_MVC.Controllers
             {
                 _context.Registers.Add(new Register()
                 {
-                    userId = "264b663a-54c4-48e9-8c90-5672caa3be2c",
+                    userId = "71a4c50d-fc68-474a-895b-8682f0141b93",
                     courseId = item,
                     timeReg = DateTime.UtcNow
                 }) ;

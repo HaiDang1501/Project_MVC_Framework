@@ -40,23 +40,44 @@
                                     <label for="name">Tên học viên</label>
                                     <select id="name" name="userId">
                                         <option value="" selected disabled hidden>Choose here</option>
-                                        @foreach (var item in Model)
+                                        @foreach (var item in ViewBag.listUser)
                                         {
-                                            <option value="@item.userId">@item.AppUser.UserName</option>
+                                            foreach (var item2 in Model)
+                                            {
+                                                if (item.Id == item2.userId)
+                                                {
+                                                    <option value="@item.Id">@item.UserName</option>
+                                                    break;
+                                                }
+                                            }
+
                                         }
                                     </select>
                                     <br />
                                     <label for="course">Tên khóa học</label>
                                     <select id="course" name="courseId">
                                         <option value="" selected disabled hidden>Choose here</option>
-                                        @foreach (var item in Model)
+                                        @foreach (var item in ViewBag.listCourse)
                                         {
-                                            <option value="@item.courseId">@item.Course.courseName</option>
+                                            foreach (var item2 in Model)
+                                            {
+                                                if (item.courseId == item2.courseId)
+                                                {
+                                                    <option value="@item.courseId">@item.courseName</option>
+                                                    break;
+                                                }
+                                            }
+
                                         }
+                                        @*
+        @foreach (var item in Model)
+        {
+            <option value="@item.courseId">@item.Course.courseName</option>
+        }*@
 
                                     </select>
                                     <label for="filename">Tên file excel</label>
-                                    <input name="filename" id="filename" />
+                                    <input name="filename" id="filename"  required/>
                                     <br />
                                     <div class="modal-footer">
                                         @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
