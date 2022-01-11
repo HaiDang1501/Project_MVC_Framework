@@ -17,10 +17,35 @@
                 <hr />
                 <dl class="row">
                     <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.exerciseId)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.exerciseId)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.exerciseName)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.exerciseName)
+                    </dd>
+                    <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.content)
                     </dt>
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.content)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.input)
+                    </dt>
+                    <dd class="col-sm-10">
+                        <p>@Html.DisplayFor(model => model.input)</p>
+                        
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.output)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.output)
                     </dd>
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.deadline)

@@ -43,6 +43,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.title)
                         </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.time)
+                        </th>
                         <th>Chức năng</th>
                     </tr>
                 </thead>
@@ -64,6 +67,9 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.title)
                             </td>
+                            <th>
+                                @Html.DisplayFor(model => item.time)
+                            </th>
                             <td>
                                 <a asp-action="Details" asp-route-id="@item.contactId"><i class="far fa-edit"></i></a> |
                                 <a asp-action="Delete" asp-route-id="@item.contactId" class="text-danger" onclick="return confirm('Bạn chắn chắn xóa chứ?')"><i class="far fa-trash-alt"></i></a>

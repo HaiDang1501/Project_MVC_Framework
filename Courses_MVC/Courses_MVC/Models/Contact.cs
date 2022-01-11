@@ -18,7 +18,6 @@ namespace Courses_MVC.Models
         public string HoTen { get; set; }
 
         [Display(Name ="Email")]
-        [Required(ErrorMessage = "Phải nhập {0}")]
         [EmailAddress(ErrorMessage = "Mail phải đúng định dạng")]
         public string  email { get; set; }
 
@@ -35,5 +34,8 @@ namespace Courses_MVC.Models
         [Required(ErrorMessage = "Phải nhập {0}")]
         [Display(Name = "Nội dung")]
         public string content { get; set; }
+
+        [Display(Name = "Ngày viết")]
+        public DateTime time { get; set; }
     }
 }

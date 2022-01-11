@@ -27,17 +27,15 @@
         <p>
             @Model.content
             @UserManager.GetUserName(User)
-
-
         </p>
     </div>
     <div class="exercise-input mb-1 pl-4 pr-4">
         <b>Input:</b>
-        <p>@Model.input</p>
+        <div>@Model.input</div>
     </div>
     <div class="exercise-output mb-1 pl-4 pr-4">
         <b>Output:</b>
-        <p>@Model.output</p>
+        @Model.output
     </div>
     @if (SignInManager.IsSignedIn(User))
     {

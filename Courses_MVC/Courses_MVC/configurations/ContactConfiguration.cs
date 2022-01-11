@@ -23,6 +23,8 @@ namespace Courses_MVC.configurations
             builder.Property(x => x.SDT).HasMaxLength(11)
                 .IsRequired();
 
+            
+
             builder.Property(x => x.email).HasColumnType("text");
 
             builder.Property(x => x.title).IsRequired()

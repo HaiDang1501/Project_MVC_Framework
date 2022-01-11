@@ -46,6 +46,9 @@
                     <label asp-for="HoTen" class="control-label">Họ tên <span class="text-danger">*</span></label>
                     <input asp-for="HoTen" value="@UserManager.GetUserName(User)" class="form-control" disabled />
                 </div>
+                <div class="form-group mt-3">
+                    <input asp-for="email" class="form-control" hidden />
+                </div>
             }
             else
             {
@@ -95,3 +98,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

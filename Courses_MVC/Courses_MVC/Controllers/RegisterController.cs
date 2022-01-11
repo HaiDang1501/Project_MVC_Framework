@@ -34,6 +34,10 @@ namespace Courses_MVC.Controllers
         public async Task<IActionResult> DanhSachDangKi()
         {
             var list = await _context.Registers.Include(x => x.Course).Include(x => x.AppUser).ToListAsync();
+            var listUser = await _context.Users.ToListAsync();
+            var listCourse = await _context.Courses.ToListAsync();
+            ViewBag.listCourse = listCourse;
+            ViewBag.listUser = listUser;
             var count = list.Count();
            
             ViewData["count"] = count;

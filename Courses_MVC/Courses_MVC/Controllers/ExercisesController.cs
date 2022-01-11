@@ -148,7 +148,10 @@ namespace Courses_MVC.Controllers
             var idlesson = exercise.lessonId;
             if (exerUpdate != null)
             {
+                exerUpdate.exerciseName = exercise.exerciseName;
                 exerUpdate.content = exercise.content;
+                exerUpdate.input = exercise.input;
+                exerUpdate.output = exercise.output;
                 exerUpdate.deadline = exercise.deadline;
                 exerUpdate.userId = exercise.userId;
                 exerUpdate.lessonId = exerUpdate.lessonId;

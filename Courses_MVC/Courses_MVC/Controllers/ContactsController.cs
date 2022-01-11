@@ -84,7 +84,7 @@ namespace Courses_MVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("contactId,AppUserId,HoTen,email,SDT,title,content")] Contact contact)
+        public async Task<IActionResult> Create([Bind("AppUserId,contactId,HoTen,email,SDT,title,content,time")] Contact contact)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +95,7 @@ namespace Courses_MVC.Controllers
                     contact.AppUserId = user.Id;
                     contact.HoTen = user.UserName;
                     contact.email = user.Email;
+                    contact.time = DateTime.Now;
                     _context.Add(contact);
                     
                     await _context.SaveChangesAsync();
@@ -102,6 +103,8 @@ namespace Courses_MVC.Controllers
                 }
                 else
                 {
+                    
+                    contact.time = DateTime.Now;
                     _context.Add(contact);
                     await _context.SaveChangesAsync();
                 }
@@ -111,14 +114,32 @@ namespace Courses_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult ThemContact([Bind("AppUserId,contactId,HoTen,email,SDT,title,content")] Contact contact)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ThemContact( Contact contact)
         {
+            var list = await _context.Users.FirstOrDefaultAsync(c=>c.Id == contact.AppUserId);
             if (ModelState.IsValid)
             {
-                _context.Add(contact);
-                _context.SaveChanges();
-                StatusMessage = $"Thêm thành công liên hệ của khách hàng {contact.HoTen}";
-                return RedirectToAction(nameof(Index));
+                if(contact.AppUserId != null)
+                {
+                    contact.HoTen = list.UserName;
+                    contact.email = list.Email;
+                    contact.time = DateTime.Now;
+                    _context.Add(contact);
+                    _context.SaveChanges();
+                    StatusMessage = $"Thêm thành công liên hệ của khách hàng {contact.HoTen}";
+                    return RedirectToAction(nameof(Index));
+
+                }
+                else
+                {
+                    contact.time = DateTime.Now;
+                    _context.Add(contact);
+                    _context.SaveChanges();
+                    StatusMessage = $"Thêm thành công liên hệ của khách hàng {contact.HoTen}";
+                    return RedirectToAction(nameof(Index));
+                }
+                
             }
             StatusMessage = $"Thêm không thành công";
             return View(contact);
@@ -129,6 +150,7 @@ namespace Courses_MVC.Controllers
             //var themContact = await (from ct in _context.Contact
             //                         select ct).Include(c => c.AppUser).ToListAsync();
             var user = _context.Users.ToList();
+            
             user.Insert(0, new AppUser()
             {
                 Id = "",
