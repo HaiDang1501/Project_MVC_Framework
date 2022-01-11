@@ -1,5 +1,7 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
 @model Lesson
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 @{
 
     var id = Model.lessonId;
@@ -39,6 +41,8 @@
                 </ol>
 
             }
+            
+
         </div>
         <div class="move-lesson p-4 pt-0">
             @{

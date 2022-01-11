@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj": {}
+    "D:\\Xây dựng HTTT trên các framework\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj": {
+    "D:\\Xây dựng HTTT trên các framework\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
+        "projectUniqueName": "D:\\Xây dựng HTTT trên các framework\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
         "projectName": "Courses_MVC",
-        "projectPath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
+        "projectPath": "D:\\Xây dựng HTTT trên các framework\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\Courses_MVC.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\OneDrive - Trường ĐH CNTT - University of Information Technology\\Máy tính\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\obj\\",
+        "outputPath": "D:\\Xây dựng HTTT trên các framework\\Project_MVC_Framework.git\\Courses_MVC\\Courses_MVC\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -47,6 +47,10 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[8.1.1, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[5.8.4, )"
             },
             "MailKit": {
               "target": "Package",

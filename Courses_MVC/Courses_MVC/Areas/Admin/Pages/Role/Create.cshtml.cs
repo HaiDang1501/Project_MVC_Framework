@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Courses_MVC.Data;
 using System.ComponentModel.DataAnnotations;
 using Courses_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Courses_MVC.Areas.Admin.Pages.Role
 {
+    [Authorize(Policy = "QuanTriVien")]
     public class CreateModel : RolePageModel
     {
         public CreateModel(RoleManager<IdentityRole> roleManager, CoursesContext courseContext) : base(roleManager, courseContext)

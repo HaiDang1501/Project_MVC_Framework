@@ -7,7 +7,7 @@
 }
 
     .app .sidebar {
-        width: 200px
+        width: 250px
     }
 
     .app .main-content {
@@ -224,6 +224,7 @@
         color: #777;
         min-width: 400px;
         max-width: 500px;
+        border-radius: 20px;
     }
 
 
@@ -244,7 +245,7 @@
             font-weight: bold;
         }
 
-        .chat-message .message-content .content {
+        .chat-message .message-content .content--css {
             display: block;
             padding-top: 30px;
         }
@@ -350,13 +351,13 @@ input[type="radio"] {
 }
 
     .ismine .message-content {
-        background: #8abde6;
+        background: #157cce;
     }
 
         .ismine .message-content .author,
         .ismine .message-content .timestamp,
         .ismine .message-content .timestamp span,
-        .ismine .message-content .content {
+        .ismine .message-content .content--css {
             color: white;
         }
 
@@ -368,3 +369,8 @@ input[type="radio"] {
         margin-right: 0;
         margin-left: 10px;
     }
+.content--css {
+    margin-bottom: 40px !important;
+    padding-top: 10px !important;
+    margin-left: 5px;
+}

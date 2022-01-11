@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Courses_MVC.Data;
 using Courses_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Courses_MVC.Areas.Admin.Pages.User
 {
+    [Authorize(Policy = "QuanTriVien")]
     public class AddRoleModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;

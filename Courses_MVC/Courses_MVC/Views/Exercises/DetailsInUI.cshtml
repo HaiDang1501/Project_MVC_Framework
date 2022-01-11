@@ -37,31 +37,25 @@
         <b>Output:</b>
         @Model.output
     </div>
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <div class="do-exercise mb-3 pl-4 pr-4">
-            <form action="/ExerciseInUsers/SubmitExercise" method="post">
-                <input type="hidden" name="exerciseId" value="@Model.exerciseId" />
+    <div class="do-exercise mb-3 pl-4 pr-4">
+        <form action="/ExerciseInUsers/SubmitExercise" method="post">
+            <input type="hidden" name="exerciseId" value="@Model.exerciseId" />
 
 
-                <label for="place-do-exercise"><b>Làm bài tập:</b></label>
-                <textarea name="content"
-                          id="place-do-exercise"
-                          cols="30" rows="10" placeholder="Nhập bài làm của bạn"
-                          class="form-control"
-                          required>
+            <label for="place-do-exercise"><b>Làm bài tập:</b></label>
+            <textarea name="content"
+                      id="place-do-exercise"
+                      cols="30" rows="10" placeholder="Nhập bài làm của bạn"
+                      class="form-control"
+                      required>
 
             </textarea>
-                <span asp-validation-for="content" class="text-danger"></span>
-                <button class="btn btn-primary" type="submit">Nộp bài</button>
-            </form>
+            <span asp-validation-for="content" class="text-danger"></span>
+            <button class="btn btn-primary" type="submit">Nộp bài</button>
+        </form>
 
-        </div>
-    }
-    else
-    {
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Bạn cần phải đăng nhập mới có thể làm bài tập được</a>
-    }
+    </div>
+    
 
     <div class="move-lesson p-4 pt-0">
 

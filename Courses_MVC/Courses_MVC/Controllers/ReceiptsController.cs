@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Courses_MVC.Data;
 using Courses_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Courses_MVC.Controllers
 {
+    [Authorize(Policy = "QuanTriVien")]
     public class ReceiptsController : Controller
     {
         private readonly CoursesContext _context;

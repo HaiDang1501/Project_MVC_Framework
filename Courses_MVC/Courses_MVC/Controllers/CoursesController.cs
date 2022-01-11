@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Courses_MVC.Controllers
 {
@@ -54,6 +55,7 @@ namespace Courses_MVC.Controllers
             return View(coursesContext.ToList());
         }
 
+        [Authorize(Policy = "QuanTriVien")]
         public async Task<IActionResult> listCourseAdmin()
         {
             var listCourse = _context.Courses
@@ -63,6 +65,8 @@ namespace Courses_MVC.Controllers
             ViewData["count"] = Total;
             return View(await listCourse.ToListAsync());
         }
+
+        [Authorize(Policy = "QuanTriVien")]
         [HttpPost]
 
         public async Task<IActionResult> listCourseAdmin(string? searchString)
@@ -83,13 +87,8 @@ namespace Courses_MVC.Controllers
             ViewData["count"] = Total;
             return View(await listCourse.ToArrayAsync());
         }
-        // GET: Courses
-        public async Task<IActionResult> Index()
-        {
-            var coursesContext = _context.Courses.Include(c => c.Discount).Include(c => c.Topic);
-            return View(await coursesContext.ToListAsync());
-        }
 
+        [Authorize(Policy = "QuanTriVien")]
         // GET: Courses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -113,7 +112,7 @@ namespace Courses_MVC.Controllers
         }
 
         // GET: Courses/Create
-
+        [Authorize(Policy = "QuanTriVien")]
         public IActionResult CreateCourse()
         {
             ViewData["discountId"] = new SelectList(_context.Discounts, "discountId", "discription");
@@ -121,6 +120,7 @@ namespace Courses_MVC.Controllers
             return View();
         }
 
+        [Authorize(Policy = "QuanTriVien")]
         [HttpPost]
         public async Task<IActionResult> CreateCourse(Course course)
         {
@@ -143,7 +143,7 @@ namespace Courses_MVC.Controllers
         }
 
 
-
+        [Authorize(Policy = "QuanTriVien")]
         public async Task<IActionResult> UpdateCourse(int? id)
         {
             if (id == null)
@@ -161,6 +161,8 @@ namespace Courses_MVC.Controllers
             ViewData["topicId"] = new SelectList(_context.Topic, "topicId", "topicName", courseUpdate.topicId);
             return View(courseUpdate);
         }
+
+        [Authorize(Policy = "QuanTriVien")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateCourse(int? id, Course updateCourse)
@@ -191,7 +193,7 @@ namespace Courses_MVC.Controllers
         }
 
 
-
+        [Authorize(Policy = "QuanTriVien")]
         public async Task<IActionResult> DeleteCourse(int? id)
         {
             if (id == null)
@@ -208,6 +210,8 @@ namespace Courses_MVC.Controllers
             }
             return View(courseDelete);
         }
+
+        [Authorize(Policy = "QuanTriVien")]
         [HttpPost, ActionName("DeleteCourse")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteCoureConform(int? id)

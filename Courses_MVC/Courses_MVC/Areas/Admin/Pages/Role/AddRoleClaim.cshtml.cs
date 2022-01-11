@@ -10,9 +10,11 @@ using Courses_MVC.Data;
 using System.ComponentModel.DataAnnotations;
 using Courses_MVC.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Courses_MVC.Areas.Admin.Pages.Role
 {
+    [Authorize(Policy = "QuanTriVien")]
     public class AddRoleClaimModel : RolePageModel
     {
         public AddRoleClaimModel(RoleManager<IdentityRole> roleManager, CoursesContext courseContext) : base(roleManager, courseContext)

@@ -15,9 +15,11 @@ using Courses_MVC.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Ubiety.Dns.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Courses_MVC.Controllers
 {
+    [Authorize(Policy = "QuanTriVien")]
     public class RegisterController : Controller
     {
         private readonly CoursesContext _context;
@@ -266,7 +268,7 @@ namespace Courses_MVC.Controllers
                     timeReg = DateTime.Now
                 });
                 _context.SaveChanges();
-
+                
             }
             StatusMessage = $"Đăng ký thành công";
             int registerStatus = 1;

@@ -4,12 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Courses_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Courses_MVC.Areas.Admin.Pages.User
 {
+    [Authorize(Policy = "QuanTriVien")]
     public class SetPasswordModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;

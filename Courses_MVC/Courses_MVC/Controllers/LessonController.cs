@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Courses_MVC.Data;
 using Courses_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Courses_MVC.Controllers
 {
@@ -69,6 +70,7 @@ namespace Courses_MVC.Controllers
             return View(lessonDetail);
         }
 
+        [Authorize(Policy = "QuanTriVien")]
         public async Task<IActionResult> ListlessonAdmin()
         {
             var listlesson = _context.Lessons
@@ -78,6 +80,8 @@ namespace Courses_MVC.Controllers
             return View(await listlesson.ToListAsync()); 
             
         }
+
+        [Authorize(Policy = "QuanTriVien")]
         [HttpPost]
         public async Task<IActionResult> ListlessonAdmin(string? searchString)
         {
@@ -100,7 +104,7 @@ namespace Courses_MVC.Controllers
             return View(await listlesson.ToListAsync());
         }
 
-
+        [Authorize(Policy = "QuanTriVien")]
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -115,11 +119,15 @@ namespace Courses_MVC.Controllers
             return View(lesson);
 
         }
+
+        [Authorize(Policy = "QuanTriVien")]
         public IActionResult CreateLesson()
         {
             ViewData["courseId"] = new SelectList(_context.Courses, "courseId", "courseName");
             return View();
         }
+
+        [Authorize(Policy = "QuanTriVien")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateLesson(Lesson lesson)
@@ -139,6 +147,7 @@ namespace Courses_MVC.Controllers
 
         }
 
+        [Authorize(Policy = "QuanTriVien")]
         public async Task<IActionResult> Updatelesson(int? id)
         {
             if (id == null)
@@ -154,6 +163,7 @@ namespace Courses_MVC.Controllers
             return View(lessonNeedUpdate);
         }
 
+        [Authorize(Policy = "QuanTriVien")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Updatelesson(int id, Lesson lessonUpdate)
@@ -178,7 +188,7 @@ namespace Courses_MVC.Controllers
 
         }
 
-
+        [Authorize(Policy = "QuanTriVien")]
         public IActionResult DeleteLesson(int? id)
         {
 
@@ -198,7 +208,7 @@ namespace Courses_MVC.Controllers
             return View(lesson);
         }
 
-
+        [Authorize(Policy = "QuanTriVien")]
         [HttpPost, ActionName("DeleteLesson")]
         [ValidateAntiForgeryToken]
 
@@ -216,34 +226,7 @@ namespace Courses_MVC.Controllers
             return RedirectToAction(nameof(ListlessonAdmin));
         }
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lesson = await _context.Lessons
-                .Include(c => c.courseId)
-                .FirstOrDefaultAsync(m => m.lessonId == id);
-            if (lesson == null)
-            {
-                return NotFound();
-            }
-
-            return View(lesson);
-        }
-
-        // POST: Lesson/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var lesson = await _context.Lessons.FindAsync(id);
-            _context.Lessons.Remove(lesson);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+       
 
         private bool LessonExists(int id)
         {

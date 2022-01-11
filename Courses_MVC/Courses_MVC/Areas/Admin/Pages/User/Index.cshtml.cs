@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Courses_MVC.Areas.Admin.Pages.User
 {
-    [Authorize]
+    [Authorize(Policy = "QuanTriVien")]
     public class IndexModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;

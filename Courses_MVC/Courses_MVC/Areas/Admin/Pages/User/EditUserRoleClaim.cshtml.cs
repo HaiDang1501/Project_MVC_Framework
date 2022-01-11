@@ -6,12 +6,14 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Courses_MVC.Data;
 using Courses_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Courses_MVC.Areas.Admin.Pages.User
 {
+    [Authorize(Policy = "QuanTriVien")]
     public class EditUserRoleClaimModel : PageModel
     {
         private readonly CoursesContext _context;

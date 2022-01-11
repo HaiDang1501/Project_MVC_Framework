@@ -63,19 +63,38 @@
                 </div>
             </div>
             <div class="course-lesson mt-5 mb-5 pb-5">
-
-                @foreach (var item in Model)
+                @if (SignInManager.IsSignedIn(User))
                 {
-                    <div class="one-lesson">
-                        <div class="one-lesson-name">
-                            <a href="/lesson/LessonDetail?Id=@item.lessonId">@item.title</a>
-                        </div>
-                        <div class="one-lesson-des">
-                            <p><b>Mô tả:</b> @item.description</p>
-                        </div>
+                    @foreach (var item in Model)
+                    {
+                        <div class="one-lesson">
+                            <div class="one-lesson-name">
+                                <a href="/lesson/LessonDetail?Id=@item.lessonId">@item.title</a>
+                            </div>
+                            <div class="one-lesson-des">
+                                <p><b>Mô tả:</b> @item.description</p>
+                            </div>
 
-                    </div>
+                        </div>
+                    }
                 }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="one-lesson">
+                            <div class="one-lesson-name">
+                                <a class="text-dark" id="login" asp-area="Identity" asp-page="/Account/Login" onclick="return confirm('Bạn cần phải đăng nhập mới xem được nội dung bài học')">@item.title</a>
+                            </div>
+                            <div class="one-lesson-des">
+                                <p><b>Mô tả:</b> @item.description</p>
+                            </div>
+
+                        </div>
+                    }
+                    
+                }
+
 
 
             </div>

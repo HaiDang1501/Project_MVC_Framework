@@ -24,7 +24,7 @@ namespace Courses_MVC.Controllers
         [TempData]
         public string StatusMessage { get; set; }
         // GET: Contacts
-        [Authorize(Policy = "AllowEditRole")]
+        [Authorize(Policy = "QuanTriVien")]
         public async Task<IActionResult> Index()
         {
             var contactContext = _context.Contact.Include(c => c.AppUser);
@@ -34,6 +34,7 @@ namespace Courses_MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "QuanTriVien")]
         public async Task<IActionResult> Index(string? search)
         {
             var contactContext = from ct in _context.Contact select ct;
@@ -53,6 +54,7 @@ namespace Courses_MVC.Controllers
             return View(await contactContext.ToListAsync());
         }
 
+        [Authorize(Policy = "QuanTriVien")]
         // GET: Contacts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -115,6 +117,7 @@ namespace Courses_MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "QuanTriVien")]
         public async Task<IActionResult> ThemContact( Contact contact)
         {
             var list = await _context.Users.FirstOrDefaultAsync(c=>c.Id == contact.AppUserId);
@@ -144,7 +147,8 @@ namespace Courses_MVC.Controllers
             StatusMessage = $"Thêm không thành công";
             return View(contact);
         }
-        
+
+        [Authorize(Policy = "QuanTriVien")]
         public IActionResult ThemContact()
         {
             //var themContact = await (from ct in _context.Contact
@@ -162,6 +166,7 @@ namespace Courses_MVC.Controllers
 
         }
 
+        [Authorize(Policy = "QuanTriVien")]
         // GET: Contacts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

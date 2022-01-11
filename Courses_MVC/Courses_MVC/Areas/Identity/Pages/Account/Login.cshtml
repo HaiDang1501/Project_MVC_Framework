@@ -61,6 +61,31 @@
 
                 </div>
             </form>
+            <hr />
+            <p class="text-center mt-3">Hoặc đăng nhập bằng</p>
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            Cấu hình
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div class="form-row">
+
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                                <button type="submit" class="btn btn-outline-primary form-control col-md-6" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                            }
+
+                        </div>
+                    </form>
+                }
+            }
         </section>
     </div>
     @*<div class="col-md-6 col-md-offset-2">

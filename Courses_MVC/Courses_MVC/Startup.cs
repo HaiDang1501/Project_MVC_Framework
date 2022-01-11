@@ -122,12 +122,12 @@ namespace Courses_MVC
             //Tạo ra policy
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("AllowEditRole", policyBuilder =>
+                options.AddPolicy("QuanTriVien", policyBuilder =>
                 {
                     //Điều kiện
                     policyBuilder.RequireAuthenticatedUser(); //User phải đăng nhập
                     //policyBuilder.RequireRole("Admin"); //User có vai trò admin
-                    policyBuilder.RequireClaim("quanly", "user" );
+                    policyBuilder.RequireRole("Admin");
                 });
 
                 options.AddPolicy("ShowAdminMenu", policyBuilder => {

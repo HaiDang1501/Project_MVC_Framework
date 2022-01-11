@@ -140,6 +140,9 @@ namespace Courses_MVC.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("time")
+                        .HasColumnType("datetime");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("varchar(500)")

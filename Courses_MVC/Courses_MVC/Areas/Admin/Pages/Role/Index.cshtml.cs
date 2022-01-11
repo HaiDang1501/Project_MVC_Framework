@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Courses_MVC.Areas.Admin.Pages.Role
 {
-    [Authorize(Policy = "AllowEditRole")]
+    [Authorize(Policy = "QuanTriVien")]
     public class IndexModel : RolePageModel
     {
         public IndexModel(RoleManager<IdentityRole> roleManager, CoursesContext courseContext) : base(roleManager, courseContext)

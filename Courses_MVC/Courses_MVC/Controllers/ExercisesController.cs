@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Courses_MVC.Data;
 using Courses_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Courses_MVC.Controllers
 {
@@ -21,6 +22,8 @@ namespace Courses_MVC.Controllers
 
         [TempData]
         public string StatusMessage { get; set; }
+
+        [Authorize(Policy = "QuanTriVien")]
         public async Task<IActionResult> ListExerciseAdmin()
         {
             var listExercises = await _context.Exercises.Include(e => e.AppUser).Include(e => e.Lesson).ToListAsync();
@@ -28,6 +31,8 @@ namespace Courses_MVC.Controllers
             ViewData["count"] = count;
             return View(listExercises);
         }
+
+        [Authorize(Policy = "QuanTriVien")]
         [HttpPost]
         public async Task<IActionResult> ListExerciseAdmin(string? searchString)
         {
@@ -72,6 +77,8 @@ namespace Courses_MVC.Controllers
             ViewBag.listIdExercise = listId.ToArray();
             return View(exercise);
         }
+
+        [Authorize(Policy = "QuanTriVien")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -91,7 +98,7 @@ namespace Courses_MVC.Controllers
             return View(exercise);
         }
 
-
+        [Authorize(Policy = "QuanTriVien")]
         public IActionResult CreateExercise()
         {
             ViewData["userId"] = new SelectList(_context.Users, "Id", "UserName");
@@ -99,6 +106,7 @@ namespace Courses_MVC.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Policy = "QuanTriVien")]
         [ValidateAntiForgeryToken]
         public IActionResult CreateExercise(Exercise exer)
         {
@@ -119,6 +127,7 @@ namespace Courses_MVC.Controllers
             return View(exer);
         }
 
+        [Authorize(Policy = "QuanTriVien")]
         public IActionResult UpdateExercise(int? id)
         {
             if (id == null)
@@ -137,6 +146,7 @@ namespace Courses_MVC.Controllers
 
 
         [HttpPost]
+        [Authorize(Policy = "QuanTriVien")]
         [ValidateAntiForgeryToken]
         public IActionResult UpdateExercise(Exercise exercise)
         {
@@ -167,7 +177,7 @@ namespace Courses_MVC.Controllers
             }
         }
 
-
+        [Authorize(Policy = "QuanTriVien")]
         public IActionResult DeleteExercise(int? id)
         {
             if (id == null)
@@ -184,7 +194,7 @@ namespace Courses_MVC.Controllers
 
         [HttpPost, ActionName("DeleteExercise")]
         [ValidateAntiForgeryToken]
-
+        [Authorize(Policy = "QuanTriVien")]
         public IActionResult DeleteExerciseConfirm(int? id)
         {
             if (id == null)
@@ -198,93 +208,7 @@ namespace Courses_MVC.Controllers
             return RedirectToAction(nameof(ListExerciseAdmin));
 
         }
-        
-
-        // GET: Exercises/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var exercise = await _context.Exercises.FindAsync(id);
-            if (exercise == null)
-            {
-                return NotFound();
-            }
-            ViewData["userId"] = new SelectList(_context.Users, "Id", "Id", exercise.userId);
-            ViewData["lessonId"] = new SelectList(_context.Lessons, "lessonId", "content", exercise.lessonId);
-            return View(exercise);
-        }
-
-        // POST: Exercises/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("exerciseId,content,deadline,lessonId,teacherId")] Exercise exercise)
-        {
-            if (id != exercise.exerciseId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(exercise);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ExerciseExists(exercise.exerciseId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["userId"] = new SelectList(_context.Users, "Id", "Id", exercise.userId);
-            ViewData["lessonId"] = new SelectList(_context.Lessons, "lessonId", "content", exercise.lessonId);
-            return View(exercise);
-        }
-
-        // GET: Exercises/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var exercise = await _context.Exercises
-                .Include(e => e.AppUser)
-                .Include(e => e.Lesson)
-                .FirstOrDefaultAsync(m => m.exerciseId == id);
-            if (exercise == null)
-            {
-                return NotFound();
-            }
-
-            return View(exercise);
-        }
-
-        // POST: Exercises/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var exercise = await _context.Exercises.FindAsync(id);
-            _context.Exercises.Remove(exercise);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+  
 
         private bool ExerciseExists(int id)
         {
