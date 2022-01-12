@@ -26,7 +26,6 @@
         <b>Nội dung:</b>
         <p>
             @Model.content
-            @UserManager.GetUserName(User)
         </p>
     </div>
     <div class="exercise-input mb-1 pl-4 pr-4">
@@ -40,7 +39,7 @@
     <div class="do-exercise mb-3 pl-4 pr-4">
         <form action="/ExerciseInUsers/SubmitExercise" method="post">
             <input type="hidden" name="exerciseId" value="@Model.exerciseId" />
-
+            <input type="hidden" name="lessonId" value="@Model.lessonId" />
 
             <label for="place-do-exercise"><b>Làm bài tập:</b></label>
             <textarea name="content"

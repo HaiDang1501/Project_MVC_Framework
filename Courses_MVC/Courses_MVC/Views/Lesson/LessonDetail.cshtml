@@ -18,7 +18,7 @@
     <div class="container col-9 container-custom mb-5">
         <div class="lesson-title mt-4 p-4 pb-2 text-center">@Model.title</div>
         <div class="text-center">
-            <iframe width="956" height="538" src="https://www.youtube.com/embed/ILr_rU-lISk?list=PL33lvabfss1xagFyyQPRcppjFKMQ7lvJM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="727" height="409" src="https://www.youtube.com/embed/ILr_rU-lISk?list=PL33lvabfss1xagFyyQPRcppjFKMQ7lvJM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div class="lesson-des pb-0 pt-3 p-4">
             <b>Mô tả:</b>
@@ -37,7 +37,7 @@
             {
                 <ol>
                     <i class="fas fa-pencil-alt"></i>
-                    <a href="/Exercises/DetailsInUI?Id=@item.exerciseId">Bài tâp @item.exerciseId</a>
+                    <a href="/Exercises/DetailsInUI?Id=@item.exerciseId">@item.exerciseName</a>
                 </ol>
 
             }
@@ -81,7 +81,13 @@
 
 
 </body>
+@{ 
+    <script>
+        const active_lienhe = document.querySelector('#navbar-khoahoc')
 
+        active_lienhe.classList.add('nav--active')
+    </script>
+}
 
 
 

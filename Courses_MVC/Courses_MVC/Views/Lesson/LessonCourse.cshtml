@@ -205,7 +205,7 @@
             {
                 <div class="content-comment col-11 mb-5">
                     <div class="content-comment__icon">
-                        <i class="fas fa-user-circle"></i>
+                        <img src="/img/icons/@item.AppUser.avatar" title="avatar"/>
                     </div>
                     <div class="content-comment-block">
                         <p class="content-comment__Title">@item.AppUser.UserName</p>
@@ -222,3 +222,11 @@
     </body>
 
 }
+@{ 
+    <script>
+        const active_lienhe = document.querySelector('#navbar-khoahoc')
+
+        active_lienhe.classList.add('nav--active')
+    </script>
+}
+

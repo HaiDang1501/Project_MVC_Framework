@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="discription" class="control-label"></label>
-                    <input asp-for="discription" class="form-control" />
+                    <textarea asp-for="discription" class="form-control" required rows="4" id="discription"></textarea>
                     <span asp-validation-for="discription" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -39,6 +39,11 @@
                     <label asp-for="totalTime" class="control-label"></label>
                     <input asp-for="totalTime" class="form-control" />
                     <span asp-validation-for="totalTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="rating" class="control-label"></label>
+                    <input asp-for="rating" class="form-control" />
+                    <span asp-validation-for="rating" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="totalStudent" class="control-label"></label>
@@ -60,6 +65,11 @@
         </div>
     </section>
 </main>
+@{
+    var summernote = new Courses_MVC.Models.Summernote("#discription");
+
+}
+<partial name="_Summernote" model="summernote" />
 <script>
     const active_lienhe = document.querySelector('#active--khoahoc')
     active_lienhe.classList.add('active--css')

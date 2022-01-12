@@ -1,10 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Microsoft.AspNetCore.Identity
 @{
-    
+
     ViewData["Title"] = "Quản lý khóa học";
 }
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 <body>
     <div class="intro-web">
         <h2 class="title-section">Giới thiệu web DDG</h2>
@@ -17,7 +17,7 @@
                 <ul class="list-key-futures">
                     <li>
                         <div class="heading-key">
-                           
+
                             <h3><i class="fas fa-graduation-cap intro-icon"></i>   Nơi tỏa sức đam mê học tập</h3>
                         </div>
 
@@ -29,7 +29,7 @@
 
                     <li>
                         <div class="heading-key">
-                            
+
                             <h3><i class="fas fa-laptop-code intro-icon"></i>   Định hướng nghề nghiệp</h3>
                         </div>
 
@@ -41,7 +41,7 @@
 
                     <li>
                         <div class="heading-key">
-                           
+
                             <h3><i class="far fa-handshake intro-icon"></i>   Sẻ chia kinh nghiệm lập trình</h3>
                         </div>
 
@@ -126,45 +126,52 @@
     @**part 3**@
     <div id="Slider">
         <div class="Slider-title">
-            <h2>Học viên nói gì về CDE?</h2>
+            <h2>Học viên nói gì về DDG?</h2>
         </div>
         <div class="Slider-main">
             <div class="Slide">
                 <div class="Slider-item-avt">
-                    <img src="" />
                 </div>
                 <p class="Slider-item-name">Khánh Duy</p>
                 <p class="Slider-item-job">Sinh viên</p>
-                <p class="Slider-item-think">"thật tuyệt vời"</p>
+                <p class="Slider-item-think">"Thật tuyệt vời"</p>
             </div>
             <div class="Slide">
                 <div class="Slider-item-avt">
-                    <img src={user.avt} />
                 </div>
                 <p class="Slider-item-name">Hải Đăng</p>
                 <p class="Slider-item-job">Sinh viên</p>
-                <p class="Slider-item-think">"thật tuyệt vời"</p>
+                <p class="Slider-item-think">"Trên cả mong đợi"</p>
             </div>
             <div class="Slide">
                 <div class="Slider-item-avt">
-                    <img src={user.avt} />
                 </div>
                 <p class="Slider-item-name">Hoàng Giang</p>
                 <p class="Slider-item-job">Sinh viên</p>
-                <p class="Slider-item-think">"thật tuyệt vời"</p>
+                <p class="Slider-item-think">"Xuất sắc"</p>
             </div>
         </div>
     </div>
     @*banner*@
-    <div class="Banner">
-        <div class="Banner-content">
-            <p class="title">HIỆN THỰC ĐAM MÊ <span>LẬP TRÌNH</span>!</p>
-            <p class="content">Đăng ký tài khoản và tham gia ngay hôm nay</p>
-        </div>
+<div class="Banner">
+    <div class="Banner-content">
+        <p class="title">HIỆN THỰC ĐAM MÊ <span>LẬP TRÌNH</span>!</p>
+        <p class="content">Đăng ký tài khoản và tham gia ngay hôm nay</p>
+    </div>
+    @if (!SignInManager.IsSignedIn(User))
+    {
         <div class="Banner-button">
             <a class="Banner-btn" asp-area="Identity" asp-page="/Account/Register">Bắt đầu ngay!</a>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="Banner-button">
+            <a class="Banner-btn" asp-controller="Courses" asp-action="DanhSachHienThi">Bắt đầu ngay!</a>
+        </div>
+    }
+
+</div>
 </body>
 
 <script>

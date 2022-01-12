@@ -28,7 +28,7 @@ namespace Courses_MVC.Models
         public string  SDT { get; set; }
 
         [Required(ErrorMessage = "Phải nhập {0}")]
-        [Display(Name = "Tiêu đề")]
+        [Display(Name = "Chủ đề")]
         public string title { get; set; }
 
         [Required(ErrorMessage = "Phải nhập {0}")]

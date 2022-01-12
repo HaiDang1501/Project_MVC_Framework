@@ -112,7 +112,8 @@ namespace Courses_MVC.Controllers
                 }
                 
             }
-            return View(contact);
+            StatusMessage = "Cảm ơn ý kiến đóng góp của bạn!";
+            return RedirectToAction(nameof(Create));
         }
 
         [HttpPost]

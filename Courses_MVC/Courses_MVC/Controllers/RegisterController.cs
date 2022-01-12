@@ -251,7 +251,7 @@ namespace Courses_MVC.Controllers
         }
         public IActionResult ExportExcel(string filename, string? userId, int? courseId)
         {
-            string newExcelFile = @"D:\Xây dựng HTTT trên các framework\Project_MVC_Framework.git\" + filename + ".xlsx";
+            string newExcelFile = @"D:\Xây dựng HTTT trên các framework\Project_MVC_Framework.git\Lập báo cáo\" + filename + ".xlsx";
             Export(newExcelFile, userId, courseId);
             StatusMessage = $"Xuất file excel thành công";
             return RedirectToAction(nameof(DanhSachDangKi));

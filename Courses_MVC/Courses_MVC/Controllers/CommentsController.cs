@@ -216,8 +216,10 @@ namespace Courses_MVC.Controllers
             return RedirectToAction(nameof(DanhSachBinhLuan));
         }
 
+        [HttpPost]
         public IActionResult ThemBinhLuanUI(int courseId, string content, float evaluate)
         {
+            int currentPage = courseId;
             if(content == null && evaluate < 0 && evaluate > 10)
             {
                 ModelState.AddModelError(string.Empty, "Không bình luận được");
@@ -234,10 +236,10 @@ namespace Courses_MVC.Controllers
                 });
                 _context.SaveChanges();
                 StatusMessage = "Cảm ơn ý kiến đóng góp của bạn! ";
-                return RedirectToAction("LessonCourse", "Lesson", new { id = courseId });
+                return RedirectToAction("LessonCourse", "Lesson", new { id = currentPage });
             }
             StatusMessage = "Bình luận không thành công! ";
-            return RedirectToAction("LessonCourse", "Lesson", new { id = courseId });
+            return RedirectToAction("LessonCourse", "Lesson", new { id = currentPage });
         }
 
         private bool CommentExists(int id)

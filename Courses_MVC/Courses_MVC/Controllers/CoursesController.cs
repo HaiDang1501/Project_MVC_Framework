@@ -50,8 +50,9 @@ namespace Courses_MVC.Controllers
             else
             {
                 StatusMessage = $"Không tìm thấy";
-                coursesContext = _context.Courses.Include(c => c.Discount).Include(c => c.Topic);
+                coursesContext = coursesContext.Include(c => c.Discount).Include(c => c.Topic);
             }
+            
             return View(coursesContext.ToList());
         }
 
